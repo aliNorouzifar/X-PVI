@@ -1,0 +1,371 @@
+cluster 1 segment 1:
+lowest scores:
+rank 1: Payment Order occurs at least three times., with score -59.76
+rank 2: Execute Payment occurs at least three times., with score -59.6
+rank 3: If Start Claim occurs,  Payment Order occurs as well., with score -59.36
+rank 4: If Receive Claim occurs,  Payment Order occurs as well., with score -59.36
+rank 5: Accept Claim occurs at least once., with score -59.35
+rank 6: If Receive Claim occurs,  Accept Claim occurs as well., with score -59.35
+rank 7:  If Start Claim occurs, then  Payment Order occurs after it., with score -59.34
+rank 8:  If Receive Claim occurs, then  Payment Order occurs after it., with score -59.34
+rank 9:  If Receive Claim occurs, then  Accept Claim occurs after it., with score -59.34
+rank 10: If Receive Claim occurs, then  Accept Claim occurs afterwards before Receive Claim recurs., with score -59.33
+rank 11: If Start Claim occurs, then  Payment Order occurs afterwards before Start Claim recurs., with score -59.33
+rank 12: If Start Claim occurs, then  Execute Payment occurs afterwards before Start Claim recurs., with score -59.33
+rank 13: If Receive Claim occurs, then  Payment Order occurs afterwards before Receive Claim recurs., with score -59.33
+rank 14: If Receive Claim occurs, then  Execute Payment occurs afterwards before Receive Claim recurs., with score -59.33
+rank 15: Block Claim 2 must never occur., with score -58.69
+rank 16: Reject Claim must never occur., with score -58.68
+rank 17: Execute Payment is the last to occur., with score -56.85
+rank 18: If Start Claim occurs, then  Accept Claim occurs immediately after it., with score -54.54
+rank 19: Start Claim occurs if and only if it is followed by  Accept Claim., with score -44.02
+rank 20: Receive Claim and  Accept Claim occur if and only if they follow one another, alternating., with score -43.97
+rank 21: Start Claim and  Accept Claim occur if and only if they follow one another, alternating., with score -43.97
+rank 22: Start Claim and  Accept Claim occurs if and only if  Accept Claim immediately follows Start Claim., with score -39.16
+rank 23: Receive Claim occurs if and only if it is followed by  Execute Payment., with score -29.73
+rank 24: Start Claim occurs if and only if it is followed by  Execute Payment., with score -29.73
+rank 25: Receive Claim occurs if and only if it is followed by  Payment Order., with score -29.73
+rank 26: Start Claim occurs if and only if it is followed by  Payment Order., with score -29.73
+rank 27: Receive Objection 2 must never occur., with score -6.5
+rank 28: Repayment must never occur., with score 1.32
+rank 29: Block Claim 3 must never occur., with score 1.67
+rank 30: Withdraw Claim must never occur., with score 1.75
+rank 31: Receive Objection 1 must never occur., with score 2.69
+rank 32: Correct Claim must never occur., with score 3.61
+rank 33: Unblock Claim 1 must never occur., with score 4.76
+rank 34: Block Claim 1 must never occur., with score 4.78
+rank 35:  Accept Claim occurs only if Start Claim occurs immediately before it. , with score 4.92
+-----------------------------------------------------------------------
+highest scores:
+rank 1:  Accept Claim occurs only if Start Claim occurs immediately before it. , with score 4.92
+rank 2: Block Claim 1 must never occur., with score 4.78
+rank 3: Unblock Claim 1 must never occur., with score 4.76
+rank 4: Correct Claim must never occur., with score 3.61
+rank 5: Receive Objection 1 must never occur., with score 2.69
+rank 6: Withdraw Claim must never occur., with score 1.75
+rank 7: Block Claim 3 must never occur., with score 1.67
+rank 8: Repayment must never occur., with score 1.32
+rank 9: Receive Objection 2 must never occur., with score -6.5
+rank 10: Receive Claim occurs if and only if it is followed by  Execute Payment., with score -29.73
+rank 11: Start Claim occurs if and only if it is followed by  Execute Payment., with score -29.73
+rank 12: Receive Claim occurs if and only if it is followed by  Payment Order., with score -29.73
+rank 13: Start Claim occurs if and only if it is followed by  Payment Order., with score -29.73
+rank 14: Start Claim and  Accept Claim occurs if and only if  Accept Claim immediately follows Start Claim., with score -39.16
+rank 15: Receive Claim and  Accept Claim occur if and only if they follow one another, alternating., with score -43.97
+rank 16: Start Claim and  Accept Claim occur if and only if they follow one another, alternating., with score -43.97
+rank 17: Start Claim occurs if and only if it is followed by  Accept Claim., with score -44.02
+rank 18: If Start Claim occurs, then  Accept Claim occurs immediately after it., with score -54.54
+rank 19: Execute Payment is the last to occur., with score -56.85
+rank 20: Reject Claim must never occur., with score -58.68
+rank 21: Block Claim 2 must never occur., with score -58.69
+rank 22: If Receive Claim occurs, then  Accept Claim occurs afterwards before Receive Claim recurs., with score -59.33
+rank 23: If Start Claim occurs, then  Payment Order occurs afterwards before Start Claim recurs., with score -59.33
+rank 24: If Start Claim occurs, then  Execute Payment occurs afterwards before Start Claim recurs., with score -59.33
+rank 25: If Receive Claim occurs, then  Payment Order occurs afterwards before Receive Claim recurs., with score -59.33
+rank 26: If Receive Claim occurs, then  Execute Payment occurs afterwards before Receive Claim recurs., with score -59.33
+rank 27:  If Start Claim occurs, then  Payment Order occurs after it., with score -59.34
+rank 28:  If Receive Claim occurs, then  Payment Order occurs after it., with score -59.34
+rank 29:  If Receive Claim occurs, then  Accept Claim occurs after it., with score -59.34
+rank 30: Accept Claim occurs at least once., with score -59.35
+rank 31: If Receive Claim occurs,  Accept Claim occurs as well., with score -59.35
+rank 32: If Start Claim occurs,  Payment Order occurs as well., with score -59.36
+rank 33: If Receive Claim occurs,  Payment Order occurs as well., with score -59.36
+rank 34: Execute Payment occurs at least three times., with score -59.6
+rank 35: Payment Order occurs at least three times., with score -59.76
+Selection deleted
+
+
+cluster 2 segment 3:
+lowest scores:
+rank 1:  Repayment occurs only if Block Claim 3 occurs immediately before it. , with score 22.51
+rank 2: Execute Payment and  Receive Objection 1 occurs if and only if  Receive Objection 1 immediately follows Execute Payment., with score 23.45
+rank 3: Repayment is the last to occur., with score 24.13
+rank 4:  Repayment occurs only if Withdraw Claim occurs immediately before it. , with score 25.79
+rank 5: Repayment occurs at least once., with score 27.66
+rank 6:  If Execute Payment occurs, then  Repayment occurs after it., with score 27.76
+rank 7: If Execute Payment occurs,  Repayment occurs as well., with score 27.79
+rank 8:  Block Claim 3 occurs only if Withdraw Claim occurs immediately before it. , with score 28.51
+rank 9: Block Claim 3 and  Repayment occurs if and only if  Repayment immediately follows Block Claim 3., with score 28.65
+rank 10: Block Claim 3 is the last to occur., with score 30.24
+rank 11: If Block Claim 3 occurs, then  Repayment occurs afterwards before Block Claim 3 recurs., with score 32.94
+rank 12:  If Block Claim 3 occurs, then  Repayment occurs after it., with score 33.02
+rank 13: Payment Order and  Repayment occur if and only if they follow one another, alternating., with score 33.26
+rank 14: Payment Order occurs if and only if it is followed by  Repayment., with score 33.31
+rank 15: Payment Order and  Repayment always occur together., with score 33.32
+rank 16: Execute Payment and  Repayment occur if and only if they follow one another, alternating., with score 33.42
+rank 17: Execute Payment occurs if and only if it is followed by  Repayment., with score 33.47
+rank 18: Execute Payment and  Repayment always occur together., with score 33.49
+rank 19:  Block Claim 3 occurs only if preceded by Withdraw Claim with no other  Block Claim 3 in between., with score 33.74
+rank 20:  Repayment occurs only if preceded by Block Claim 3 with no other  Repayment in between., with score 34.5
+rank 21:  Repayment occurs only if preceded by Block Claim 3., with score 34.68
+rank 22: Withdraw Claim and  Block Claim 3 occurs if and only if  Block Claim 3 immediately follows Withdraw Claim., with score 35.57
+rank 23:  If Execute Payment occurs, then  Withdraw Claim occurs after it., with score 36.57
+rank 24: If Execute Payment occurs,  Withdraw Claim occurs as well., with score 36.75
+rank 25: If Withdraw Claim occurs, then  Block Claim 3 occurs immediately after it., with score 37.13
+rank 26: If Block Claim 3 occurs,  Repayment occurs as well., with score 38.61
+rank 27: If Repayment occurs,  Block Claim 3 occurs as well., with score 40.88
+rank 28: Withdraw Claim and  Repayment occurs if and only if  Repayment immediately follows Withdraw Claim., with score 41.17
+rank 29: Receive Claim and  Repayment occur if and only if they follow one another, alternating., with score 41.38
+rank 30: Start Claim and  Repayment occur if and only if they follow one another, alternating., with score 41.38
+rank 31:  If Payment Order occurs, then  Receive Objection 1 occurs after it., with score 41.49
+rank 32: Receive Claim occurs if and only if it is followed by  Repayment., with score 41.57
+rank 33: Start Claim occurs if and only if it is followed by  Repayment., with score 41.57
+rank 34: Receive Claim and  Repayment always occur together., with score 41.57
+rank 35:  If Execute Payment occurs, then  Receive Objection 1 occurs after it., with score 41.64
+rank 36: Accept Claim and  Repayment occur if and only if they follow one another, alternating., with score 41.87
+rank 37: Accept Claim occurs if and only if it is followed by  Repayment., with score 42.05
+rank 38: Withdraw Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 42.25
+rank 39: Payment Order and  Withdraw Claim occur if and only if they follow one another, alternating., with score 42.35
+rank 40: If Execute Payment occurs,  Receive Objection 1 occurs as well., with score 42.42
+rank 41: Payment Order occurs if and only if it is followed by  Withdraw Claim., with score 42.53
+rank 42: Execute Payment and  Withdraw Claim occur if and only if they follow one another, alternating., with score 42.56
+rank 43: Payment Order and  Withdraw Claim always occur together., with score 42.72
+rank 44: Execute Payment occurs if and only if it is followed by  Withdraw Claim., with score 42.74
+rank 45: Execute Payment and  Withdraw Claim always occur together., with score 42.89
+rank 46: If Withdraw Claim occurs, then  Block Claim 3 occurs afterwards before Withdraw Claim recurs., with score 43.88
+rank 47: Block Claim 3 and  Repayment occur if and only if they follow one another, alternating., with score 45.37
+rank 48: Payment Order and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 47.47
+rank 49: Execute Payment and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 47.63
+rank 50: Payment Order occurs if and only if it is followed by  Receive Objection 1., with score 47.83
+rank 51: Execute Payment occurs if and only if it is followed by  Receive Objection 1., with score 47.99
+rank 52: Payment Order and  Receive Objection 1 always occur together., with score 48.63
+rank 53: Execute Payment and  Receive Objection 1 always occur together., with score 48.69
+rank 54:  Block Claim 3 occurs only if Execute Payment occurs immediately before it. , with score 49.54
+rank 55:  Repayment occurs only if preceded by Accept Claim with no other  Repayment in between., with score 49.57
+rank 56:  Repayment occurs only if preceded by Receive Claim with no other  Repayment in between., with score 49.58
+rank 57:  Repayment occurs only if preceded by Start Claim with no other  Repayment in between., with score 49.58
+rank 58:  Block Claim 3 occurs only if preceded by Receive Objection 1 with no other  Block Claim 3 in between., with score 49.66
+rank 59:  Repayment occurs only if preceded by Payment Order with no other  Repayment in between., with score 49.69
+rank 60: Receive Claim and  Withdraw Claim occur if and only if they follow one another, alternating., with score 50.7
+rank 61: Start Claim and  Withdraw Claim occur if and only if they follow one another, alternating., with score 50.7
+rank 62: Accept Claim and  Withdraw Claim occur if and only if they follow one another, alternating., with score 51.1
+rank 63: Start Claim occurs if and only if it is followed by  Withdraw Claim., with score 51.19
+rank 64: Receive Claim occurs if and only if it is followed by  Withdraw Claim., with score 51.19
+rank 65: Receive Claim and  Withdraw Claim always occur together., with score 51.2
+rank 66: Start Claim and  Withdraw Claim always occur together., with score 51.2
+rank 67: Accept Claim occurs if and only if it is followed by  Withdraw Claim., with score 51.6
+rank 68:  Withdraw Claim occurs only if Receive Objection 1 occurs immediately before it. , with score 53.68
+rank 69: If Receive Objection 1 occurs, then  Withdraw Claim occurs immediately after it., with score 55.28
+rank 70: Block Claim 1 and  Correct Claim occurs if and only if  Correct Claim immediately follows Block Claim 1., with score 55.52
+rank 71: If Receive Objection 1 occurs, then  Repayment occurs afterwards before Receive Objection 1 recurs., with score 55.68
+rank 72: Receive Claim and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 55.79
+rank 73: Start Claim and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 55.8
+rank 74: Accept Claim and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 55.91
+rank 75: Receive Claim occurs if and only if it is followed by  Receive Objection 1., with score 56.77
+rank 76: Start Claim occurs if and only if it is followed by  Receive Objection 1., with score 56.77
+rank 77: Receive Claim and  Receive Objection 1 always occur together., with score 56.83
+rank 78: Receive Objection 1 and  Block Claim 3 occur if and only if they follow one another, alternating., with score 56.93
+rank 79: Receive Objection 1 occurs if and only if it is followed by  Block Claim 3., with score 56.95
+rank 80: Accept Claim occurs if and only if it is followed by  Receive Objection 1., with score 56.97
+rank 81: Correct Claim and  Unblock Claim 1 occurs if and only if  Unblock Claim 1 immediately follows Correct Claim., with score 56.98
+rank 82: Accept Claim and  Receive Objection 1 always occur together., with score 57.36
+rank 83: If Start Claim occurs, then  Block Claim 3 occurs afterwards before Start Claim recurs., with score 57.99
+rank 84: If Receive Claim occurs, then  Block Claim 3 occurs afterwards before Receive Claim recurs., with score 57.99
+rank 85: If Accept Claim occurs, then  Block Claim 3 occurs afterwards before Accept Claim recurs., with score 58.9
+rank 86: Receive Objection 1 and  Withdraw Claim occurs if and only if  Withdraw Claim immediately follows Receive Objection 1., with score 61.06
+rank 87: Payment Order and  Block Claim 3 occur if and only if they follow one another, alternating., with score 62.4
+rank 88: Payment Order occurs if and only if it is followed by  Block Claim 3., with score 62.4
+rank 89: Execute Payment and  Block Claim 3 occur if and only if they follow one another, alternating., with score 62.7
+rank 90: Execute Payment occurs if and only if it is followed by  Block Claim 3., with score 62.7
+rank 91: If Receive Objection 1 occurs, then  Block Claim 3 occurs afterwards before Receive Objection 1 recurs., with score 68.71
+rank 92: Receive Objection 1 and  Repayment occur if and only if they follow one another, alternating., with score 69.82
+rank 93: Receive Objection 1 occurs if and only if it is followed by  Repayment., with score 70.16
+rank 94: Receive Objection 1 and  Repayment always occur together., with score 70.22
+rank 95: Start Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 70.43
+rank 96: Receive Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 70.44
+rank 97: Start Claim occurs if and only if it is followed by  Block Claim 3., with score 70.6
+rank 98: Receive Claim occurs if and only if it is followed by  Block Claim 3., with score 70.61
+rank 99: Accept Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 70.92
+rank 100: Accept Claim occurs if and only if it is followed by  Block Claim 3., with score 71.08
+rank 101: Withdraw Claim and  Repayment occur if and only if they follow one another, alternating., with score 82.89
+rank 102: Withdraw Claim occurs if and only if it is followed by  Repayment., with score 83.19
+rank 103: Receive Objection 1 and  Withdraw Claim occur if and only if they follow one another, alternating., with score 83.95
+rank 104: Receive Objection 1 occurs if and only if it is followed by  Withdraw Claim., with score 84.73
+rank 105: Receive Objection 1 and  Withdraw Claim always occur together., with score 85.21
+rank 106:  Receive Objection 1 occurs only if Execute Payment occurs immediately before it. , with score 88.37
+rank 107:  Receive Objection 1 occurs only if preceded by Accept Claim with no other  Receive Objection 1 in between., with score 94.17
+rank 108:  Receive Objection 1 occurs only if preceded by Payment Order with no other  Receive Objection 1 in between., with score 94.96
+rank 109:  Receive Objection 1 occurs only if preceded by Start Claim with no other  Receive Objection 1 in between., with score 95.22
+rank 110:  Receive Objection 1 occurs only if preceded by Receive Claim with no other  Receive Objection 1 in between., with score 95.22
+rank 111:  Block Claim 3 occurs only if preceded by Accept Claim with no other  Block Claim 3 in between., with score 98.42
+rank 112:  Block Claim 3 occurs only if preceded by Receive Claim with no other  Block Claim 3 in between., with score 98.5
+rank 113:  Block Claim 3 occurs only if preceded by Start Claim with no other  Block Claim 3 in between., with score 98.5
+rank 114:  Block Claim 3 occurs only if preceded by Payment Order with no other  Block Claim 3 in between., with score 98.8
+-----------------------------------------------------------------------
+highest scores:
+rank 1:  Block Claim 3 occurs only if preceded by Payment Order with no other  Block Claim 3 in between., with score 98.8
+rank 2:  Block Claim 3 occurs only if preceded by Receive Claim with no other  Block Claim 3 in between., with score 98.5
+rank 3:  Block Claim 3 occurs only if preceded by Start Claim with no other  Block Claim 3 in between., with score 98.5
+rank 4:  Block Claim 3 occurs only if preceded by Accept Claim with no other  Block Claim 3 in between., with score 98.42
+rank 5:  Receive Objection 1 occurs only if preceded by Start Claim with no other  Receive Objection 1 in between., with score 95.22
+rank 6:  Receive Objection 1 occurs only if preceded by Receive Claim with no other  Receive Objection 1 in between., with score 95.22
+rank 7:  Receive Objection 1 occurs only if preceded by Payment Order with no other  Receive Objection 1 in between., with score 94.96
+rank 8:  Receive Objection 1 occurs only if preceded by Accept Claim with no other  Receive Objection 1 in between., with score 94.17
+rank 9:  Receive Objection 1 occurs only if Execute Payment occurs immediately before it. , with score 88.37
+rank 10: Receive Objection 1 and  Withdraw Claim always occur together., with score 85.21
+rank 11: Receive Objection 1 occurs if and only if it is followed by  Withdraw Claim., with score 84.73
+rank 12: Receive Objection 1 and  Withdraw Claim occur if and only if they follow one another, alternating., with score 83.95
+rank 13: Withdraw Claim occurs if and only if it is followed by  Repayment., with score 83.19
+rank 14: Withdraw Claim and  Repayment occur if and only if they follow one another, alternating., with score 82.89
+rank 15: Accept Claim occurs if and only if it is followed by  Block Claim 3., with score 71.08
+rank 16: Accept Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 70.92
+rank 17: Receive Claim occurs if and only if it is followed by  Block Claim 3., with score 70.61
+rank 18: Start Claim occurs if and only if it is followed by  Block Claim 3., with score 70.6
+rank 19: Receive Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 70.44
+rank 20: Start Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 70.43
+rank 21: Receive Objection 1 and  Repayment always occur together., with score 70.22
+rank 22: Receive Objection 1 occurs if and only if it is followed by  Repayment., with score 70.16
+rank 23: Receive Objection 1 and  Repayment occur if and only if they follow one another, alternating., with score 69.82
+rank 24: If Receive Objection 1 occurs, then  Block Claim 3 occurs afterwards before Receive Objection 1 recurs., with score 68.71
+rank 25: Execute Payment and  Block Claim 3 occur if and only if they follow one another, alternating., with score 62.7
+rank 26: Execute Payment occurs if and only if it is followed by  Block Claim 3., with score 62.7
+rank 27: Payment Order and  Block Claim 3 occur if and only if they follow one another, alternating., with score 62.4
+rank 28: Payment Order occurs if and only if it is followed by  Block Claim 3., with score 62.4
+rank 29: Receive Objection 1 and  Withdraw Claim occurs if and only if  Withdraw Claim immediately follows Receive Objection 1., with score 61.06
+rank 30: If Accept Claim occurs, then  Block Claim 3 occurs afterwards before Accept Claim recurs., with score 58.9
+rank 31: If Start Claim occurs, then  Block Claim 3 occurs afterwards before Start Claim recurs., with score 57.99
+rank 32: If Receive Claim occurs, then  Block Claim 3 occurs afterwards before Receive Claim recurs., with score 57.99
+rank 33: Accept Claim and  Receive Objection 1 always occur together., with score 57.36
+rank 34: Correct Claim and  Unblock Claim 1 occurs if and only if  Unblock Claim 1 immediately follows Correct Claim., with score 56.98
+rank 35: Accept Claim occurs if and only if it is followed by  Receive Objection 1., with score 56.97
+rank 36: Receive Objection 1 occurs if and only if it is followed by  Block Claim 3., with score 56.95
+rank 37: Receive Objection 1 and  Block Claim 3 occur if and only if they follow one another, alternating., with score 56.93
+rank 38: Receive Claim and  Receive Objection 1 always occur together., with score 56.83
+rank 39: Receive Claim occurs if and only if it is followed by  Receive Objection 1., with score 56.77
+rank 40: Start Claim occurs if and only if it is followed by  Receive Objection 1., with score 56.77
+rank 41: Accept Claim and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 55.91
+rank 42: Start Claim and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 55.8
+rank 43: Receive Claim and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 55.79
+rank 44: If Receive Objection 1 occurs, then  Repayment occurs afterwards before Receive Objection 1 recurs., with score 55.68
+rank 45: Block Claim 1 and  Correct Claim occurs if and only if  Correct Claim immediately follows Block Claim 1., with score 55.52
+rank 46: If Receive Objection 1 occurs, then  Withdraw Claim occurs immediately after it., with score 55.28
+rank 47:  Withdraw Claim occurs only if Receive Objection 1 occurs immediately before it. , with score 53.68
+rank 48: Accept Claim occurs if and only if it is followed by  Withdraw Claim., with score 51.6
+rank 49: Receive Claim and  Withdraw Claim always occur together., with score 51.2
+rank 50: Start Claim and  Withdraw Claim always occur together., with score 51.2
+rank 51: Start Claim occurs if and only if it is followed by  Withdraw Claim., with score 51.19
+rank 52: Receive Claim occurs if and only if it is followed by  Withdraw Claim., with score 51.19
+rank 53: Accept Claim and  Withdraw Claim occur if and only if they follow one another, alternating., with score 51.1
+rank 54: Receive Claim and  Withdraw Claim occur if and only if they follow one another, alternating., with score 50.7
+rank 55: Start Claim and  Withdraw Claim occur if and only if they follow one another, alternating., with score 50.7
+rank 56:  Repayment occurs only if preceded by Payment Order with no other  Repayment in between., with score 49.69
+rank 57:  Block Claim 3 occurs only if preceded by Receive Objection 1 with no other  Block Claim 3 in between., with score 49.66
+rank 58:  Repayment occurs only if preceded by Receive Claim with no other  Repayment in between., with score 49.58
+rank 59:  Repayment occurs only if preceded by Start Claim with no other  Repayment in between., with score 49.58
+rank 60:  Repayment occurs only if preceded by Accept Claim with no other  Repayment in between., with score 49.57
+rank 61:  Block Claim 3 occurs only if Execute Payment occurs immediately before it. , with score 49.54
+rank 62: Execute Payment and  Receive Objection 1 always occur together., with score 48.69
+rank 63: Payment Order and  Receive Objection 1 always occur together., with score 48.63
+rank 64: Execute Payment occurs if and only if it is followed by  Receive Objection 1., with score 47.99
+rank 65: Payment Order occurs if and only if it is followed by  Receive Objection 1., with score 47.83
+rank 66: Execute Payment and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 47.63
+rank 67: Payment Order and  Receive Objection 1 occur if and only if they follow one another, alternating., with score 47.47
+rank 68: Block Claim 3 and  Repayment occur if and only if they follow one another, alternating., with score 45.37
+rank 69: If Withdraw Claim occurs, then  Block Claim 3 occurs afterwards before Withdraw Claim recurs., with score 43.88
+rank 70: Execute Payment and  Withdraw Claim always occur together., with score 42.89
+rank 71: Execute Payment occurs if and only if it is followed by  Withdraw Claim., with score 42.74
+rank 72: Payment Order and  Withdraw Claim always occur together., with score 42.72
+rank 73: Execute Payment and  Withdraw Claim occur if and only if they follow one another, alternating., with score 42.56
+rank 74: Payment Order occurs if and only if it is followed by  Withdraw Claim., with score 42.53
+rank 75: If Execute Payment occurs,  Receive Objection 1 occurs as well., with score 42.42
+rank 76: Payment Order and  Withdraw Claim occur if and only if they follow one another, alternating., with score 42.35
+rank 77: Withdraw Claim and  Block Claim 3 occur if and only if they follow one another, alternating., with score 42.25
+rank 78: Accept Claim occurs if and only if it is followed by  Repayment., with score 42.05
+rank 79: Accept Claim and  Repayment occur if and only if they follow one another, alternating., with score 41.87
+rank 80:  If Execute Payment occurs, then  Receive Objection 1 occurs after it., with score 41.64
+rank 81: Receive Claim occurs if and only if it is followed by  Repayment., with score 41.57
+rank 82: Start Claim occurs if and only if it is followed by  Repayment., with score 41.57
+rank 83: Receive Claim and  Repayment always occur together., with score 41.57
+rank 84:  If Payment Order occurs, then  Receive Objection 1 occurs after it., with score 41.49
+rank 85: Receive Claim and  Repayment occur if and only if they follow one another, alternating., with score 41.38
+rank 86: Start Claim and  Repayment occur if and only if they follow one another, alternating., with score 41.38
+rank 87: Withdraw Claim and  Repayment occurs if and only if  Repayment immediately follows Withdraw Claim., with score 41.17
+rank 88: If Repayment occurs,  Block Claim 3 occurs as well., with score 40.88
+rank 89: If Block Claim 3 occurs,  Repayment occurs as well., with score 38.61
+rank 90: If Withdraw Claim occurs, then  Block Claim 3 occurs immediately after it., with score 37.13
+rank 91: If Execute Payment occurs,  Withdraw Claim occurs as well., with score 36.75
+rank 92:  If Execute Payment occurs, then  Withdraw Claim occurs after it., with score 36.57
+rank 93: Withdraw Claim and  Block Claim 3 occurs if and only if  Block Claim 3 immediately follows Withdraw Claim., with score 35.57
+rank 94:  Repayment occurs only if preceded by Block Claim 3., with score 34.68
+rank 95:  Repayment occurs only if preceded by Block Claim 3 with no other  Repayment in between., with score 34.5
+rank 96:  Block Claim 3 occurs only if preceded by Withdraw Claim with no other  Block Claim 3 in between., with score 33.74
+rank 97: Execute Payment and  Repayment always occur together., with score 33.49
+rank 98: Execute Payment occurs if and only if it is followed by  Repayment., with score 33.47
+rank 99: Execute Payment and  Repayment occur if and only if they follow one another, alternating., with score 33.42
+rank 100: Payment Order and  Repayment always occur together., with score 33.32
+rank 101: Payment Order occurs if and only if it is followed by  Repayment., with score 33.31
+rank 102: Payment Order and  Repayment occur if and only if they follow one another, alternating., with score 33.26
+rank 103:  If Block Claim 3 occurs, then  Repayment occurs after it., with score 33.02
+rank 104: If Block Claim 3 occurs, then  Repayment occurs afterwards before Block Claim 3 recurs., with score 32.94
+rank 105: Block Claim 3 is the last to occur., with score 30.24
+rank 106: Block Claim 3 and  Repayment occurs if and only if  Repayment immediately follows Block Claim 3., with score 28.65
+rank 107:  Block Claim 3 occurs only if Withdraw Claim occurs immediately before it. , with score 28.51
+rank 108: If Execute Payment occurs,  Repayment occurs as well., with score 27.79
+rank 109:  If Execute Payment occurs, then  Repayment occurs after it., with score 27.76
+rank 110: Repayment occurs at least once., with score 27.66
+rank 111:  Repayment occurs only if Withdraw Claim occurs immediately before it. , with score 25.79
+rank 112: Repayment is the last to occur., with score 24.13
+rank 113: Execute Payment and  Receive Objection 1 occurs if and only if  Receive Objection 1 immediately follows Execute Payment., with score 23.45
+rank 114:  Repayment occurs only if Block Claim 3 occurs immediately before it. , with score 22.51
+
+
+cluster 3 segment 1:
+lowest scores:
+rank 1: Receive Claim and  Execute Payment occur if and only if they follow one another, alternating., with score -14.45
+rank 2: Start Claim and  Execute Payment occur if and only if they follow one another, alternating., with score -14.45
+rank 3: Receive Claim and  Payment Order occur if and only if they follow one another, alternating., with score -14.41
+rank 4: Start Claim and  Payment Order occur if and only if they follow one another, alternating., with score -14.41
+-----------------------------------------------------------------------
+highest scores:
+rank 1: Receive Claim and  Payment Order occur if and only if they follow one another, alternating., with score -14.41
+rank 2: Start Claim and  Payment Order occur if and only if they follow one another, alternating., with score -14.41
+rank 3: Receive Claim and  Execute Payment occur if and only if they follow one another, alternating., with score -14.45
+rank 4: Start Claim and  Execute Payment occur if and only if they follow one another, alternating., with score -14.45
+
+
+cluster 4 segment 1:
+lowest scores:
+rank 1: Reject Claim is the last to occur., with score 51.55
+rank 2: Block Claim 2 occurs at least once., with score 58.69
+rank 3: If Start Claim occurs, then  Block Claim 2 occurs immediately after it., with score 58.69
+rank 4: If Receive Claim occurs, then  Block Claim 2 occurs afterwards before Receive Claim recurs., with score 58.69
+rank 5: Accept Claim must never occur., with score 59.35
+rank 6: Execute Payment must never occur., with score 59.36
+rank 7: Payment Order must never occur., with score 59.36
+rank 8: Receive Claim and  Reject Claim occur if and only if they follow one another, alternating., with score 71.73
+rank 9: Start Claim and  Reject Claim occur if and only if they follow one another, alternating., with score 71.73
+rank 10: Receive Claim occurs if and only if it is followed by  Reject Claim., with score 71.83
+rank 11: Start Claim occurs if and only if it is followed by  Reject Claim., with score 71.83
+rank 12: Receive Claim and  Block Claim 2 occur if and only if they follow one another, alternating., with score 71.84
+rank 13: Start Claim and  Block Claim 2 occur if and only if they follow one another, alternating., with score 71.84
+rank 14: Start Claim and  Block Claim 2 occurs if and only if  Block Claim 2 immediately follows Start Claim., with score 71.85
+rank 15:  Reject Claim occurs only if Block Claim 2 occurs immediately before it. , with score 96.95
+rank 16: Block Claim 2 and  Reject Claim occurs if and only if  Reject Claim immediately follows Block Claim 2., with score 97.1
+rank 17: If Block Claim 2 occurs, then  Reject Claim occurs immediately after it., with score 97.25
+rank 18: Block Claim 2 and  Reject Claim occur if and only if they follow one another, alternating., with score 97.76
+rank 19:  Block Claim 2 occurs only if preceded by Receive Claim with no other  Block Claim 2 in between., with score 97.92
+rank 20: Block Claim 2 occurs if and only if it is followed by  Reject Claim., with score 97.92
+rank 21:  Block Claim 2 occurs only if Start Claim occurs immediately before it. , with score 97.92
+-----------------------------------------------------------------------
+highest scores:
+rank 1:  Block Claim 2 occurs only if preceded by Receive Claim with no other  Block Claim 2 in between., with score 97.92
+rank 2: Block Claim 2 occurs if and only if it is followed by  Reject Claim., with score 97.92
+rank 3:  Block Claim 2 occurs only if Start Claim occurs immediately before it. , with score 97.92
+rank 4: Block Claim 2 and  Reject Claim occur if and only if they follow one another, alternating., with score 97.76
+rank 5: If Block Claim 2 occurs, then  Reject Claim occurs immediately after it., with score 97.25
+rank 6: Block Claim 2 and  Reject Claim occurs if and only if  Reject Claim immediately follows Block Claim 2., with score 97.1
+rank 7:  Reject Claim occurs only if Block Claim 2 occurs immediately before it. , with score 96.95
+rank 8: Start Claim and  Block Claim 2 occurs if and only if  Block Claim 2 immediately follows Start Claim., with score 71.85
+rank 9: Receive Claim and  Block Claim 2 occur if and only if they follow one another, alternating., with score 71.84
+rank 10: Start Claim and  Block Claim 2 occur if and only if they follow one another, alternating., with score 71.84
+rank 11: Receive Claim occurs if and only if it is followed by  Reject Claim., with score 71.83
+rank 12: Start Claim occurs if and only if it is followed by  Reject Claim., with score 71.83
+rank 13: Receive Claim and  Reject Claim occur if and only if they follow one another, alternating., with score 71.73
+rank 14: Start Claim and  Reject Claim occur if and only if they follow one another, alternating., with score 71.73
+rank 15: Execute Payment must never occur., with score 59.36
+rank 16: Payment Order must never occur., with score 59.36
+rank 17: Accept Claim must never occur., with score 59.35
+rank 18: Block Claim 2 occurs at least once., with score 58.69
+rank 19: If Start Claim occurs, then  Block Claim 2 occurs immediately after it., with score 58.69
+rank 20: If Receive Claim occurs, then  Block Claim 2 occurs afterwards before Receive Claim recurs., with score 58.69
+rank 21: Reject Claim is the last to occur., with score 51.55

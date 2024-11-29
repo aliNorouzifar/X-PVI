@@ -1,0 +1,133 @@
+cluster 1 segment 1:
+lowest scores:
+rank 1: Receive Objection 2 must never occur., with score 77.05
+rank 2: Reject Claim is the last to occur., with score 78.3
+-----------------------------------------------------------------------
+highest scores:
+rank 1: Reject Claim is the last to occur., with score 78.3
+rank 2: Receive Objection 2 must never occur., with score 77.05
+
+
+cluster 2 segment 3:
+lowest scores:
+rank 1: Receive Objection 2 occurs at most once., with score -14.52
+rank 2:  Reject Claim occurs only if Block Claim 2 occurs immediately before it. , with score -12.98
+rank 3: If Receive Claim occurs, then  Block Claim 2 occurs afterwards before Receive Claim recurs., with score -10.86
+rank 4: If Start Claim occurs, then  Block Claim 2 occurs immediately after it., with score -10.86
+rank 5: Accept Claim must never occur., with score -9.24
+rank 6: Block Claim 2 occurs at least once., with score -9.24
+rank 7: Execute Payment must never occur., with score -9.24
+rank 8: Payment Order must never occur., with score -9.24
+rank 9: Block Claim 1 must never occur., with score -8.78
+rank 10: Block Claim 2 and  Reject Claim occurs if and only if  Reject Claim immediately follows Block Claim 2., with score -8.38
+rank 11: Correct Claim must never occur., with score -5.64
+rank 12: If Block Claim 2 occurs, then  Reject Claim occurs immediately after it., with score -3.22
+-----------------------------------------------------------------------
+highest scores:
+rank 1: If Block Claim 2 occurs, then  Reject Claim occurs immediately after it., with score -3.22
+rank 2: Correct Claim must never occur., with score -5.64
+rank 3: Block Claim 2 and  Reject Claim occurs if and only if  Reject Claim immediately follows Block Claim 2., with score -8.38
+rank 4: Block Claim 1 must never occur., with score -8.78
+rank 5: Accept Claim must never occur., with score -9.24
+rank 6: Block Claim 2 occurs at least once., with score -9.24
+rank 7: Execute Payment must never occur., with score -9.24
+rank 8: Payment Order must never occur., with score -9.24
+rank 9: If Receive Claim occurs, then  Block Claim 2 occurs afterwards before Receive Claim recurs., with score -10.86
+rank 10: If Start Claim occurs, then  Block Claim 2 occurs immediately after it., with score -10.86
+rank 11:  Reject Claim occurs only if Block Claim 2 occurs immediately before it. , with score -12.98
+rank 12: Receive Objection 2 occurs at most once., with score -14.52
+
+
+cluster 3 segment 1:
+lowest scores:
+rank 1:  Receive Objection 2 occurs only if preceded by Receive Claim with no other  Receive Objection 2 in between., with score -78.15
+rank 2:  Receive Objection 2 occurs only if preceded by Start Claim with no other  Receive Objection 2 in between., with score -78.15
+rank 3:  Receive Objection 2 occurs only if preceded by Block Claim 2 with no other  Receive Objection 2 in between., with score -78.11
+rank 4:  Receive Objection 2 occurs only if Reject Claim occurs immediately before it. , with score -76.07
+-----------------------------------------------------------------------
+highest scores:
+rank 1:  Receive Objection 2 occurs only if Reject Claim occurs immediately before it. , with score -76.07
+rank 2:  Receive Objection 2 occurs only if preceded by Block Claim 2 with no other  Receive Objection 2 in between., with score -78.11
+rank 3:  Receive Objection 2 occurs only if preceded by Receive Claim with no other  Receive Objection 2 in between., with score -78.15
+rank 4:  Receive Objection 2 occurs only if preceded by Start Claim with no other  Receive Objection 2 in between., with score -78.15
+
+
+cluster 4 segment 1:
+lowest scores:
+rank 1: Block Claim 2 and  Receive Objection 2 always occur together., with score -81.76
+rank 2: Block Claim 2 occurs if and only if it is followed by  Receive Objection 2., with score -81.69
+rank 3: Receive Claim and  Receive Objection 2 always occur together., with score -81.35
+rank 4: Receive Claim occurs if and only if it is followed by  Receive Objection 2., with score -81.27
+rank 5: Start Claim occurs if and only if it is followed by  Receive Objection 2., with score -81.27
+rank 6: Reject Claim occurs if and only if it is followed by  Receive Objection 2., with score -81.23
+rank 7: Block Claim 2 and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.6
+rank 8: Receive Claim and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.22
+rank 9: Start Claim and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.22
+rank 10: Reject Claim and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.19
+rank 11: Reject Claim and  Receive Objection 2 occurs if and only if  Receive Objection 2 immediately follows Reject Claim., with score -78.16
+rank 12: If Block Claim 2 occurs, then  Receive Objection 2 occurs afterwards before Block Claim 2 recurs., with score -77.52
+rank 13: If Receive Claim occurs, then  Receive Objection 2 occurs afterwards before Receive Claim recurs., with score -76.8
+rank 14: If Start Claim occurs, then  Receive Objection 2 occurs afterwards before Start Claim recurs., with score -76.8
+rank 15: Receive Objection 2 is the last to occur., with score -76.58
+rank 16: If Reject Claim occurs, then  Receive Objection 2 occurs immediately after it., with score -74.8
+-----------------------------------------------------------------------
+highest scores:
+rank 1: If Reject Claim occurs, then  Receive Objection 2 occurs immediately after it., with score -74.8
+rank 2: Receive Objection 2 is the last to occur., with score -76.58
+rank 3: If Receive Claim occurs, then  Receive Objection 2 occurs afterwards before Receive Claim recurs., with score -76.8
+rank 4: If Start Claim occurs, then  Receive Objection 2 occurs afterwards before Start Claim recurs., with score -76.8
+rank 5: If Block Claim 2 occurs, then  Receive Objection 2 occurs afterwards before Block Claim 2 recurs., with score -77.52
+rank 6: Reject Claim and  Receive Objection 2 occurs if and only if  Receive Objection 2 immediately follows Reject Claim., with score -78.16
+rank 7: Reject Claim and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.19
+rank 8: Receive Claim and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.22
+rank 9: Start Claim and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.22
+rank 10: Block Claim 2 and  Receive Objection 2 occur if and only if they follow one another, alternating., with score -80.6
+rank 11: Reject Claim occurs if and only if it is followed by  Receive Objection 2., with score -81.23
+rank 12: Receive Claim occurs if and only if it is followed by  Receive Objection 2., with score -81.27
+rank 13: Start Claim occurs if and only if it is followed by  Receive Objection 2., with score -81.27
+rank 14: Receive Claim and  Receive Objection 2 always occur together., with score -81.35
+rank 15: Block Claim 2 occurs if and only if it is followed by  Receive Objection 2., with score -81.69
+rank 16: Block Claim 2 and  Receive Objection 2 always occur together., with score -81.76
+
+
+
+cluster 5 segment 1:
+lowest scores:
+rank 1:  Correct Claim occurs only if preceded by Receive Claim with no other  Correct Claim in between., with score -9.58
+rank 2:  Correct Claim occurs only if preceded by Start Claim with no other  Correct Claim in between., with score -9.58
+rank 3:  Correct Claim occurs only if preceded by Block Claim 2 with no other  Correct Claim in between., with score -8.35
+rank 4:  Correct Claim occurs only if Reject Claim occurs immediately before it. , with score -6.32
+-----------------------------------------------------------------------
+highest scores:
+rank 1:  Correct Claim occurs only if Reject Claim occurs immediately before it. , with score -6.32
+rank 2:  Correct Claim occurs only if preceded by Block Claim 2 with no other  Correct Claim in between., with score -8.35
+rank 3:  Correct Claim occurs only if preceded by Receive Claim with no other  Correct Claim in between., with score -9.58
+rank 4:  Correct Claim occurs only if preceded by Start Claim with no other  Correct Claim in between., with score -9.58
+
+
+cluster 6 segment 3:
+lowest scores:
+rank 1: Execute Payment and  Payment Order occurs if and only if  Payment Order immediately follows Execute Payment., with score 42.58
+rank 2: If Execute Payment occurs, then  Payment Order occurs immediately after it., with score 47.91
+rank 3: Block Claim 1 and  Execute Payment occur if and only if they follow one another, alternating., with score 54.78
+rank 4: Accept Claim and  Execute Payment occur if and only if they follow one another, alternating., with score 57.99
+rank 5:  Execute Payment occurs only if preceded by Unblock Claim 1., with score 62.01
+rank 6: Unblock Claim 1 occurs if and only if it is followed by  Execute Payment., with score 70.01
+rank 7:  Execute Payment occurs only if preceded by Block Claim 1., with score 91.95
+rank 8:  Execute Payment occurs only if preceded by Reject Claim., with score 91.95
+rank 9:  Execute Payment occurs only if Payment Order occurs immediately before it. , with score 97.94
+rank 10:  Execute Payment occurs only if preceded by Receive Claim., with score 97.94
+rank 11:  Execute Payment occurs only if preceded by Start Claim., with score 97.94
+-----------------------------------------------------------------------
+highest scores:
+rank 1:  Execute Payment occurs only if Payment Order occurs immediately before it. , with score 97.94
+rank 2:  Execute Payment occurs only if preceded by Receive Claim., with score 97.94
+rank 3:  Execute Payment occurs only if preceded by Start Claim., with score 97.94
+rank 4:  Execute Payment occurs only if preceded by Block Claim 1., with score 91.95
+rank 5:  Execute Payment occurs only if preceded by Reject Claim., with score 91.95
+rank 6: Unblock Claim 1 occurs if and only if it is followed by  Execute Payment., with score 70.01
+rank 7:  Execute Payment occurs only if preceded by Unblock Claim 1., with score 62.01
+rank 8: Accept Claim and  Execute Payment occur if and only if they follow one another, alternating., with score 57.99
+rank 9: Block Claim 1 and  Execute Payment occur if and only if they follow one another, alternating., with score 54.78
+rank 10: If Execute Payment occurs, then  Payment Order occurs immediately after it., with score 47.91
+rank 11: Execute Payment and  Payment Order occurs if and only if  Payment Order immediately follows Execute Payment., with score 42.58
