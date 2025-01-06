@@ -6,7 +6,6 @@ from callbacks import register_callbacks
 
 UPLOAD_FOLDER = "event_logs"  # Define upload folder
 
-# Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 du.configure_upload(app, UPLOAD_FOLDER)
 
