@@ -2,7 +2,7 @@ from dash import Input, Output, State, html
 from pathlib import Path
 from functions.my_functions import import_log
 from functions.EMD_based_framework import apply
-from layout import upload_view
+from pages.main_page import upload_view
 
 
 UPLOAD_FOLDER = "event_logs"

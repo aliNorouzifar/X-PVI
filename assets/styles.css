@@ -6,65 +6,112 @@
     <title>Styled Dash Page</title>
     <style>
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-        }
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
 
-        .page-container {
-            margin: 20px auto;
-            padding: 20px;
-            max-width: 800px;
-            background-color: #ffffff;
-            border: 5px solid #4CAF50; /* Add a border with a color */
-            border-radius: 15px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-        }
+/* Navigation Links */
+.nav-links {
+    background-color: #343a40;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        .header {
-            text-align: center;
-            font-size: 2em;
-            color: #4CAF50;
-            margin-bottom: 20px;
-        }
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 15px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        .content {
-            text-align: left;
-            font-size: 1.2em;
-            color: #333333;
-        }
+.nav-links a:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
 
-        .nav-links {
-            text-align: center;
-            margin-top: 20px;
-        }
+/* Headers */
+.header {
+    text-align: center;
+    font-size: 32px;
+    color: #007bff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
 
-        .nav-links a {
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #4CAF50;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin: 0 10px;
-            transition: background-color 0.3s;
-        }
+.text-left {
+    font-size: 18px;
+    color: #333;
+}
 
-        .nav-links a:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div class="page-container">
-        <div class="header">Welcome to the Dashboard</div>
-        <div class="content">
-            <p>This is the main content area of your page. You can add text, graphs, or any other elements here.</p>
-        </div>
-        <div class="nav-links">
-            <a href="/">Start Page</a>
-            <a href="/about_me">About Me</a>
-            <a href="/main">Main Page</a>
-        </div>
-    </div>
-</body>
+/* Upload Section */
+#left-section {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#output-data-upload,
+#output-data-upload2 {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Graph Styling */
+img {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs Styling */
+input,
+select,
+button {
+    font-size: 16px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Slider Styling */
+.dash-slider {
+    width: 100%;
+    margin: 20px 0;
+}
+
+/* Layout Containers */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#top-section,
+#bottom-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
 </html>

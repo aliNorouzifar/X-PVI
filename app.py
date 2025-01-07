@@ -1,7 +1,7 @@
 import dash_uploader as du
 from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
-from layout import create_layout
+# from layout import create_layout
 from callbacks import register_callbacks
 import pages.start_page as start_page
 import pages.about_me as about_me
