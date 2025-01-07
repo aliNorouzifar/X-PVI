@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Dash Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        .page-container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            background-color: #ffffff;
+            border: 5px solid #4CAF50; /* Add a border with a color */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        }
+
+        .header {
+            text-align: center;
+            font-size: 2em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            text-align: left;
+            font-size: 1.2em;
+            color: #333333;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #4CAF50;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="header">Welcome to the Dashboard</div>
+        <div class="content">
+            <p>This is the main content area of your page. You can add text, graphs, or any other elements here.</p>
+        </div>
+        <div class="nav-links">
+            <a href="/">Start Page</a>
+            <a href="/about_me">About Me</a>
+            <a href="/main">Main Page</a>
+        </div>
+    </div>
+</body>
+</html>
