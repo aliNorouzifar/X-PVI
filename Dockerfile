@@ -17,4 +17,4 @@ EXPOSE 8000
 # Step 6: Command to run your application
 CMD ["python", "app.py"]
 
-LABEL org.opencontainers.image.source="https://github.com/aliNorouzifar/X-PVI"
+LABEL org.opencontainers.image.source="https://github.com/alinorouzifar/X-PVI"
