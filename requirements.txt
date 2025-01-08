@@ -1,0 +1,12 @@
+dash==2.18.2
+dash_bootstrap_components==1.6.0
+dash_daq==0.5.0
+dash_uploader==0.6.1
+matplotlib==3.9.2
+pm4py==2.7.10.3
+numpy==1.26.4
+pandas==2.2.3
+ruptures==1.1.9
+scikit_learn==1.5.2
+scipy==1.14.1
+seaborn==0.11.0
