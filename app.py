@@ -41,4 +41,4 @@ du.configure_upload(app, UPLOAD_FOLDER)
 register_callbacks(app)
 
 if __name__ == '__main__':
-    app.run_server(debug=False, port=8002)
+    app.run_server(host="0.0.0.0", debug=False, port=8002)
