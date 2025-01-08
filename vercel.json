@@ -1,0 +1,8 @@
+{
+  "builds": [
+    {
+      "use": "@vercel/python",
+      "config": { "runtime": "python3.10" }
+    }
+  ]
+}
