@@ -17,7 +17,7 @@ def import_log(address):
     event_table.to_csv('output_files/out_event.csv', index=False)
 
 
-    return len(case_table),case_table.columns
+    return len(case_table),case_table.select_dtypes(include=['number']).columns
 
 def filter_ids(log,list):
     filtered_log = EventLog([trace for trace in log if trace.attributes['concept:name'] in list])
