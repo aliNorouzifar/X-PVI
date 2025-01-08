@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1350b71-c636-4aad-aa00-6f39344a6d92" name="Changes" comment="new UI design - 2">
+    <list default="true" id="e1350b71-c636-4aad-aa00-6f39344a6d92" name="Changes" comment="docker image update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +127,84 @@
       <option name="project" value="LOCAL" />
       <updated>1736247714908</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="vercel activation">
+      <created>1736337503210</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1736337503210</updated>
+    </task>
+    <task id="LOCAL-00008" summary="image creation">
+      <created>1736341041888</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736341041888</updated>
+    </task>
+    <task id="LOCAL-00009" summary="image creation">
+      <created>1736342627518</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736342627518</updated>
+    </task>
+    <task id="LOCAL-00010" summary="docker image update">
+      <created>1736342646555</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1736342646555</updated>
+    </task>
+    <task id="LOCAL-00011" summary="docker image update">
+      <created>1736343180579</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1736343180579</updated>
+    </task>
+    <task id="LOCAL-00012" summary="docker image update">
+      <created>1736343243130</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1736343243130</updated>
+    </task>
+    <task id="LOCAL-00013" summary="docker image update">
+      <created>1736343278003</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1736343278003</updated>
+    </task>
+    <task id="LOCAL-00014" summary="delete unused files">
+      <created>1736343530915</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1736343530915</updated>
+    </task>
+    <task id="LOCAL-00015" summary="delete unused files">
+      <created>1736343777202</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1736343777202</updated>
+    </task>
+    <task id="LOCAL-00016" summary="delete unused files">
+      <created>1736343834575</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1736343834575</updated>
+    </task>
+    <task id="LOCAL-00017" summary="docker image update">
+      <created>1736344204577</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1736344204577</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,7 +223,11 @@
     <MESSAGE value="test commit" />
     <MESSAGE value="new UI design - 1" />
     <MESSAGE value="new UI design - 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="new UI design - 2" />
+    <MESSAGE value="vercel activation" />
+    <MESSAGE value="image creation" />
+    <MESSAGE value="delete unused files" />
+    <MESSAGE value="docker image update" />
+    <option name="LAST_COMMIT_MESSAGE" value="docker image update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
