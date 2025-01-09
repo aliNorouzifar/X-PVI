@@ -3,29 +3,43 @@ from pathlib import Path
 from functions.my_functions import import_log
 from functions.EMD_based_framework import apply
 from pages.main_page import upload_view
-
+import os
+import shutil
 
 UPLOAD_FOLDER = "event_logs"
 
 
+def clear_upload_folder(folder_path):
+    shutil.rmtree(folder_path)
+    os.makedirs(folder_path)
+
 def register_callbacks(app):
+    clear_upload_folder("event_logs")
     @app.callback(
         Output("output-data-upload", "children"),
         [Input("upload-data", "isCompleted")],
         [State("upload-data", "fileNames"), State("upload-data", "upload_id")]
     )
-    def display_files(isCompleted, fileNames, uid):
-        if not isCompleted:
-            return
-        if fileNames is not None:
-            print(uid)
-            out = []
-            for filename in fileNames:
-                file = Path(UPLOAD_FOLDER) / "temp_log" / filename
-                out.append(file)
-            max_par,columns = import_log(out[0])
-            return upload_view(max_par,columns)
-        return html.Ul(html.Li("No Files Uploaded Yet!"))
+    def display_files(isCompleted, filename, uid):
+        if isCompleted:
+            if filename is not None:
+                print(uid)
+                return html.Ul(html.Li(f"The file {filename[0]} is uploaded successfully!"))
+        else:
+            return html.Ul(html.Li("No Files Uploaded Yet!"))
+
+    @app.callback(
+        Output("output-data-upload2", "children"),
+        [Input("output-data-upload", "children")],
+        [State("upload-data", "upload_id")],
+    )
+    def parameters_PVI(filename,id):
+        folder_path = os.path.join(UPLOAD_FOLDER, id)
+        files = os.listdir(folder_path) if os.path.exists(folder_path) else []
+        file = Path(UPLOAD_FOLDER) / f"{id}" / files[0]
+        print(file)
+        max_par, columns = import_log(file)
+        return upload_view(max_par, columns)
 
     @app.callback(
         Output("bar-graph-matplotlib", "src"),

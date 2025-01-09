@@ -35,6 +35,7 @@ def display_page(pathname):
 
 
 du.configure_upload(app, UPLOAD_FOLDER)
+
 #
 # app.layout = create_layout()
 

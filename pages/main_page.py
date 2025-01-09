@@ -59,9 +59,9 @@ def get_upload_component(id):
         id=id,
         max_file_size=500,  # 50 Mb
         chunk_size=400,  # 4 MB
+        max_files=1,
         filetypes=["xes"],
-        # upload_id=uuid.uuid1(),  # Unique session id
-        upload_id="temp_log"
+        upload_id="event_log"
     )
 
 

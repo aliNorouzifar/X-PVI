@@ -22,6 +22,8 @@ import ruptures as rpt
 import json
 from matplotlib.colors import ListedColormap
 import pickle
+import shutil
+
 
 
 # Constants
@@ -32,7 +34,9 @@ linkage_metric = 'euclidean'
 os.makedirs(OUTPUT_DIR, exist_ok=True)  # Ensure output directory exists
 color_theme_drift_map = 'Blues'
 
-
+def clear_upload_folder(folder_path):
+    shutil.rmtree(folder_path)
+    os.makedirs(folder_path)
 def generate_features(bin_size,w,order):
 
     event_table = pd.read_csv("output_files/out_event.csv")
@@ -1007,6 +1011,7 @@ def apply(n_bin, w, theta_cvg, n_clusters, signal_threshold, faster, export, kpi
     ordered_case_ids = case_table['case_id']
     bin_size = round(len(case_table) / n_bin)
     generate_features(bin_size, w,ordered_case_ids)
+    clear_upload_folder("\event_logs")
     pruned_list, data_color =  prune_signals(theta_cvg)
     order_cluster, clusters_with_declare_names, cluster_bounds, clusters_dict, constraints= clustering(pruned_list, linkage_method, linkage_metric,n_clusters)
     PELT_change_points(order_cluster,clusters_dict)
