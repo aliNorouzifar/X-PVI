@@ -323,6 +323,7 @@ def segmentation(df,bins,n_bin,w,sen,sig):
 
 def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, constraints, w, cluster_bounds,clusters_with_declare_names, data_color, corr_mat):
     every = 2
+    # window_labels = [f'{w}' for w in WINDOWS]
     """Generate heatmaps and comparison plots."""
     # Sliding Window Heatmap
     fig1, ax1 = plt.subplots(figsize=(15, 3))
@@ -338,8 +339,7 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, constraints, w
     ax1.set_xticks(0.5 + np.arange(0, n_bin - 1, every))
     ax1.set_xticklabels(
         [str(round(x * (100 / n_bin))) + "% (" + str(round(map_range[x], 1)) + ")" for x in np.arange(1, n_bin, every)])
-    # ax.set_xticks(np.arange(0, 101, 5), labels=[str(x)+"% ("+str(round(map_range[x],1))+")" for x in np.arange(0, 101, every)])
-    ax1.set_yticks([0.5, 1.5, 2.5, 3.5], labels=['15%', '10%', '5%', '2%'])
+    ax1.set_yticks([x+0.5 for x in range(0,len(WINDOWS))], labels=WINDOWS)
     plt.xticks(rotation=90)
     plt.close(fig1)
 
@@ -347,10 +347,6 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, constraints, w
     fig2 = plt.figure(figsize=(7, 7))
     ax = sns.heatmap(dist_matrix, cmap=cmap, xticklabels=['segment' + str(i) for i in range(1, dist_matrix.shape[0] + 1)],
                      yticklabels=['segment' + str(i) for i in range(1, dist_matrix.shape[0] + 1)])
-    # ax.set_title('iteration '+str(ittr+1), fontsize=18)
-
-    # data_points_df = pd.DataFrame(data_points)
-    # sns.boxplot(data=data_points_df, x=0, y=1)
 
     fig2.suptitle('segments comparison', fontsize=20)
     plt.xticks(fontsize=18)
@@ -375,7 +371,6 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, constraints, w
     data_c = []
     data_c_color_1 = []
     data_c_color_2 = []
-    # mask_c = [[True]*(n_bin-1)]*len(constraints)
     for i in range(len(constraints)):
         new_list = [0] * (w - 1) + constraints[i] + [0] * (w - 1)
         new_list_color_1 = [True] * (w - 1) + L2_ordered[i] + [True] * (w - 1)
@@ -416,7 +411,6 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, constraints, w
         ax1.axvline(x=0.5 + pp - 0.05, color='red', linestyle='--', linewidth=4)
 
 
-    every = 2
     ax1.set_xticks([])
     y_tick = []
     y_labels = []
@@ -553,12 +547,6 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, constraints, w
     cbar3 = ax3.collections[0].colorbar
     cbar3.ax.tick_params(labelsize=16)
     cbar3.set_label('correlation', fontsize=18)
-
-
-
-
-
-
 
     buf = BytesIO()
     fig1.savefig(buf, format="png", bbox_inches = 'tight')
@@ -1005,6 +993,10 @@ def correlation_calc(peaks,w,constraints,clusters_dict):
 
 def apply(n_bin, w, theta_cvg, n_clusters, signal_threshold, faster, export, kpi):
     """Main function to apply the analysis."""
+    if w not in WINDOWS:
+        WINDOWS.append(w)
+        WINDOWS.sort(reverse=True)
+
     sensitivity = 0.01 if faster else 0.0
     bins, map_range, case_table = bins_generation(kpi, n_bin)
     df, masks = sliding_window(bins, n_bin, sensitivity)
@@ -1012,8 +1004,6 @@ def apply(n_bin, w, theta_cvg, n_clusters, signal_threshold, faster, export, kpi
 
 
 ################### Explainability ######################################
-
-
     ordered_case_ids = case_table['case_id']
     bin_size = round(len(case_table) / n_bin)
     generate_features(bin_size, w,ordered_case_ids)
