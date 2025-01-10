@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1350b71-c636-4aad-aa00-6f39344a6d92" name="Changes" comment="docker image update">
+    <list default="true" id="e1350b71-c636-4aad-aa00-6f39344a6d92" name="Changes" comment="seprating parameters callback  from uploading callback">
+      <change afterPath="$PROJECT_DIR$/functions/explainability_extraction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/callbacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/callbacks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event_logs/temp_log/test.xes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/event_logs/test.xes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/EMD_based_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/EMD_based_framework.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/design.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/my_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/my_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/main_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main_page.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -204,7 +213,56 @@
       <option name="project" value="LOCAL" />
       <updated>1736344204577</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="docker image update">
+      <created>1736344541650</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1736344541650</updated>
+    </task>
+    <task id="LOCAL-00019" summary="docker image update">
+      <created>1736345373973</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1736345373973</updated>
+    </task>
+    <task id="LOCAL-00020" summary="docker port mapping">
+      <created>1736346069520</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1736346069520</updated>
+    </task>
+    <task id="LOCAL-00021" summary="requirements update">
+      <created>1736351963884</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1736351963884</updated>
+    </task>
+    <task id="LOCAL-00022" summary="show only numerical columns">
+      <created>1736351997436</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1736351997436</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add the selected window size to default ones">
+      <created>1736412849967</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1736412849967</updated>
+    </task>
+    <task id="LOCAL-00024" summary="seprating parameters callback  from uploading callback">
+      <created>1736424773970</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1736424773970</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -227,20 +285,30 @@
     <MESSAGE value="image creation" />
     <MESSAGE value="delete unused files" />
     <MESSAGE value="docker image update" />
-    <option name="LAST_COMMIT_MESSAGE" value="docker image update" />
+    <MESSAGE value="docker port mapping" />
+    <MESSAGE value="requirements update" />
+    <MESSAGE value="show only numerical columns" />
+    <MESSAGE value="add the selected window size to default ones" />
+    <MESSAGE value="seprating parameters callback  from uploading callback" />
+    <option name="LAST_COMMIT_MESSAGE" value="seprating parameters callback  from uploading callback" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/minerful_calls.py</url>
-          <line>4</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/callbacks.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
+          <line>731</line>
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/EMD_based_framework.py</url>
-          <line>1019</line>
-          <option name="timeStamp" value="13" />
+          <line>160</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

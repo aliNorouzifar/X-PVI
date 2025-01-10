@@ -17,7 +17,7 @@ def create_layout():
         html.H1("Process Variant Identification", className='header',
                 style={'textAlign': 'center'}),
         html.H4("Upload the event log", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
-        html.Div([
+        # html.Div([
             html.Div(
                 children=[
                     get_upload_component("upload-data")
@@ -30,42 +30,48 @@ def create_layout():
                 },
             ),
             html.Div(id='output-data-upload'),
-            dbc.Row([
-                dbc.Col([
-                    html.Img(id='bar-graph-matplotlib')
-                ], width={'size': 5, 'offset': 1}),
-            ]),
-            dbc.Row([
-                dbc.Col([
-                    html.Img(id='bar-graph-matplotlib2')
-                ], width={'size': 5, 'offset': 1})
-            ]),
-            dbc.Row([
-                dbc.Col([
-                    html.Img(id='bar-graph-matplotlib3')
-                ], width={'size': 5, 'offset': 1})
-            ]),
-            dbc.Row([
-                dbc.Col([
-                    html.Img(id='bar-graph-matplotlib4')
-                ], width={'size': 6, 'offset': 3})
-            ]),
             html.Div(id='output-data-upload2'),
-        ])
+            html.Div(id='output-data-upload3'),
+            html.Div(id='output-data-upload4'),
+            html.Div(id='output-data-upload5'),
+            # dbc.Row([
+            #     dbc.Col([
+            #         html.Img(id='bar-graph-matplotlib')
+            #     ], width={'size': 5, 'offset': 1}),
+            # ]),
+            # dbc.Row([
+            #     dbc.Col([
+            #         html.Img(id='bar-graph-matplotlib2')
+            #     ], width={'size': 5, 'offset': 1})
+            # ]),
+            # dbc.Row([
+            #     dbc.Col([
+            #         html.Img(id='bar-graph-matplotlib3')
+            #     ], width={'size': 5, 'offset': 1})
+            # ]),
+            # dbc.Row([
+            #     dbc.Col([
+            #         html.Img(id='bar-graph-matplotlib4')
+            #     ], width={'size': 6, 'offset': 3})
+            # ]),
+
+        # ])
     ])
 
 def get_upload_component(id):
-    return du.Upload(
+    return dbc.Container(className="page-container",
+    children= du.Upload(
         id=id,
-        max_file_size=500,  # 50 Mb
-        chunk_size=400,  # 4 MB
+        max_file_size=500,
+        chunk_size=100,
         max_files=1,
         filetypes=["xes"],
-        upload_id="event_log"
+        upload_id="event_log",
+    ),
     )
 
 
-def upload_view(max_par, columns):
+def parameters_view_PVI(max_par, columns):
     return html.Div([
         # Wrapper for all content
         html.Div([
@@ -97,26 +103,6 @@ def upload_view(max_par, columns):
                         ),
                         html.Div(id='numeric-input-output-2')
                     ]),
-                    html.H4("theta_cvg for pruning?", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
-                    html.Div([
-                        daq.NumericInput(
-                            id='my-numeric-input-3',
-                            min=0,
-                            max=0.1,
-                            value=0.02
-                        ),
-                        html.Div(id='numeric-input-output-3')
-                    ]),
-                    html.H4("Number of Clusters?", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
-                    html.Div([
-                        daq.NumericInput(
-                            id='my-numeric-input-4',
-                            min=0,
-                            max=20,
-                            value=5
-                        ),
-                        html.Div(id='numeric-input-output-4'),
-                    ]),
                     html.H4("What is a significant distance?", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
                     html.Div(
                         [
@@ -147,25 +133,83 @@ def upload_view(max_par, columns):
                                    ],
                                    value=False
                                    ),
-                    html.Button(id="submit-button", children="Run"),
+                    html.Button(id="run_PVI", children="Run PVI"),
                     html.Hr(),
                 ],
                 style={"width": "100%", "padding": "10px"}
             ),
             # Bottom Section: Outputs
-            html.Div(className="page-container",
-                id="bottom-section",
-                children=[
-                    html.Img(id="bar-graph-matplotlib", style={"width": "100%", "margin-bottom": "20px"}),  # First graph
-                    html.Img(id="bar-graph-matplotlib2", style={"width": "40%", "margin-bottom": "20px"}),  # Second graph
-                    html.Img(id="bar-graph-matplotlib3", style={"width": "100%", "margin-bottom": "20px"}),
-                    html.Img(id="bar-graph-matplotlib4", style={"width": "50%", "margin-bottom": "20px"})
-                ],
-                style={"width": "100%", "padding": "10px"}
-            )
+            # html.Div(className="page-container",
+            #     id="bottom-section",
+            #     children=[
+            #         html.Img(id="bar-graph-matplotlib", style={"width": "100%", "margin-bottom": "20px"}),  # First graph
+            #         html.Img(id="bar-graph-matplotlib2", style={"width": "40%", "margin-bottom": "20px"}),  # Second graph
+            #     ],
+            #     style={"width": "100%", "padding": "10px"}
+            # )
         ],
             style={"display": "flex", "flexDirection": "column", "alignItems": "center"}
         )
     ])
+
+def PVI_figures(fig_src1, fig_src2):
+    return html.Div(className="page-container",
+             id="bottom-section",
+             children=[
+                 html.Img(id="bar-graph-matplotlib", src=fig_src1, style={"width": "100%", "margin-bottom": "20px"}),
+                 html.Img(id="bar-graph-matplotlib2", src=fig_src2, style={"width": "40%", "margin-bottom": "20px"}),
+                 html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!")
+             ]
+             , style={"display": "flex", "flexDirection": "column", "alignItems": "center", "width": "100%", "padding": "10px"})
+
+def parameters_view_explainability():
+    return html.Div([
+        # Wrapper for all content
+        html.Div([
+            # Top Section: Inputs
+            html.Div(className="page-container",
+                id="top-section",
+                children=[
+                    html.Hr(),
+                    html.H4("theta_cvg for pruning?", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
+                    html.Div([
+                        daq.NumericInput(
+                            id='my-numeric-input-3',
+                            min=0,
+                            max=0.1,
+                            value=0.02
+                        ),
+                        html.Div(id='numeric-input-output-3')
+                    ]),
+                    html.H4("Number of Clusters?", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
+                    html.Div([
+                        daq.NumericInput(
+                            id='my-numeric-input-4',
+                            min=0,
+                            max=20,
+                            value=5
+                        ),
+                        html.Div(id='numeric-input-output-4'),
+                    ]),
+                html.Button(id="XPVI_run", children="XPVI Run")],
+                style={"width": "100%", "padding": "10px"}
+            ),
+            # Bottom Section: Outputs
+        ],
+            style={"display": "flex", "flexDirection": "column", "alignItems": "center"}
+        )
+    ])
+
+def XPVI_figures(fig_src3, fig_src4):
+    return html.Div(className="page-container",
+             id="bottom-section",
+             children=[
+                 html.Img(id="bar-graph-matplotlib", src=fig_src3, style={"width": "100%", "margin-bottom": "20px"}),
+                 html.Img(id="bar-graph-matplotlib2", src=fig_src4, style={"width": "40%", "margin-bottom": "20px"}),
+                 # html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!")
+             ]
+             , style={"display": "flex", "flexDirection": "column", "alignItems": "center", "width": "100%", "padding": "10px"})
+
+
 
 

@@ -54,7 +54,8 @@ def log_to_tables(log, parameters):
     non_attributes = {'row_num'}
     event_attributes = set(df.columns) - case_attributes - non_attributes
     event_table = df[list(event_attributes)]
-    event_table[timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
+    # event_table[timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
+    event_table.loc[:, timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
     if 'EventOrder' in event_table.columns:
         event_table = event_table.sort_values([timestamp_name, 'EventOrder'], ascending=[True, True])
     else:

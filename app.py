@@ -14,8 +14,9 @@ app.title = "Process Variant Identification"
 app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([
+    # dcc.Store(id='storage', storage_type='memory'),
     dcc.Location(id='url', refresh=False),  # Tracks the URL
-    html.Div(id='page-content')            # Placeholder for page content
+    html.Div(id='page-content'),         # Placeholder for page content
 ])
 
 @app.callback(
