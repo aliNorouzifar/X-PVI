@@ -11,10 +11,7 @@ import scipy.signal as sci_sig
 import os
 import itertools
 import pm4py
-
 import json
-
-
 
 
 # # Constants
@@ -23,9 +20,6 @@ OUTPUT_DIR = "output_files"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)  # Ensure output directory exists
 color_theme_drift_map = 'Blues'
-
-
-
 
 def save_variables(df, masks, map_range, peaks):
     df_json = df.to_json(orient="split")
@@ -39,11 +33,6 @@ def save_variables(df, masks, map_range, peaks):
     # Save to a JSON file
     with open("output_files\internal_variables.json", "w") as json_file:
         json.dump(data, json_file)
-
-
-
-
-
 
 def bins_generation(kpi, n_bin):
     """Generate bins and map ranges for a given KPI."""
@@ -153,7 +142,6 @@ def segmentation(df,bins,n_bin,w,sen,sig):
     segments.append(new)
     segments_ids.append(new_ids)
 
-    # fig = plt.figure(figsize=(9, 8))
     ittr = 0
 
     # order = [labels[ittr].index(i) for i in list_vec[ittr]]

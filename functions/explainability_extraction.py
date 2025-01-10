@@ -715,7 +715,6 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     ax1.set_xticklabels(x_labels)
     ax1.tick_params(axis='x', labelsize=16, rotation=0)
     ax1.tick_params(axis='y', labelsize=16, rotation=0)
-    # ax1.set_facecolor("gray")
     ax1.grid(False)
 
 
@@ -725,10 +724,8 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     ticks = np.arange(0, n_bin - 1, 2)
     pk_id = []
     for new_number in peaks:
-        # new_number = 2  # Number to insert
         ticks = insert_and_clean_np(ticks, new_number)
         pk_id.append(np.where(ticks == new_number)[0][0])
-        # print(ticks)
     ticks_labels = [str(round(x * (100 / n_bin))) + "% (" + str(round(map_range[str(x)], 1)) + ")" for x in (ticks + 1)]
     # ticks_labels = [str(round(x * (100 / n_bin))) + "% (" + str(round(map_range[x], 1)) + ")" for x in (ticks + 1)]
 
@@ -758,7 +755,6 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     ##################### Figure 4####################
     from matplotlib.colors import LinearSegmentedColormap
 
-    # Assuming corr_mat is your original correlation matrix
     corr_mat_transposed = np.array(corr_mat).T  # Transpose the matrix
 
     # Output the list of correlations
@@ -838,5 +834,3 @@ def apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS):
                                                               WINDOWS)
 
     return fig3_path, fig4_path
-
-
