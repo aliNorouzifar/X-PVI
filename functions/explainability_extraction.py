@@ -727,7 +727,6 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
         ticks = insert_and_clean_np(ticks, new_number)
         pk_id.append(np.where(ticks == new_number)[0][0])
     ticks_labels = [str(round(x * (100 / n_bin))) + "% (" + str(round(map_range[str(x)], 1)) + ")" for x in (ticks + 1)]
-    # ticks_labels = [str(round(x * (100 / n_bin))) + "% (" + str(round(map_range[x], 1)) + ")" for x in (ticks + 1)]
 
     print(pk_id)
     ax2.set_xticks(0.5 + ticks)
