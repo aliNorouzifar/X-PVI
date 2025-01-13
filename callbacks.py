@@ -55,9 +55,10 @@ def register_callbacks(app):
         State("xaxis-data", "value")
     )
     def plot_data(n, n_bin, w, sig, faster, export, kpi):
-        if kpi is not None:
-            fig_src1,fig_src2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
-            return PVI_figures(fig_src1, fig_src2)
+        if n>0:
+            if kpi is not None:
+                fig_src1,fig_src2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
+                return PVI_figures(fig_src1, fig_src2)
 
 
     @app.callback(
@@ -65,7 +66,8 @@ def register_callbacks(app):
         Input("X_parameters", "n_clicks"),
         )
     def parameters_explainability(n):
-        return parameters_view_explainability()
+        if n > 0:
+            return parameters_view_explainability()
 
     @app.callback(
         Output("output-data-upload5", "children"),
@@ -77,5 +79,19 @@ def register_callbacks(app):
         State("xaxis-data", "value")
         )
     def plot_Xdata(n,n_bin, w, theta_cvg, n_clusters, kpi):
-        fig_src3, fig_src4 = XPVI_apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS)
-        return XPVI_figures(fig_src3, fig_src4)
+        if n > 0:
+            fig_src3, fig_src4 = XPVI_apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS)
+            return XPVI_figures(fig_src3, fig_src4)
+
+    @app.callback(
+        Output("output-data-upload6", "children"),
+        Input("X_parameters", "n_clicks"),
+        # State("my-numeric-input-1", "value"),
+        # State("my-numeric-input-2", "value"),
+        # State("my-numeric-input-3", "value"),
+        # State("my-numeric-input-4", "value"),
+        # State("xaxis-data", "value")
+        )
+    def X2NL(n):
+        if n > 0:
+            return print("Hi")

@@ -34,6 +34,7 @@ def create_layout():
             html.Div(id='output-data-upload3'),
             html.Div(id='output-data-upload4'),
             html.Div(id='output-data-upload5'),
+            html.Div(id='output-data-upload6'),
             # dbc.Row([
             #     dbc.Col([
             #         html.Img(id='bar-graph-matplotlib')
@@ -133,7 +134,7 @@ def parameters_view_PVI(max_par, columns):
                                    ],
                                    value=False
                                    ),
-                    html.Button(id="run_PVI", children="Run PVI"),
+                    html.Button(id="run_PVI", children="Run PVI", n_clicks=0),
                     html.Hr(),
                 ],
                 style={"width": "100%", "padding": "10px"}
@@ -158,7 +159,7 @@ def PVI_figures(fig_src1, fig_src2):
              children=[
                  html.Img(id="bar-graph-matplotlib", src=fig_src1, style={"width": "100%", "margin-bottom": "20px"}),
                  html.Img(id="bar-graph-matplotlib2", src=fig_src2, style={"width": "40%", "margin-bottom": "20px"}),
-                 html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!")
+                 html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", n_clicks=0)
              ]
              , style={"display": "flex", "flexDirection": "column", "alignItems": "center", "width": "100%", "padding": "10px"})
 
@@ -191,7 +192,7 @@ def parameters_view_explainability():
                         ),
                         html.Div(id='numeric-input-output-4'),
                     ]),
-                html.Button(id="XPVI_run", children="XPVI Run")],
+                html.Button(id="XPVI_run", children="XPVI Run", n_clicks=0)],
                 style={"width": "100%", "padding": "10px"}
             ),
             # Bottom Section: Outputs
@@ -206,7 +207,7 @@ def XPVI_figures(fig_src3, fig_src4):
              children=[
                  html.Img(id="bar-graph-matplotlib", src=fig_src3, style={"width": "100%", "margin-bottom": "20px"}),
                  html.Img(id="bar-graph-matplotlib2", src=fig_src4, style={"width": "40%", "margin-bottom": "20px"}),
-                 # html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!")
+                 html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", n_clicks=0)
              ]
              , style={"display": "flex", "flexDirection": "column", "alignItems": "center", "width": "100%", "padding": "10px"})
 
