@@ -16,31 +16,33 @@ def clear_upload_folder(folder_path):
 
 def register_callbacks(app):
     clear_upload_folder("event_logs")
-    @app.callback(
-        Output('output-data-upload', 'children'),
-        [Input("upload-data", "isCompleted")],
-        [State("upload-data", "fileNames"), State("upload-data", "upload_id")]
-    )
-    def display_files(isCompleted, filename, uid):
-        if isCompleted:
-            if filename is not None:
-                print(uid)
-                return html.Ul(html.Li("Event log is imported!"))
-        # else:
-        #     return html.Ul(html.Li("No Files Uploaded Yet!"))
+    # @app.callback(
+    #     Output('output-data-upload', 'children'),
+    #     [Input("upload-data", "isCompleted")],
+    #     [State("upload-data", "fileNames"), State("upload-data", "upload_id")]
+    # )
+    # def display_files(isCompleted, filename, uid):
+    #     if isCompleted:
+    #         if filename is not None:
+    #             print(uid)
+    #             return html.Ul(html.Li("Event log is imported!"))
+    #     else:
+    #         return html.Ul(html.Li("No Files Uploaded Yet!"))
 
     @app.callback(
         Output("output-data-upload2", "children"),
-        [Input("output-data-upload", "children")],
+        # [Input("output-data-upload", "children")],
+        [Input("upload-data", "isCompleted")],
         [State("upload-data", "upload_id")],
     )
-    def parameters_PVI(ch,id):
-        folder_path = os.path.join(UPLOAD_FOLDER, id)
-        files = os.listdir(folder_path) if os.path.exists(folder_path) else []
-        file = Path(UPLOAD_FOLDER) / f"{id}" / files[0]
-        print(file)
-        max_par, columns = import_log(file)
-        return parameters_view_PVI(max_par, columns)
+    def parameters_PVI(isCompleted,id):
+        if isCompleted==True:
+            folder_path = os.path.join(UPLOAD_FOLDER, id)
+            files = os.listdir(folder_path) if os.path.exists(folder_path) else []
+            file = Path(UPLOAD_FOLDER) / f"{id}" / files[0]
+            print(file)
+            max_par, columns = import_log(file)
+            return parameters_view_PVI(max_par, columns)
 
     @app.callback(
         Output("output-data-upload3", "children"),
