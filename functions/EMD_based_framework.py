@@ -144,8 +144,6 @@ def segmentation(df,bins,n_bin,w,sen,sig):
 
     ittr = 0
 
-    # order = [labels[ittr].index(i) for i in list_vec[ittr]]
-
     new_m = matrices[ittr]
     for i in range(0, len(matrices[ittr])):
         for j in range(i, len(matrices[ittr][i])):

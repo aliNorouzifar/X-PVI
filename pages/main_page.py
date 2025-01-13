@@ -1,10 +1,20 @@
-
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 import dash_uploader as du
 import dash_daq as daq
+import json
+import pandas as pd
 
-
+def load_variables():
+    try:
+        with open("output_files\internal_variables.json", "r") as json_file:
+            data = json.load(json_file)
+    except FileNotFoundError:
+        return "No data file found."
+    df = pd.read_json(data["df"], orient="split")
+    data["df"] = df
+    # return df, data["masks"], data["map_range"], data["peaks"]
+    return data
 
 def create_layout():
     return dbc.Container(className="page-container",
@@ -182,7 +192,10 @@ def XPVI_figures(fig_src3, fig_src4):
              , style={"display": "flex", "flexDirection": "column", "alignItems": "center", "width": "100%", "padding": "10px"})
 
 
-def decl2NL_parameters(segments_count, clusters_count):
+def decl2NL_parameters():
+    data = load_variables()
+    segments_count = data["segments_count"]
+    clusters_count = data["clusters_count"]
     return html.Div([
             html.Div(className="page-container",
                 children=[
@@ -197,5 +210,7 @@ def decl2NL_parameters(segments_count, clusters_count):
 def statistics_print(list_sorted, list_sorted_reverse):
     return html.Div(className="page-container",
                 children=[
-        html.H4(f"{list_sorted}", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
-        html.H4(f"{list_sorted_reverse}", className='text-left bg-light mb-4', style={'textAlign': 'left'})])
+        html.H4(f"lowest scores:", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
+        html.Ul([html.Li(sentence) for sentence in list_sorted]),
+        html.H4(f"highest scores:", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
+        html.Ul([html.Li(sentence) for sentence in list_sorted_reverse])])

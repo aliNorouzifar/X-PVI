@@ -35,13 +35,11 @@ def register_callbacks(app):
         [State("upload-data", "upload_id")],
     )
     def parameters_PVI(ch,id):
-        # if storage["status"]=="upload_done":
         folder_path = os.path.join(UPLOAD_FOLDER, id)
         files = os.listdir(folder_path) if os.path.exists(folder_path) else []
         file = Path(UPLOAD_FOLDER) / f"{id}" / files[0]
         print(file)
         max_par, columns = import_log(file)
-        # return parameters_view_PVI(max_par, columns), {"status": "parameters_PVI_shown"}
         return parameters_view_PVI(max_par, columns)
 
     @app.callback(
@@ -89,7 +87,7 @@ def register_callbacks(app):
         )
     def X2NL(n):
         if n > 0:
-            return decl2NL_parameters(4,3)
+            return decl2NL_parameters()
 
     @app.callback(
         Output("output-data-upload7", "children"),

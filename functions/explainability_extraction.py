@@ -23,15 +23,27 @@ import json
 linkage_method = 'ward'
 linkage_metric = 'euclidean'
 
-def load_variables():
+def save_variables(segments_count, clusters_count):
+    with open("output_files\internal_variables.json", "r") as json_file:
+        data = json.load(json_file)
 
+    data["segments_count"] = segments_count
+    data["clusters_count"] = clusters_count
+
+    # Save to a JSON file
+    with open("output_files\internal_variables.json", "w") as json_file:
+        json.dump(data, json_file)
+
+def load_variables():
     try:
         with open("output_files\internal_variables.json", "r") as json_file:
             data = json.load(json_file)
     except FileNotFoundError:
         return "No data file found."
     df = pd.read_json(data["df"], orient="split")
-    return df, data["masks"], data["map_range"], data["peaks"]
+    data["df"] = df
+    # return df, data["masks"], data["map_range"], data["peaks"]
+    return data
 
 def export_constraints_per_cluster(constraints, constraints_json_path):
     dict_out = {}
@@ -52,11 +64,8 @@ def export_constraints_per_cluster(constraints, constraints_json_path):
     for key in range(len(dict_out['constraints'])):
         dict_out['constraints'][key]['template'] = dict_out['constraints'][key]['template'].rstrip().lstrip()
 
-        # T$ODO put real numbers for confidence support etc.
         dict_out['constraints'][key]['support'] = 0.99
         dict_out['constraints'][key]['confidence'] = 0.99
-        # dict_out['constraints'][key]['interestFactor'] = 0.99
-
 
         for el in dict_out['constraints'][key]['parameters']:
             el[0] = el[0]
@@ -64,7 +73,7 @@ def export_constraints_per_cluster(constraints, constraints_json_path):
     with open(constraints_json_path, 'w') as fp:
         json.dump(dict_out, fp)
         fp.close()
-    dict_out = None #  clean up
+
 
 def generate_features(w,kpi,n_bin):
     case_table = pd.read_csv("output_files/out.csv").sort_values(by=[kpi])
@@ -117,7 +126,7 @@ def correlation_calc(peaks,w,constraints,clusters_dict):
 
 
 
-    # # Calculate the correlation with each time series in the set
+    #  Calculate the correlation with each time series in the set
 
     corr_mat = []
     for seg in segments_sig.keys():
@@ -218,7 +227,6 @@ def import_minerful_constraints_timeseries_data(minerful_constraints_path,constr
 
     sequences = list()
 
-    # -2 is for the first two columns
     for i in range(len(hea)):
         sequences.append(list())
 
@@ -544,15 +552,12 @@ def constraints_export(clusters_with_declare_names, peaks, w,clusters_dict):
         return description
 
     def stat_extract(value, peaks, w):
-        # print(value)
         new_list = []
         for const in value:
-            # print(const)
             stat_dic = {'constraint type': const[0], 'first parameter': const[1], 'second parameter': const[2],
                         'description': generate_natural_language(const[0:3])}
             c = const[3:]
             seg_num = 1
-            # stat_dic = {}
             for p in range(len(peaks) + 1):
                 if seg_num == 1:
                     stat_dic[f'segment_{seg_num}'] = round(statistics.mean(c[0:(peaks[p] - (w - 1) + 1)]), 2)
@@ -571,15 +576,11 @@ def constraints_export(clusters_with_declare_names, peaks, w,clusters_dict):
             new_list.append(stat_dic)
         return new_list
 
-    # stat_dic = stat_extract(d[3][0][3:], peaks,w)
-    # print(stat_dic)
-
-    # const = clusters_with_declare_names[1]
 
     data_str_keys = {str(key): stat_extract(value, peaks, w) for key, value in clusters_dict.items()}
     # Write the dictionary to a JSON file
     with open(file_path+"data1.json", 'w') as file:
-        json.dump(data_str_keys, file, indent=4)  # `indent=4` for pretty printing
+        json.dump(data_str_keys, file, indent=4)
 
     for cl in clusters_with_declare_names.keys():
         export_constraints_per_cluster(clusters_with_declare_names[cl], file_path + f'constraints_{cl}.json')
@@ -794,16 +795,15 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
         cbar=True,
         vmin=-1,
         vmax=1,
-        linewidths=0.5,  # Width of the lines separating the cells
-        linecolor='gray'  # Color of the grid lines
+        linewidths=0.5,
+        linecolor='gray'
     )
 
-    # Swap x and y axis ticks and labels
     ax3.set_xticks(0.5 + np.arange(0, len(peaks) + 1))
-    ax3.set_xticklabels(x_labels)  # x_labels now on x-axis (was y-axis)
+    ax3.set_xticklabels(x_labels)
 
     ax3.set_yticks(0.5 + np.arange(0, len(cluster_bounds)))
-    ax3.set_yticklabels(y_labels[::-1])  # y_labels now on y-axis (was x-axis)
+    ax3.set_yticklabels(y_labels[::-1])
 
     # Rotate the y-axis tick labels instead of x-axis
     ax3.tick_params(axis='y', rotation=0, labelsize=16)
@@ -815,18 +815,13 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     cbar3.ax.tick_params(labelsize=16)
     cbar3.set_label('correlation', fontsize=18)
 
-
     buf = BytesIO()
     fig3.savefig(buf, format="png", bbox_inches='tight')
-    # Embed the result in the html output.
     fig_data3 = base64.b64encode(buf.getbuffer()).decode("ascii")
 
     buf = BytesIO()
     fig4.savefig(buf, format="png", bbox_inches='tight')
-    # Embed the result in the html output.
     fig_data4 = base64.b64encode(buf.getbuffer()).decode("ascii")
-
-
 
     return f'data:image/png;base64,{fig_data3}', f'data:image/png;base64,{fig_data4}'
 
@@ -864,9 +859,9 @@ def report(data, cluster, segment):
         list_sorted_reverse = sorted(list, key=lambda x: x[1], reverse=True)[0:]
         k = 1
         for x in list_sorted_reverse:
-            print(f'rank {k}: {x[0]}, with score {x[1]}')
+            print(f'rank {k+1}: {x[0]}, with score {x[1]}')
             k += 1
-        return list_sorted, list_sorted_reverse
+        return [f'rank {k+1}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted)], [f'rank {k}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted_reverse)]
 def decl2NL(cluster, segment):
     file_path = r"output_files\data1.json"
     with open(file_path, 'r') as file:
@@ -889,7 +884,12 @@ def apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS):
                                                                                                         linkage_method,
                                                                                                         linkage_metric,
                                                                                                         n_clusters)
-    df, masks, map_range, peaks = load_variables()
+    data = load_variables()
+    df = data["df"]
+    masks = data["masks"]
+    map_range = data["map_range"]
+    peaks = data["peaks"]
+    save_variables(len(peaks)+1, len(clusters_with_declare_names.keys()))
     # PELT_change_points(order_cluster, clusters_dict)
 
     constraints_export(clusters_with_declare_names, peaks, w, clusters_dict)
