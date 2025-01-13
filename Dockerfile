@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jre-slim as java-base
 
 FROM python:3.10
 
