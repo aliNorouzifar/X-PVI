@@ -1,34 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Styled Dash Page</title>
-    <style>
-        body {
-    font-family: 'Arial', sans-serif;
+/* General Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
     color: #333;
+    line-height: 1.6;
 }
 
-/* Navigation Links */
+/* Navigation Links Styling */
 .nav-links {
     background-color: #343a40;
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav-links a {
     color: #ffffff;
     text-decoration: none;
     font-size: 16px;
-    margin: 0 15px;
-    padding: 10px 20px;
+    margin: 0 10px;
+    padding: 10px 25px;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -36,22 +32,23 @@
     color: #ffffff;
 }
 
-/* Headers */
+/* Header Styling */
 .header {
     text-align: center;
-    font-size: 32px;
+    font-size: 36px;
     color: #007bff;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     font-weight: bold;
 }
 
+/* Subheadings */
 .text-left {
-    font-size: 18px;
-    color: #333;
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 15px;
 }
 
-/* Upload Section */
+/* Upload Section Styling */
 #left-section {
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -63,8 +60,12 @@
 
 #output-data-upload,
 #output-data-upload2 {
-    margin: 20px 0;
+    margin: 15px 0;
     text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
 /* Graph Styling */
@@ -74,22 +75,32 @@ img {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Inputs Styling */
+/* Input Fields */
 input,
 select,
 button {
     font-size: 16px;
     margin: 10px 0;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 100%;
+    transition: box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus,
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #007bff;
+    border-color: #007bff;
 }
 
 button {
     background-color: #007bff;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -114,4 +125,33 @@ button:hover {
     width: 100%;
     margin-bottom: 20px;
 }
-</html>
+
+/* Left and Right Panel Styling */
+html,
+body {
+    height: 100%;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.flex-container > div {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#left-panel {
+    flex: 30%;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+}
+
+#right-panel {
+    flex: 70%;
+    background-color: #ffffff;
+}
+
+
