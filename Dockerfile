@@ -1,7 +1,11 @@
 
 FROM python:3.10
 
-RUN apt-get update && apt-get install -y openjdk-11-jre
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    openjdk-11-jre && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
