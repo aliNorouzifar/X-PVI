@@ -7,6 +7,7 @@ pm4py==2.7.10.3
 numpy==1.26.4
 pandas==2.2.3
 ruptures==1.1.9
-scikit_learn==1.5.2
+scikit_learn==1.6.0
 scipy==1.14.1
-seaborn==0.11.0
+seaborn==0.13.2
+pyemd==1.0.0

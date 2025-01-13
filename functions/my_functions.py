@@ -17,7 +17,7 @@ def import_log(address):
     event_table.to_csv('output_files/out_event.csv', index=False)
 
 
-    return len(case_table),case_table.columns
+    return len(case_table),case_table.select_dtypes(include=['number']).columns
 
 def filter_ids(log,list):
     filtered_log = EventLog([trace for trace in log if trace.attributes['concept:name'] in list])
@@ -54,7 +54,8 @@ def log_to_tables(log, parameters):
     non_attributes = {'row_num'}
     event_attributes = set(df.columns) - case_attributes - non_attributes
     event_table = df[list(event_attributes)]
-    event_table[timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
+    # event_table[timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
+    event_table.loc[:, timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
     if 'EventOrder' in event_table.columns:
         event_table = event_table.sort_values([timestamp_name, 'EventOrder'], ascending=[True, True])
     else:

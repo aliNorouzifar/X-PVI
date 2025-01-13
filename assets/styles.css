@@ -1,0 +1,315 @@
+/* General Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: #343a40;
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Tool Name Section */
+.tool-name-container {
+    text-align: center;
+    background: linear-gradient(135deg, #007bff, #6610f2);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+}
+
+.tool-name {
+    font-size: 42px;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.tool-subtitle {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #e0e0e0;
+}
+
+/* Flex Layout */
+.flex-container {
+    display: flex;
+    height: 100vh;
+}
+
+.flex-container > div {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#left-panel {
+    flex: 30%;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+}
+
+#right-panel {
+    flex: 70%;
+    padding: 20px;
+}
+
+/* Parameter and Visualization Blocks */
+.parameter-container,
+.visualization-block {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.visualization-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Panel Title */
+.panel-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 18px;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Input Fields and Buttons */
+input,
+select,
+button {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    transition: box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus,
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #007bff;
+    border-color: #007bff;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Upload Wrapper */
+.upload-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for Parameter Names */
+.parameter-title {
+    font-size: 14px;
+    font-weight: normal;
+    color: #555;
+    margin-bottom: 8px;
+    border-left: 3px solid #007bff;
+    padding-left: 8px;
+}
+
+/* Consistent Margin for Parameters Wrapper */
+.parameters-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.parameter-name {
+    font-size: 14px; /* Smaller, readable font size */
+    font-weight: normal; /* No bold text */
+    color: #555; /* Neutral gray color */
+    margin-bottom: 10px; /* Space below the parameter name */
+    padding: 5px 10px; /* Padding around the text */
+    background-color: #f8f9fa; /* Subtle background color */
+    border-left: 4px solid #007bff; /* Blue accent on the left */
+    border-radius: 5px; /* Rounded corners for smooth look */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle inner shadow for depth */
+    display: block; /* Ensures full-width block display */
+    text-align: left; /* Aligns the text to the left */
+}
+
+/* Graph Styling */
+img {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+}
+
+.figure {
+    display: block; /* Ensures the figure is treated as a block element */
+    margin: 20px auto; /* Centers the figure with spacing above and below */
+    max-width: 100%; /* Ensures the figure fits within the container */
+    height: auto; /* Maintains the aspect ratio */
+    border: 1px solid #ddd; /* Subtle border for separation */
+    border-radius: 8px; /* Rounded corners for a polished look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #ffffff; /* Optional background for the figure */
+    padding: 10px; /* Space around the content */
+}
+
+/* Customizable Width Classes */
+.figure-small {
+    width: 40%; /* Small-sized figure */
+}
+
+.figure-medium {
+    width: 70%; /* Medium-sized figure */
+}
+
+.figure-large {
+    width: 100%; /* Full-width figure */
+}
+
+
+/* Background and Context Section */
+.context-section {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+
+
+.feature-list {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.feature-list li {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.content {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Consistent Styling for Call-to-Action Button */
+.cta-button {
+    background-color: #4CAF50;
+    color: #ffffff;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #45a049;
+}
+
+.cta-link {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.cta-link:hover {
+    background-color: #45a049;
+}
+
+/* Links Section */
+.links-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link-item {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.link-item:hover {
+    background-color: #0056b3;
+}
