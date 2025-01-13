@@ -33,7 +33,7 @@ Traditional process mining techniques often focus on a single event log, limitin
 ---
 
 ## **Prerequisites**
-- **Python 3.8+**
+- **Python 3.10**
 - **Dependencies**: Listed in `requirements.txt` (if not using Docker)
 
 ---
