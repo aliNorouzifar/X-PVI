@@ -6,8 +6,21 @@ from callbacks import register_callbacks
 import pages.start_page as start_page
 import pages.about_me as about_me
 import pages.main_page as main_page
+import os
 
 UPLOAD_FOLDER = "event_logs"
+# List of directories to check/create
+directories = ["event_logs", "output_files"]
+
+for directory in directories:
+    # Check if directory exists
+    if not os.path.exists(directory):
+        # Create the directory (and any necessary parent directories)
+        os.makedirs(directory)
+        print(f"Created directory: {directory}")
+    else:
+        print(f"Directory already exists: {directory}")
+
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP,"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"])
 app.title = "Process Variant Identification"
 app.config.suppress_callback_exceptions = True
