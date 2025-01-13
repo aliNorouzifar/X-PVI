@@ -1,7 +1,6 @@
+FROM openjdk:11-jre-slim
 
 FROM python:3.10
-
-FROM openjdk:11-jre-slim
 
 WORKDIR /app
 
