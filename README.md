@@ -41,12 +41,9 @@ Traditional process mining techniques often focus on a single event log, limitin
 ## **Installation**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo-link.git
+   git clone https://github.com/aliNorouzifar/X-PVI
    ```
-2. Navigate to the project directory:
-   ```bash
-   cd process-variant-identification
-   ```
+2. Navigate to the project directory
 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
@@ -61,7 +58,7 @@ Traditional process mining techniques often focus on a single event log, limitin
    ```
 2. Open your web browser and navigate to:
    ```
-   http://127.0.0.1:8050/
+   http://127.0.0.1:8002/
    ```
 3. Use the provided navigation links to explore the tool:
    - Upload an event log for analysis.
@@ -74,17 +71,17 @@ If you prefer to run the tool without installing dependencies, you can use the p
 
 1. Pull the Docker image from the GitHub Container Registry:
    ```bash
-   docker pull ghcr.io/your-username/process-variant-identification:latest
+   docker pull ghcr.io/alinorouzifar/x-pvi:latest
    ```
 
 2. Run the Docker container:
    ```bash
-   docker run -p 8050:8050 ghcr.io/your-username/process-variant-identification:latest
+   docker run -p 8002:8002 ghcr.io/alinorouzifar/x-pvi:latest
    ```
 
 3. Open your web browser and navigate to:
    ```
-   http://127.0.0.1:8050/
+   http://127.0.0.1:8002/
    ```
 
 The tool will now be accessible without the need to install Python or dependencies on your system.
@@ -102,9 +99,5 @@ This file allows you to explore the tool's features and functionality.
 ## **Contact**
 For questions, feedback, or collaborations, feel free to reach out:
 
-- 📧 **Email**: [your-email@example.com](mailto:your-email@example.com)
-- 💼 **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/your-profile)
-- 🐱 **GitHub**: [GitHub Profile](https://github.com/your-github)
-- 🎓 **Google Scholar**: [Scholar Profile](https://scholar.google.com/citations?user=your-id)
-- 🔗 **PADS Page**: [PADS Profile](https://pads-page-link)
-
+- 📧 **Email**: [ali.norouzifar@pads.rwth-aachen.de](mailto:ali.norouzifar@pads.rwth-aachen.de)
+- 💼 **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/ali-norouzifar/)
