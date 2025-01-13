@@ -8,8 +8,7 @@ import pages.about_me as about_me
 import pages.main_page as main_page
 
 UPLOAD_FOLDER = "event_logs"
-
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP,"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"])
 app.title = "Process Variant Identification"
 app.config.suppress_callback_exceptions = True
 
