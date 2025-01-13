@@ -12,7 +12,6 @@ import os
 import itertools
 import pm4py
 import json
-import plotly.graph_objects as go
 
 
 # # Constants
@@ -220,11 +219,6 @@ def export_logs(segments_ids, case_table, export_enabled):
                                              timestamp_key="timestamp")
         event_log = pm4py.convert_to_event_log(segment_log)
         pm4py.write_xes(event_log, f"event_logs/exported_logs/segment_{idx}.xes")
-
-
-
-
-
 
 
 

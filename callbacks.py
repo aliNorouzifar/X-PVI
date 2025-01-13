@@ -16,18 +16,7 @@ def clear_upload_folder(folder_path):
 
 def register_callbacks(app):
     clear_upload_folder("event_logs")
-    # @app.callback(
-    #     Output('output-data-upload', 'children'),
-    #     [Input("upload-data", "isCompleted")],
-    #     [State("upload-data", "fileNames"), State("upload-data", "upload_id")]
-    # )
-    # def display_files(isCompleted, filename, uid):
-    #     if isCompleted:
-    #         if filename is not None:
-    #             print(uid)
-    #             return html.Ul(html.Li("Event log is imported!"))
-    #     else:
-    #         return html.Ul(html.Li("No Files Uploaded Yet!"))
+    clear_upload_folder("output_files")
 
     @app.callback(
         Output("output-data-upload2", "children"),
