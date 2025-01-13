@@ -10,7 +10,7 @@ import pandas as pd
 import pm4py
 import shutil
 import os
-from functions.minerful_calls import mine_minerful_for_declare_constraints
+from functions.minerful_calls import mine_minerful_for_declare_constraints, prune_constraints_minerful
 import ruptures as rpt
 import csv
 from sklearn.metrics import mean_squared_error
@@ -33,7 +33,38 @@ def load_variables():
     df = pd.read_json(data["df"], orient="split")
     return df, data["masks"], data["map_range"], data["peaks"]
 
+def export_constraints_per_cluster(constraints, constraints_json_path):
+    dict_out = {}
+    dict_out["constraints"] = []
 
+    for constraint in constraints:
+        temp_dict = {}
+        temp_dict["template"] = constraint[0]
+        temp_dict['parameters'] = []
+        for par in constraint[1:3]:
+        # for par in constraint[1:]:
+            if par != '':
+                # print(par.lstrip())
+                temp_dict['parameters'].append([par.lstrip()])
+
+        dict_out["constraints"].append(temp_dict)
+
+    for key in range(len(dict_out['constraints'])):
+        dict_out['constraints'][key]['template'] = dict_out['constraints'][key]['template'].rstrip().lstrip()
+
+        # T$ODO put real numbers for confidence support etc.
+        dict_out['constraints'][key]['support'] = 0.99
+        dict_out['constraints'][key]['confidence'] = 0.99
+        # dict_out['constraints'][key]['interestFactor'] = 0.99
+
+
+        for el in dict_out['constraints'][key]['parameters']:
+            el[0] = el[0]
+
+    with open(constraints_json_path, 'w') as fp:
+        json.dump(dict_out, fp)
+        fp.close()
+    dict_out = None #  clean up
 
 def generate_features(w,kpi,n_bin):
     case_table = pd.read_csv("output_files/out.csv").sort_values(by=[kpi])
@@ -314,12 +345,6 @@ def prune_signals(theta_cvg):
 
     data_uncut = data
 
-
-
-    # Suppose `signals` is a list of lists or arrays, each with 100 samples
-    # Example: signals = [[...100 samples...], [...100 samples...], ...]
-
-
     ddd = group_signals_by_type_activity(data_uncut)
     subset_relations = [('RespondedExistence', 'Response'),
                         ('Response', 'AlternateResponse'),
@@ -423,21 +448,12 @@ def remove_subsets(letters, subset_relations, graph):
 
 def clustering(pruned_list, linkage_method, linkage_metric, best_n_clusters):
 
-
-    # delete headers
     data_cut = []
     for data_point in pruned_list:
         data_cut.append(data_point[3:])
 
     '''build the clustering method'''
     Z = linkage(data_cut, method=linkage_method, metric=linkage_metric)  # metric='correlation'
-
-    # plt.figure(figsize=(10, 7))
-    # dendrogram(Z)
-    # plt.title('Hierarchical Clustering Dendrogram')
-    # plt.xlabel('Sample index')
-    # plt.ylabel('Distance (linkage)')
-    # plt.show()
 
 
     a = fcluster(Z, best_n_clusters, 'maxclust')
@@ -477,7 +493,7 @@ def clustering(pruned_list, linkage_method, linkage_metric, best_n_clusters):
 
     return order_cluster, clusters_with_declare_names, cluster_bounds, clusters_dict, constraints
 def constraints_export(clusters_with_declare_names, peaks, w,clusters_dict):
-    file_path = r"output_files/data1.json"
+    file_path = r"output_files/"
 
     import statistics
     def generate_natural_language(constraint):
@@ -558,12 +574,18 @@ def constraints_export(clusters_with_declare_names, peaks, w,clusters_dict):
     # stat_dic = stat_extract(d[3][0][3:], peaks,w)
     # print(stat_dic)
 
-    const = clusters_with_declare_names[1]
+    # const = clusters_with_declare_names[1]
 
     data_str_keys = {str(key): stat_extract(value, peaks, w) for key, value in clusters_dict.items()}
     # Write the dictionary to a JSON file
-    with open(file_path, 'w') as file:
+    with open(file_path+"data1.json", 'w') as file:
         json.dump(data_str_keys, file, indent=4)  # `indent=4` for pretty printing
+
+    for cl in clusters_with_declare_names.keys():
+        export_constraints_per_cluster(clusters_with_declare_names[cl], file_path + f'constraints_{cl}.json')
+        prune_constraints_minerful(file_path + f'constraints_{cl}.json', file_path + f'constraints_{cl}_pruned.csv')
+
+
 
     print(f"Dictionary successfully saved to {file_path}")
 
@@ -809,6 +831,50 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     return f'data:image/png;base64,{fig_data3}', f'data:image/png;base64,{fig_data4}'
 
 
+def report(data, cluster, segment):
+    if f'segment_{segment}' not in data[str(cluster)][0].keys():
+        print('segment does not exist')
+    else:
+        fp = f"output_files\constraints_{cluster}_pruned.csv"
+        df = pd.read_csv(fp, sep=";")
+        df = df.applymap(lambda x: x.strip("'\"") if isinstance(x, str) else x)
+        df.columns = df.columns.str.strip("'\"")
+        df.set_index('Constraint', inplace=True)
+        list = []
+        for d in data[str(cluster)]:
+            if d['second parameter'] == '':
+                const = f"{d['constraint type']}({d['first parameter']})"
+                # print(const)
+                if df.loc[f'{const}', 'Redudant'] == False:
+                    list.append((d['description'], round(d[f'segment_{segment}'] - d[f'~segment_{segment}'], 2)))
+
+            else:
+                const = f"{d['constraint type']}({d['first parameter']},{d['second parameter']})"
+                if df.loc[f'{const}', 'Redudant'] == False:
+                    list.append((d['description'], round(d[f'segment_{segment}'] - d[f'~segment_{segment}'], 2)))
+                    # list = [(x['description'], round(x[f'segment_{segment}']-x[f'~segment_{segment}'],2)) for x in  data[str(cluster)]]
+        print('lowest scores:')
+        list_sorted = sorted(list, key=lambda x: x[1], reverse=False)[0:]
+        j = 1
+        for x in list_sorted:
+            print(f'rank {j}: {x[0]}, with score {x[1]}')
+            j += 1
+        print('-----------------------------------------------------------------------')
+        print('highest scores:')
+        list_sorted_reverse = sorted(list, key=lambda x: x[1], reverse=True)[0:]
+        k = 1
+        for x in list_sorted_reverse:
+            print(f'rank {k}: {x[0]}, with score {x[1]}')
+            k += 1
+        return list_sorted, list_sorted_reverse
+def decl2NL(cluster, segment):
+    file_path = r"output_files\data1.json"
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    list_sorted, list_sorted_reverse = report(data, cluster, segment)
+    return list_sorted, list_sorted_reverse
+
+
 def apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS):
     """Main function to apply the analysis."""
     if w not in WINDOWS:
@@ -825,11 +891,11 @@ def apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS):
                                                                                                         n_clusters)
     df, masks, map_range, peaks = load_variables()
     # PELT_change_points(order_cluster, clusters_dict)
+
     constraints_export(clusters_with_declare_names, peaks, w, clusters_dict)
     corr_mat = correlation_calc(peaks, w, constraints, clusters_dict)
     fig3_path, fig4_path = plot_figures(df, masks, n_bin, map_range, peaks,
                                                               constraints, w, cluster_bounds,
                                                               clusters_with_declare_names, data_color, corr_mat,
                                                               WINDOWS)
-
     return fig3_path, fig4_path

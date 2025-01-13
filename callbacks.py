@@ -2,8 +2,8 @@ from dash import Input, Output, State, html
 from pathlib import Path
 from functions.my_functions import import_log
 from functions.EMD_based_framework import apply as PVI_apply
-from functions.explainability_extraction import apply as XPVI_apply
-from pages.main_page import parameters_view_PVI, parameters_view_explainability, PVI_figures, XPVI_figures
+from functions.explainability_extraction import apply as XPVI_apply, decl2NL
+from pages.main_page import parameters_view_PVI, parameters_view_explainability, PVI_figures, XPVI_figures, decl2NL_parameters, statistics_print
 import os
 import shutil
 
@@ -85,13 +85,19 @@ def register_callbacks(app):
 
     @app.callback(
         Output("output-data-upload6", "children"),
-        Input("X_parameters", "n_clicks"),
-        # State("my-numeric-input-1", "value"),
-        # State("my-numeric-input-2", "value"),
-        # State("my-numeric-input-3", "value"),
-        # State("my-numeric-input-4", "value"),
-        # State("xaxis-data", "value")
+        Input("decl2NL_framework", "n_clicks"),
         )
     def X2NL(n):
         if n > 0:
-            return print("Hi")
+            return decl2NL_parameters(4,3)
+
+    @app.callback(
+        Output("output-data-upload7", "children"),
+        Input("decl2NL_pars", "n_clicks"),
+        State("cluster_number", "value"),
+        State("segment_number", "value")
+    )
+    def X2NL_calc(n,cluster, segment):
+        if n > 0:
+            list_sorted, list_sorted_reverse = decl2NL(cluster, segment)
+            return statistics_print(list_sorted, list_sorted_reverse)

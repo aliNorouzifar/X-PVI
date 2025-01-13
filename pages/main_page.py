@@ -35,28 +35,7 @@ def create_layout():
             html.Div(id='output-data-upload4'),
             html.Div(id='output-data-upload5'),
             html.Div(id='output-data-upload6'),
-            # dbc.Row([
-            #     dbc.Col([
-            #         html.Img(id='bar-graph-matplotlib')
-            #     ], width={'size': 5, 'offset': 1}),
-            # ]),
-            # dbc.Row([
-            #     dbc.Col([
-            #         html.Img(id='bar-graph-matplotlib2')
-            #     ], width={'size': 5, 'offset': 1})
-            # ]),
-            # dbc.Row([
-            #     dbc.Col([
-            #         html.Img(id='bar-graph-matplotlib3')
-            #     ], width={'size': 5, 'offset': 1})
-            # ]),
-            # dbc.Row([
-            #     dbc.Col([
-            #         html.Img(id='bar-graph-matplotlib4')
-            #     ], width={'size': 6, 'offset': 3})
-            # ]),
-
-        # ])
+            html.Div(id='output-data-upload7'),
     ])
 
 def get_upload_component(id):
@@ -139,15 +118,6 @@ def parameters_view_PVI(max_par, columns):
                 ],
                 style={"width": "100%", "padding": "10px"}
             ),
-            # Bottom Section: Outputs
-            # html.Div(className="page-container",
-            #     id="bottom-section",
-            #     children=[
-            #         html.Img(id="bar-graph-matplotlib", style={"width": "100%", "margin-bottom": "20px"}),  # First graph
-            #         html.Img(id="bar-graph-matplotlib2", style={"width": "40%", "margin-bottom": "20px"}),  # Second graph
-            #     ],
-            #     style={"width": "100%", "padding": "10px"}
-            # )
         ],
             style={"display": "flex", "flexDirection": "column", "alignItems": "center"}
         )
@@ -207,10 +177,25 @@ def XPVI_figures(fig_src3, fig_src4):
              children=[
                  html.Img(id="bar-graph-matplotlib", src=fig_src3, style={"width": "100%", "margin-bottom": "20px"}),
                  html.Img(id="bar-graph-matplotlib2", src=fig_src4, style={"width": "40%", "margin-bottom": "20px"}),
-                 html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", n_clicks=0)
+                 html.Button(id="decl2NL_framework", children="Convert Declare to Natural Language!", n_clicks=0)
              ]
              , style={"display": "flex", "flexDirection": "column", "alignItems": "center", "width": "100%", "padding": "10px"})
 
 
+def decl2NL_parameters(segments_count, clusters_count):
+    return html.Div([
+            html.Div(className="page-container",
+                children=[
+    html.H4("Which segment?", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
+    dcc.Dropdown(id='segment_number', options=[{'label': x, 'value': x} for x in range(1,segments_count+1)]),
+    html.H4("Which cluster?", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
+    dcc.Dropdown(id='cluster_number', options=[{'label': x, 'value': x} for x in range(1,clusters_count+1)]),
+    html.Button(id="decl2NL_pars", children="Show decl2NL parameters!", n_clicks=0)
+                ])
+    ])
 
-
+def statistics_print(list_sorted, list_sorted_reverse):
+    return html.Div(className="page-container",
+                children=[
+        html.H4(f"{list_sorted}", className='text-left bg-light mb-4', style={'textAlign': 'left'}),
+        html.H4(f"{list_sorted_reverse}", className='text-left bg-light mb-4', style={'textAlign': 'left'})])
