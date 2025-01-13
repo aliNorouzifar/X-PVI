@@ -12,6 +12,7 @@ import os
 import itertools
 import pm4py
 import json
+import plotly.graph_objects as go
 
 
 # # Constants
@@ -154,7 +155,7 @@ def segmentation(df,bins,n_bin,w,sen,sig):
     return segments, segments_ids, new_m, peaks
 
 
-
+# We will make the visualization in Plotly later, to allow for intractive visualization
 def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS):
     every = 2
 
@@ -201,8 +202,8 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS):
     # Embed the result in the html output.
     fig_data2 = base64.b64encode(buf.getbuffer()).decode("ascii")
     return f'data:image/png;base64,{fig_data1}', f'data:image/png;base64,{fig_data2}'
-
-
+#
+#
 def export_logs(segments_ids, case_table, export_enabled):
     """Export logs for each segment."""
     if not export_enabled:

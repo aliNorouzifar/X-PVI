@@ -137,6 +137,7 @@ def parameters_view_PVI(max_par, columns):
                     # html.Hr(),
                     html.H4("process indicator:", className="parameter-name"),
                     dcc.Dropdown(id='xaxis-data', options=[{'label': x, 'value': x} for x in columns]),
+                    html.Hr(),
                     html.H4("N. buckets:", className="parameter-name"),
                     html.Div([
                         daq.NumericInput(
@@ -147,6 +148,7 @@ def parameters_view_PVI(max_par, columns):
                         ),
                         html.Div(id='numeric-input-output-1')
                     ]),
+                    html.Hr(),
                     html.H4("Window size:", className="parameter-name"),
                     html.Div([
                         daq.NumericInput(
@@ -157,6 +159,7 @@ def parameters_view_PVI(max_par, columns):
                         ),
                         html.Div(id='numeric-input-output-2')
                     ]),
+                    html.Hr(),
                     html.H4("significant distance:", className="parameter-name"),
                     html.Div([
                         daq.Knob(
@@ -171,7 +174,8 @@ def parameters_view_PVI(max_par, columns):
                         ),
                         html.Div(id='slider-output-container3')
                     ]),
-                    html.H4("Faster (not accurate)?", className='text-left bg-light mb-4'),
+                    html.Hr(),
+                    html.H4("Faster (not accurate)?", className="parameter-name"),
                     dcc.RadioItems(
                         id='TF',
                         options=[
@@ -181,6 +185,7 @@ def parameters_view_PVI(max_par, columns):
                         value=False,
                         inline=True
     ),
+                    html.Hr(),
                     html.H4("Export the segments?", className="parameter-name"),
                     dcc.RadioItems(
                         id='TF2',
@@ -191,6 +196,7 @@ def parameters_view_PVI(max_par, columns):
                         value=False,
                         inline=True
                     ),
+                    html.Hr(),
                     html.Button(id="run_PVI", children="Run PVI", className="btn-primary", n_clicks=0),
                     # html.Hr(),
                 ]
@@ -220,6 +226,7 @@ def parameters_view_explainability():
                         ),
                         html.Div(id='numeric-input-output-3')
                     ]),
+                    html.Hr(),
                     html.H4("Number of Clusters?", className="parameter-name"),
                     html.Div([
                         daq.NumericInput(
@@ -230,6 +237,7 @@ def parameters_view_explainability():
                         ),
                         html.Div(id='numeric-input-output-4')
                     ]),
+                    html.Hr(),
                     html.Button(id="XPVI_run", children="XPVI Run", className="btn-primary", n_clicks=0)
                 ]
             )
@@ -250,8 +258,10 @@ def decl2NL_parameters():
                 ),
                 html.H4("Which segment?", className="parameter-name"),
                 dcc.Dropdown(id='segment_number', options=[{'label': x, 'value': x} for x in range(1, segments_count + 1)]),
+                html.Hr(),
                 html.H4("Which cluster?", className="parameter-name"),
                 dcc.Dropdown(id='cluster_number', options=[{'label': x, 'value': x} for x in range(1, clusters_count + 1)]),
+                html.Hr(),
                 html.Button(id="decl2NL_pars", children="Show decl2NL parameters!", className="btn-primary", n_clicks=0)
             ]
         )
@@ -267,8 +277,8 @@ def PVI_figures(fig_src1, fig_src2):
                 className="section-header",
                 children=html.H4("Process Variant Identification Visualizations", className="section-title"),
             ),
-            html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure", style={"width": "100%", "height": "auto"}),
-            html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure small-figure", style={"width": "40%", "height": "auto"}),
+            html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure figure-large"),
+            html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure figure-small"),
             html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", className="btn-secondary", n_clicks=0)
         ]
     )
@@ -283,8 +293,8 @@ def XPVI_figures(fig_src3, fig_src4):
                 className="section-header",
                 children=html.H4("Explainability Extraction Visualizations", className="section-title"),
             ),
-            html.Img(id="bar-graph-matplotlib", src=fig_src3, className="figure", style={"width": "100%", "height": "auto"}),
-            html.Img(id="bar-graph-matplotlib2", src=fig_src4, className="figure small-figure", style={"width": "100%", "height": "auto"}),
+            html.Img(id="bar-graph-matplotlib3", src=fig_src3, className="figure figure-large"),
+            html.Img(id="bar-graph-matplotlib4", src=fig_src4, className="figure figure-medium"),
             html.Button(id="decl2NL_framework", children="Convert Declare to Natural Language!", className="btn-secondary", n_clicks=0)
         ]
     )

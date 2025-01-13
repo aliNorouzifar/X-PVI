@@ -19,6 +19,7 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.cluster.hierarchy import fcluster
 from scipy.spatial import KDTree
 import json
+import plotly.graph_objects as go
 
 linkage_method = 'ward'
 linkage_metric = 'euclidean'
@@ -625,7 +626,7 @@ def PELT_change_points(order_cluster,clusters_dict):
 
     return x_lines
 
-
+# We will make the visualization in Plotly later, to allow for intractive visualization
 def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bounds,clusters_with_declare_names, data_color, corr_mat,WINDOWS):
     every = 2
     color_theme_drift_map = 'Blues'
@@ -824,6 +825,7 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     fig_data4 = base64.b64encode(buf.getbuffer()).decode("ascii")
 
     return f'data:image/png;base64,{fig_data3}', f'data:image/png;base64,{fig_data4}'
+
 
 
 def report(data, cluster, segment):

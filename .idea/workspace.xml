@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1350b71-c636-4aad-aa00-6f39344a6d92" name="Changes" comment="seprating parameters callback  from uploading callback">
-      <change afterPath="$PROJECT_DIR$/functions/explainability_extraction.py" afterDir="false" />
+    <list default="true" id="e1350b71-c636-4aad-aa00-6f39344a6d92" name="Changes" comment="style improvements">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/callbacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/callbacks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/event_logs/temp_log/test.xes" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/event_logs/test.xes" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/EMD_based_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/EMD_based_framework.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/design.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/my_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/my_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/explainability_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/explainability_extraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/about_me.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/about_me.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/main_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/start_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/start_page.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +261,63 @@
       <option name="project" value="LOCAL" />
       <updated>1736424773970</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="General improvements (process variant identification sepreated from explainability)">
+      <created>1736523695348</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1736523695348</updated>
+    </task>
+    <task id="LOCAL-00026" summary="cleaning the code">
+      <created>1736523838006</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1736523838006</updated>
+    </task>
+    <task id="LOCAL-00027" summary="cleaning the code">
+      <created>1736523854044</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1736523854044</updated>
+    </task>
+    <task id="LOCAL-00028" summary="chain enabling of next component senstive to clicks">
+      <created>1736756468216</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1736756468216</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Declare to Natural Language Conversion">
+      <created>1736763097089</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1736763097089</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Declare to Natural Language Conversion">
+      <created>1736765154979</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1736765154979</updated>
+    </task>
+    <task id="LOCAL-00031" summary="style improvements">
+      <created>1736770003738</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1736770003738</updated>
+    </task>
+    <task id="LOCAL-00032" summary="style improvements">
+      <created>1736776836946</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1736776836946</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -290,25 +345,25 @@
     <MESSAGE value="show only numerical columns" />
     <MESSAGE value="add the selected window size to default ones" />
     <MESSAGE value="seprating parameters callback  from uploading callback" />
-    <option name="LAST_COMMIT_MESSAGE" value="seprating parameters callback  from uploading callback" />
+    <MESSAGE value="General improvements (process variant identification sepreated from explainability)" />
+    <MESSAGE value="cleaning the code" />
+    <MESSAGE value="chain enabling of next component senstive to clicks" />
+    <MESSAGE value="Declare to Natural Language Conversion" />
+    <MESSAGE value="style improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="style improvements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/callbacks.py</url>
-          <line>43</line>
-          <option name="timeStamp" value="59" />
+          <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
+          <line>849</line>
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>731</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/EMD_based_framework.py</url>
-          <line>160</line>
-          <option name="timeStamp" value="64" />
+          <line>888</line>
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

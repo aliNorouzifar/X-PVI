@@ -174,6 +174,20 @@ button:hover {
     gap: 20px;
 }
 
+.parameter-name {
+    font-size: 14px; /* Smaller, readable font size */
+    font-weight: normal; /* No bold text */
+    color: #555; /* Neutral gray color */
+    margin-bottom: 10px; /* Space below the parameter name */
+    padding: 5px 10px; /* Padding around the text */
+    background-color: #f8f9fa; /* Subtle background color */
+    border-left: 4px solid #007bff; /* Blue accent on the left */
+    border-radius: 5px; /* Rounded corners for smooth look */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle inner shadow for depth */
+    display: block; /* Ensures full-width block display */
+    text-align: left; /* Aligns the text to the left */
+}
+
 /* Graph Styling */
 img {
     border: 1px solid #ddd;
@@ -181,4 +195,29 @@ img {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     height: auto;
+}
+
+.figure {
+    display: block; /* Ensures the figure is treated as a block element */
+    margin: 20px auto; /* Centers the figure with spacing above and below */
+    max-width: 100%; /* Ensures the figure fits within the container */
+    height: auto; /* Maintains the aspect ratio */
+    border: 1px solid #ddd; /* Subtle border for separation */
+    border-radius: 8px; /* Rounded corners for a polished look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #ffffff; /* Optional background for the figure */
+    padding: 10px; /* Space around the content */
+}
+
+/* Customizable Width Classes */
+.figure-small {
+    width: 40%; /* Small-sized figure */
+}
+
+.figure-medium {
+    width: 70%; /* Medium-sized figure */
+}
+
+.figure-large {
+    width: 100%; /* Full-width figure */
 }
