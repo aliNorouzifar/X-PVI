@@ -3,18 +3,18 @@
 FROM python:3.10
 
 # Set environment variables for the JDK
-ENV JAVA_HOME=/usr/lib/jdk-21
+ENV JAVA_HOME=/usr/lib/jvm/jdk-21
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
 # Install necessary tools
 RUN apt-get update && apt-get install -y wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Download and install JDK 21
-RUN wget -q https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O /tmp/jdk-21.tar.gz && \
-    mkdir -p /usr/lib/jdk-21 && \
-    tar -xzf /tmp/jdk-21.tar.gz -C /usr/lib/jdk-21 --strip-components=1 && \
-    rm -f /tmp/jdk-21.tar.gz
+# Download and install JDK 21 using the .deb package
+RUN wget -q https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O /tmp/jdk-21.deb && \
+    apt-get install -y /tmp/jdk-21.deb && \
+    rm -f /tmp/jdk-21.deb
+
 
 WORKDIR /app
 
