@@ -222,7 +222,8 @@ def parameters_view_explainability():
                             id='my-numeric-input-3',
                             min=0,
                             max=1,
-                            value=0.02
+                            value=0.02,
+                            step=0.01
                         ),
                         html.Div(id='numeric-input-output-3')
                     ]),
