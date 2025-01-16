@@ -79,14 +79,15 @@ def export_constraints_per_cluster(constraints, constraints_json_path):
 def generate_features(w,kpi,n_bin):
     case_table = pd.read_csv("output_files/out.csv").sort_values(by=[kpi])
     ordered_case_ids = case_table['case_id']
+    ordered_case_ids = ordered_case_ids.to_list()
     bin_size = round(len(case_table) / n_bin)
-
     event_table = pd.read_csv("output_files/out_event.csv")
-    event_table['case_id'] = pd.Categorical(event_table['case_id'], categories=ordered_case_ids, ordered=True)
-    event_table = event_table.sort_values('case_id')
     event_table['case:concept:name'] = event_table['case_id'].astype(str)
     event_table['concept:name'] = event_table['activity_name'].astype(str)
     event_table['time:timestamp'] = pd.to_datetime(event_table['timestamp'])
+    event_table = event_table.sort_values('time:timestamp')
+    event_table['case_id'] = pd.Categorical(event_table['case_id'], categories=ordered_case_ids, ordered=True)
+    event_table = event_table.sort_values(by=['case_id', 'time:timestamp'], ascending=[True, True])
     log_xes = pm4py.convert_to_event_log(event_table)
     pm4py.write_xes(log_xes, f"output_files/log_ordered.xes")
 

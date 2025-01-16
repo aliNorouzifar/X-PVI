@@ -12,6 +12,7 @@ import os
 import itertools
 import pm4py
 import json
+import ast
 
 
 # # Constants
@@ -27,19 +28,33 @@ def save_variables(df, masks, map_range, peaks):
         "df": df_json,
         "masks": masks,
         "map_range": map_range,
-        "peaks": peaks.tolist()
+        "peaks": peaks
     }
 
     # Save to a JSON file
     with open("output_files\internal_variables.json", "w") as json_file:
         json.dump(data, json_file)
 
+def emd_dist(bin1, bin2,sensitivity):
+    if isinstance(bin1, list):
+        bin1 = pd.Series(bin1)
+    if isinstance(bin2, list):
+        bin2 = pd.Series(bin2)
+    lang1 = bin1.value_counts(normalize=True)
+    lang1_filt = lang1[lang1 > sensitivity].to_dict()
+
+    lang1_filt = {ast.literal_eval(key): value for key, value in lang1_filt.items()}
+    lang2 = bin2.value_counts(normalize=True)
+    lang2_filt = lang2[lang2 > sensitivity].to_dict()
+    lang2_filt = {ast.literal_eval(key): value for key, value in lang2_filt.items()}
+    dist = round(emd_evaluator.apply(lang1_filt, lang2_filt), 2)
+    return dist
 def bins_generation(kpi, n_bin):
     """Generate bins and map ranges for a given KPI."""
     case_table = pd.read_csv("output_files/out.csv").sort_values(by=[kpi])
 
-    map_range = {i: case_table[kpi].iloc[round((i / n_bin) * len(case_table[kpi]))] for i in range(n_bin)}
-    map_range[n_bin] = case_table[kpi].iloc[-1]
+    map_range = {i: float(case_table[kpi].iloc[round((i / n_bin) * len(case_table[kpi]))]) for i in range(n_bin)}
+    map_range[n_bin] = float(case_table[kpi].iloc[-1])
 
     bin_size = round(len(case_table) / n_bin)
     bins = [
@@ -55,15 +70,14 @@ def bins_generation(kpi, n_bin):
 
 def sliding_window(bins, n_bin, sensitivity,WINDOWS):
     """Perform sliding window analysis for change detection."""
+
+
     df = pd.DataFrame(0.0, index=WINDOWS, columns=[i for i in range(1, n_bin)])
     for window_size in WINDOWS:
         for mid in range(window_size, n_bin - window_size + 1):
             left = [item for b in bins[mid - window_size:mid] for item in b[2]]
             right = [item for b in bins[mid:mid + window_size] for item in b[2]]
-            lang1 = pd.Series(left).value_counts(normalize=True).to_dict()
-            lang2 = pd.Series(right).value_counts(normalize=True).to_dict()
-            df.at[window_size, mid] = round(emd_evaluator.apply(lang1, lang2), 2)
-            # df.loc[window_size][mid] = round(emd_evaluator.apply(lang1, lang2), 2)
+            df.at[window_size, mid] = emd_dist(left,right,sensitivity)
 
 
 
@@ -76,6 +90,7 @@ def sliding_window(bins, n_bin, sensitivity,WINDOWS):
 
 def segmentation(df,bins,n_bin,w,sen,sig):
     peaks, _ = sci_sig.find_peaks(df.loc[w], height=[sig])
+    peaks = [int(p) for p in peaks]
     segments = []
     segments_ids = []
     last_p = -1
@@ -93,17 +108,8 @@ def segmentation(df,bins,n_bin,w,sen,sig):
     segments.append(new)
     segments_ids.append(new_ids)
 
-    def emd_dist(bin1, bin2):
-        lang1 = bin1[2].value_counts(normalize=True)
-        lang1_filt = lang1[lang1 > sen].to_dict()
-        lang2 = bin2[2].value_counts(normalize=True)
-        lang2_filt = lang2[lang2 > sen].to_dict()
-        dist = round(emd_evaluator.apply(lang1_filt, lang2_filt), 2)
-        return dist
-
     state = n_bin
     m_dend = []
-    count_bin = []
     cal_list = {}
 
     itr = 1
@@ -120,7 +126,7 @@ def segmentation(df,bins,n_bin,w,sen,sig):
         for i in range(0, len(segments)):
             for j in range(i + 1, len(segments)):
                 if (segments[i][0], segments[j][0]) not in cal_list:
-                    cal_list[(segments[i][0], segments[j][0])] = emd_dist(segments[i], segments[j])
+                    cal_list[(segments[i][0], segments[j][0])] = emd_dist(segments[i][2], segments[j][2],sen)
                 dist_matrix[i, j] = cal_list[(segments[i][0], segments[j][0])]
                 data_points.append((itr, dist_matrix[i, j]))
         matrices.append(dist_matrix)

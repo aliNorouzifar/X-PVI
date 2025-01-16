@@ -19,7 +19,7 @@ def mine_minerful_for_declare_constraints(window_size,sliding_window_size):
         '-para', '4',
         '-s', '0.0',
         '-c', '0.0',
-        '-g', '0.0',
+        # '-g', '0.0',
         '-prune', 'none',
         '-sliOut', output_log_path
     ], env=env, cwd=os.getcwd())

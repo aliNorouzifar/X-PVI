@@ -221,7 +221,7 @@ def parameters_view_explainability():
                         daq.NumericInput(
                             id='my-numeric-input-3',
                             min=0,
-                            max=0.1,
+                            max=1,
                             value=0.02
                         ),
                         html.Div(id='numeric-input-output-3')
