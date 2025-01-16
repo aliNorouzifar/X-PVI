@@ -842,7 +842,6 @@ def report(data, cluster, segment):
         for d in data[str(cluster)]:
             if d['second parameter'] == '':
                 const = f"{d['constraint type']}({d['first parameter']})"
-                # print(const)
                 if df.loc[f'{const}', 'Redudant'] == False:
                     list.append((d['description'], round(d[f'segment_{segment}'] - d[f'~segment_{segment}'], 2)))
 
@@ -850,21 +849,11 @@ def report(data, cluster, segment):
                 const = f"{d['constraint type']}({d['first parameter']},{d['second parameter']})"
                 if df.loc[f'{const}', 'Redudant'] == False:
                     list.append((d['description'], round(d[f'segment_{segment}'] - d[f'~segment_{segment}'], 2)))
-                    # list = [(x['description'], round(x[f'segment_{segment}']-x[f'~segment_{segment}'],2)) for x in  data[str(cluster)]]
-        print('lowest scores:')
+
         list_sorted = sorted(list, key=lambda x: x[1], reverse=False)[0:]
-        j = 1
-        for x in list_sorted:
-            print(f'rank {j}: {x[0]}, with score {x[1]}')
-            j += 1
-        print('-----------------------------------------------------------------------')
-        print('highest scores:')
         list_sorted_reverse = sorted(list, key=lambda x: x[1], reverse=True)[0:]
-        k = 1
-        for x in list_sorted_reverse:
-            print(f'rank {k+1}: {x[0]}, with score {x[1]}')
-            k += 1
-        return [f'rank {k+1}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted)], [f'rank {k}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted_reverse)]
+
+        return [f'rank {k+1}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted)], [f'rank {k+1}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted_reverse)]
 def decl2NL(cluster, segment):
     file_path = r"output_files\data1.json"
     with open(file_path, 'r') as file:
