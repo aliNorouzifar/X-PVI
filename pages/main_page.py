@@ -35,7 +35,7 @@ def create_layout():
                 children=[
                     html.H1("Process Variant Identification", className="tool-name"),
                     html.P(
-                        "A cutting-edge tool for process analysis and variant detection.",
+                        "A cutting-edge tool for detecting and understanding process variability across performance dimensions.",
                         className="tool-subtitle",
                     ),
                 ],

@@ -1,6 +1,8 @@
 from dash import html, dcc
+import dash_bootstrap_components as dbc
 
-layout = html.Div(
+
+layout = dbc.Container(
     className="page-container",
     children=[
         # Navigation Links

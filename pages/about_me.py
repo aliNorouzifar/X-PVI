@@ -1,6 +1,8 @@
 from dash import html, dcc
+import dash_bootstrap_components as dbc
 
-layout = html.Div(
+
+layout = dbc.Container(
     className="page-container",
     children=[
         # Navigation Links
@@ -18,7 +20,7 @@ layout = html.Div(
             children=[
                 html.H1("Process Variant Identification (X-PVI)", className="tool-name"),
                 html.P(
-                    "A cutting-edge tool for process analysis and variant detection.",
+                    "A cutting-edge tool for detecting and understanding process variability across performance dimensions.",
                     className="tool-subtitle",
                 ),
             ],
@@ -91,3 +93,4 @@ layout = html.Div(
         ),
     ],
 )
+
