@@ -218,12 +218,13 @@ def parameters_view_explainability():
                     # html.Hr(),
                     html.H4("theta_cvg for pruning?", className="parameter-name"),
                     html.Div([
-                        daq.NumericInput(
+                        dcc.Input(
                             id='my-numeric-input-3',
+                            type='number',
                             min=0,
                             max=1,
                             value=0.02,
-                            step=0.01
+                            step=0.01  # Specify the step size here
                         ),
                         html.Div(id='numeric-input-output-3')
                     ]),

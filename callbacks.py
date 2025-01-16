@@ -8,7 +8,8 @@ import os
 import shutil
 
 UPLOAD_FOLDER = "event_logs"
-WINDOWS = [15,10,5,2]
+# WINDOWS = [15,10,5,2]
+WINDOWS = []
 
 def clear_upload_folder(folder_path):
     shutil.rmtree(folder_path)

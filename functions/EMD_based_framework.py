@@ -16,7 +16,6 @@ import ast
 
 
 # # Constants
-# WINDOWS = [15,10,5,2]  # Window sizes for sliding window analysis
 OUTPUT_DIR = "output_files"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)  # Ensure output directory exists

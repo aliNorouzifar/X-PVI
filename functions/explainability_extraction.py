@@ -19,7 +19,7 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.cluster.hierarchy import fcluster
 from scipy.spatial import KDTree
 import json
-import plotly.graph_objects as go
+
 
 linkage_method = 'ward'
 linkage_metric = 'euclidean'
@@ -43,21 +43,17 @@ def load_variables():
         return "No data file found."
     df = pd.read_json(data["df"], orient="split")
     data["df"] = df
-    # return df, data["masks"], data["map_range"], data["peaks"]
     return data
 
 def export_constraints_per_cluster(constraints, constraints_json_path):
     dict_out = {}
     dict_out["constraints"] = []
-
     for constraint in constraints:
         temp_dict = {}
         temp_dict["template"] = constraint[0]
         temp_dict['parameters'] = []
         for par in constraint[1:3]:
-        # for par in constraint[1:]:
             if par != '':
-                # print(par.lstrip())
                 temp_dict['parameters'].append([par.lstrip()])
 
         dict_out["constraints"].append(temp_dict)
@@ -108,27 +104,21 @@ def correlation_calc(peaks,w,constraints,clusters_dict):
     segments_sig = {}
 
     for i in range(n + 1):
-        # Start with a list of 100 zeros
         l = [0] * len(constraints[0])
 
-        # For the first list, set elements from 0 to o[0]
         if i == 0:
             l[0:peakmodif[0]] = [1] * (peakmodif[0] - 0)
 
-        # For the last list, set elements from o[n-1] to the end
         elif i == n:
             l[peakmodif[n - 1]:] = [1] * (len(constraints[0]) - peakmodif[n - 1])
 
-        # For other lists, set elements from o[i-1] to o[i]
         else:
             l[peakmodif[i - 1]:peakmodif[i]] = [1] * (peakmodif[i] - peakmodif[i - 1])
 
-        # Append the created list to the list of lists
         segments_sig[f'segment_{i}']=l
 
 
 
-    #  Calculate the correlation with each time series in the set
 
     corr_mat = []
     for seg in segments_sig.keys():
@@ -156,7 +146,6 @@ def sort_by_closest_neigbour_HEADER(data):
     print('There were: ' + str(len(data)) + " values")
 
     # Convert data to numpy array for efficient operations
-    # print(data)
     data = np.array(data, dtype=object)
 
     # Initialize sorted data with the starting point (first point) and track remaining indices
@@ -238,10 +227,8 @@ def import_minerful_constraints_timeseries_data(minerful_constraints_path,constr
         corresponding_number_of_traces.append(r[:2])
         n_lines += 1
         counter = 0
-        # print(r[1])
         for i in range(len(r)):
             if counter > 1:
-                # print(i)
                 sequences[i-2].append(float(r[i]))
             else:
                 counter += 1
