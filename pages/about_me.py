@@ -18,7 +18,7 @@ layout = dbc.Container(
         html.Div(
             className="tool-name-container",
             children=[
-                html.H1("Process Variant Identification (X-PVI)", className="tool-name"),
+                html.H1("Process Variant Identification", className="tool-name"),
                 html.P(
                     "A cutting-edge tool for detecting and understanding process variability across performance dimensions.",
                     className="tool-subtitle",
