@@ -25,19 +25,19 @@ linkage_method = 'ward'
 linkage_metric = 'euclidean'
 
 def save_variables(segments_count, clusters_count):
-    with open("output_files\internal_variables.json", "r") as json_file:
+    with open("output_files/internal_variables.json", "r") as json_file:
         data = json.load(json_file)
 
     data["segments_count"] = segments_count
     data["clusters_count"] = clusters_count
 
     # Save to a JSON file
-    with open("output_files\internal_variables.json", "w") as json_file:
+    with open("output_files/internal_variables.json", "w") as json_file:
         json.dump(data, json_file)
 
 def load_variables():
     try:
-        with open("output_files\internal_variables.json", "r") as json_file:
+        with open("output_files/internal_variables.json", "r") as json_file:
             data = json.load(json_file)
     except FileNotFoundError:
         return "No data file found."
@@ -265,8 +265,8 @@ def group_signals_by_type_activity(signals):
     return grouped_signals
 
 def prune_signals(theta_cvg):
-    constraints_conf = import_minerful_constraints_timeseries_data(r"output_files\behavioral_signals.csv", 'Confidence')
-    constraints_cov = import_minerful_constraints_timeseries_data(r"output_files\behavioral_signals.csv", 'Coverage')
+    constraints_conf = import_minerful_constraints_timeseries_data(r"output_files/behavioral_signals.csv", 'Confidence')
+    constraints_cov = import_minerful_constraints_timeseries_data(r"output_files/behavioral_signals.csv", 'Coverage')
     s_thr = theta_cvg * 100
     main_dim = constraints_conf
     filt_dim = constraints_cov
@@ -820,7 +820,7 @@ def report(data, cluster, segment):
     if f'segment_{segment}' not in data[str(cluster)][0].keys():
         print('segment does not exist')
     else:
-        fp = f"output_files\constraints_{cluster}_pruned.csv"
+        fp = f"output_files/constraints_{cluster}_pruned.csv"
         df = pd.read_csv(fp, sep=";")
         df = df.applymap(lambda x: x.strip("'\"") if isinstance(x, str) else x)
         df.columns = df.columns.str.strip("'\"")

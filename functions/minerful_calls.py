@@ -2,8 +2,10 @@ import os
 import subprocess
 
 def mine_minerful_for_declare_constraints(window_size,sliding_window_size):
-    input_log_path = os.getcwd() + r"/output_files/log_ordered.xes"
-    output_log_path = os.getcwd()+ r"/output_files/behavioral_signals.csv"
+    # input_log_path = os.getcwd() + r"/output_files/log_ordered.xes"
+    # output_log_path = os.getcwd()+ r"/output_files/behavioral_signals.csv"
+    input_log_path = r"output_files/log_ordered.xes"
+    output_log_path = r"output_files/behavioral_signals.csv"
     env = dict(os.environ)
     env['JAVA_OPTS'] = 'foo'
     subprocess.call(['java', '-version'])
@@ -22,8 +24,9 @@ def mine_minerful_for_declare_constraints(window_size,sliding_window_size):
         # '-g', '0.0',
         '-prune', 'none',
         '-sliOut', output_log_path
-    ], env=env, cwd=os.getcwd())
-#
+    ], env=env
+        , cwd=os.getcwd())
+# , cwd=r"/")
 
 def prune_constraints_minerful(output_constraint_path,output_constraint_path_pruned):
     env = dict(os.environ)

@@ -31,7 +31,7 @@ def save_variables(df, masks, map_range, peaks):
     }
 
     # Save to a JSON file
-    with open("output_files\internal_variables.json", "w") as json_file:
+    with open("output_files/internal_variables.json", "w") as json_file:
         json.dump(data, json_file)
 
 def emd_dist(bin1, bin2,sensitivity):
