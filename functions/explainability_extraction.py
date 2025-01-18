@@ -842,7 +842,7 @@ def report(data, cluster, segment):
 
         return [f'rank {k+1}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted)], [f'rank {k+1}: {x[0]}, with score {x[1]}' for k,x in enumerate(list_sorted_reverse)]
 def decl2NL(cluster, segment):
-    file_path = r"output_files\data1.json"
+    file_path = r"output_files/data1.json"
     with open(file_path, 'r') as file:
         data = json.load(file)
     list_sorted, list_sorted_reverse = report(data, cluster, segment)
