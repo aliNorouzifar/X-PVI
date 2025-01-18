@@ -28,7 +28,6 @@ def save_variables(segments_count, clusters_count):
     with open("output_files/internal_variables.json", "r") as json_file:
         data = json.load(json_file)
 
-    print(f'data is: {data}')
     data["segments_count"] = segments_count
     data["clusters_count"] = clusters_count
 

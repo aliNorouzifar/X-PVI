@@ -8,7 +8,7 @@ import pandas as pd
 
 def load_variables():
     try:
-        with open("output_files\internal_variables.json", "r") as json_file:
+        with open("output_files/internal_variables.json", "r") as json_file:
             data = json.load(json_file)
     except FileNotFoundError:
         return "No data file found."
