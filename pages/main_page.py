@@ -279,8 +279,27 @@ def PVI_figures(fig_src1, fig_src2):
                 className="section-header",
                 children=html.H4("Process Variant Identification Visualizations", className="section-title"),
             ),
-            html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure figure-large"),
-            html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure figure-small"),
+            # html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure figure-large"),
+            # html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure figure-small"),
+            dcc.Graph(id='heatmap1', figure=fig_src1, className="figure figure-large"),
+            dcc.Graph(id='heatmap2', figure=fig_src2, className="figure figure-large"),
+            html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", className="btn-secondary", n_clicks=0)
+        ]
+    )
+
+def PVI_figures(fig_src1, fig_src2):
+    return html.Div(
+        id="bottom-section",
+        className="page-container",
+        children=[
+            html.Div(
+                className="section-header",
+                children=html.H4("Process Variant Identification Visualizations", className="section-title"),
+            ),
+            # html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure figure-large"),
+            # html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure figure-small"),
+            dcc.Graph(id='heatmap1', figure=fig_src1, className="figure figure-large"),
+            dcc.Graph(id='heatmap2', figure=fig_src2, className="figure figure-large"),
             html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", className="btn-secondary", n_clicks=0)
         ]
     )

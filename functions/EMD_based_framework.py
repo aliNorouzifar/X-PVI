@@ -13,7 +13,10 @@ import itertools
 import pm4py
 import json
 import ast
-
+import time
+from functions.python_emsc.algorithm import stochastic
+import plotly.graph_objects as go
+import numpy as np
 
 # # Constants
 OUTPUT_DIR = "output_files"
@@ -46,7 +49,14 @@ def emd_dist(bin1, bin2,sensitivity):
     lang2 = bin2.value_counts(normalize=True)
     lang2_filt = lang2[lang2 > sensitivity].to_dict()
     lang2_filt = {ast.literal_eval(key): value for key, value in lang2_filt.items()}
-    dist = round(emd_evaluator.apply(lang1_filt, lang2_filt), 2)
+
+    dist = round(stochastic.compare_languages_levenshtein(lang1_filt, lang2_filt),2)
+
+    # start_time = time.time()
+    # dist = round(emd_evaluator.apply(lang1_filt, lang2_filt), 2)
+    # end_time = time.time()
+    # elapsed_time = end_time - start_time
+    # print(f"EMD calculation time (internal): {elapsed_time:.4f} seconds")
     return dist
 def bins_generation(kpi, n_bin):
     """Generate bins and map ranges for a given KPI."""
@@ -161,51 +171,141 @@ def segmentation(df,bins,n_bin,w,sen,sig):
 
 # We will make the visualization in Plotly later, to allow for intractive visualization
 def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS):
-    every = 2
 
-    """Generate heatmaps and comparison plots."""
-    # Sliding Window Heatmap
-    fig1, ax1 = plt.subplots(figsize=(15, 3))
-    sns.heatmap(df, cmap="Reds", mask=np.array(masks), ax=ax1)
-    ax1.set_xticks(0.5 + np.arange(0, n_bin - 1, 3))
-    ax1.set_xticklabels(
-        [f"{round(x * (100 / n_bin))}% ({round(map_range[x], 1)})" for x in range(1, n_bin, 3)]
+    every = 1
+    # Assuming df, masks, n_bin, map_range, WINDOWS, and every are defined earlier
+    heatmap_data = np.ma.array(df, mask=masks)
+
+    # Generate x-tick labels
+    x_labels = [
+        f"{round(x * (100 / n_bin))}% ({round(map_range[x], 1)})"
+        for x in range(1, n_bin, every)
+    ]
+
+    # Generate y-tick labels
+    y_labels = WINDOWS
+
+    # Create the Plotly Heatmap
+    fig1 = go.Figure(
+        data=go.Heatmap(
+            x=x_labels,
+            z=heatmap_data,  # Heatmap values
+            y = y_labels,
+            colorscale="Reds",  # Color scheme
+            zmin=np.min(df),  # Min value for color scaling
+            zmax=np.max(df),  # Max value for color scaling
+            colorbar=dict(title="ldist"),  # Colorbar title
+        )
     )
-    ax1.set_facecolor("gray")
-    ax1.set_title("Sliding Window Analysis")
-    ax1.set_xlabel("Traces")
-    ax1.set_ylabel("Window Size")
-    ax1.set_xticks(0.5 + np.arange(0, n_bin - 1, every))
-    ax1.set_xticklabels(
-        [str(round(x * (100 / n_bin))) + "% (" + str(round(map_range[x], 1)) + ")" for x in np.arange(1, n_bin, every)])
-    ax1.set_yticks([x+0.5 for x in range(0,len(WINDOWS))], labels=WINDOWS)
-    plt.xticks(rotation=90)
-    plt.close(fig1)
 
-    cmap = plt.cm.Reds
-    fig2 = plt.figure(figsize=(7, 7))
-    ax = sns.heatmap(dist_matrix, cmap=cmap, xticklabels=['segment' + str(i) for i in range(1, dist_matrix.shape[0] + 1)],
-                     yticklabels=['segment' + str(i) for i in range(1, dist_matrix.shape[0] + 1)])
+    fig1.update_layout(
+        title=dict(
+            text="Sliding Window Analysis",  # Title text
+            x=0.5,  # Horizontal alignment (0=left, 0.5=center, 1=right)
+            xanchor="center",  # Ensures proper anchoring
+            font=dict(size=18),  # Optional: Set title font size
+        ),
+        xaxis=dict(
+            title="Traces",
+        ),
+        yaxis=dict(
+            title="Window Size",
+        ),
+        template="plotly_white"
+    )
+    fig1.update_xaxes(tickangle=90)
 
-    fig2.suptitle('segments comparison', fontsize=20)
-    plt.xticks(fontsize=18)
-    plt.yticks(fontsize=18)
-    cbar = ax.collections[0].colorbar
-    cbar.ax.tick_params(labelsize=18)
-    plt.xlabel(' ', fontsize=18)
-    cbar.set_label('ldist', fontsize=18)
-    plt.close(fig2)
+    labels = [f"segment{i}" for i in range(1, dist_matrix.shape[0] + 1)]
 
-    buf = BytesIO()
-    fig1.savefig(buf, format="png", bbox_inches = 'tight')
-    # Embed the result in the html output.
-    fig_data1 = base64.b64encode(buf.getbuffer()).decode("ascii")
+    # Create the Plotly Heatmap
+    fig2 = go.Figure(
+        data=go.Heatmap(
+            z=dist_matrix,  # Heatmap values
+            x=labels,  # X-axis labels
+            y=labels,  # Y-axis labels
+            colorscale="Reds",  # Color scheme
+            colorbar=dict(
+                title="ldist",  # Colorbar title
+                titlefont=dict(size=18),  # Font size for the colorbar title
+                tickfont=dict(size=18)  # Font size for the colorbar ticks
+            ),
+            zmin=np.min(dist_matrix),  # Minimum value for color scaling
+            zmax=np.max(dist_matrix),  # Maximum value for color scaling
+        )
+    )
 
-    buf = BytesIO()
-    fig2.savefig(buf, format="png", bbox_inches='tight')
-    # Embed the result in the html output.
-    fig_data2 = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return f'data:image/png;base64,{fig_data1}', f'data:image/png;base64,{fig_data2}'
+    # Update layout for the figure
+    fig2.update_layout(
+        title=dict(
+            text="Segments Comparison",
+            font=dict(size=20),  # Title font size
+            x=0.5  # Center the title
+        ),
+        xaxis=dict(
+            title="",
+            tickfont=dict(size=18)  # Font size for x-axis ticks
+        ),
+        yaxis=dict(
+            title="",
+            tickfont=dict(size=18)  # Font size for y-axis ticks
+        ),
+        template="plotly_white",
+        width = 580,  # Set the width of the figure
+        height = 500  # Set the height of the figure
+    )
+
+    # # Display the interactive plot
+    # fig.show()
+
+    return fig1, fig2
+
+
+### previous version of the figures with mathplotlib
+# def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS):
+#     every = 2
+#     """Generate heatmaps and comparison plots."""
+#     # Sliding Window Heatmap
+#     fig1, ax1 = plt.subplots(figsize=(15, 3))
+#     sns.heatmap(df, cmap="Reds", mask=np.array(masks), ax=ax1)
+#     ax1.set_xticks(0.5 + np.arange(0, n_bin - 1, 3))
+#     ax1.set_xticklabels(
+#         [f"{round(x * (100 / n_bin))}% ({round(map_range[x], 1)})" for x in range(1, n_bin, 3)]
+#     )
+#     ax1.set_facecolor("gray")
+#     ax1.set_title("Sliding Window Analysis")
+#     ax1.set_xlabel("Traces")
+#     ax1.set_ylabel("Window Size")
+#     ax1.set_xticks(0.5 + np.arange(0, n_bin - 1, every))
+#     ax1.set_xticklabels(
+#         [str(round(x * (100 / n_bin))) + "% (" + str(round(map_range[x], 1)) + ")" for x in np.arange(1, n_bin, every)])
+#     ax1.set_yticks([x+0.5 for x in range(0,len(WINDOWS))], labels=WINDOWS)
+#     plt.xticks(rotation=90)
+#     plt.close(fig1)
+#
+#     cmap = plt.cm.Reds
+#     fig2 = plt.figure(figsize=(7, 7))
+#     ax = sns.heatmap(dist_matrix, cmap=cmap, xticklabels=['segment' + str(i) for i in range(1, dist_matrix.shape[0] + 1)],
+#                      yticklabels=['segment' + str(i) for i in range(1, dist_matrix.shape[0] + 1)])
+#
+#     fig2.suptitle('segments comparison', fontsize=20)
+#     plt.xticks(fontsize=18)
+#     plt.yticks(fontsize=18)
+#     cbar = ax.collections[0].colorbar
+#     cbar.ax.tick_params(labelsize=18)
+#     plt.xlabel(' ', fontsize=18)
+#     cbar.set_label('ldist', fontsize=18)
+#     plt.close(fig2)
+#
+#     buf = BytesIO()
+#     fig1.savefig(buf, format="png", bbox_inches = 'tight')
+#     # Embed the result in the html output.
+#     fig_data1 = base64.b64encode(buf.getbuffer()).decode("ascii")
+#
+#     buf = BytesIO()
+#     fig2.savefig(buf, format="png", bbox_inches='tight')
+#     # Embed the result in the html output.
+#     fig_data2 = base64.b64encode(buf.getbuffer()).decode("ascii")
+#     return f'data:image/png;base64,{fig_data1}', f'data:image/png;base64,{fig_data2}'
 #
 #
 def export_logs(segments_ids, case_table, export_enabled):
@@ -229,20 +329,32 @@ def export_logs(segments_ids, case_table, export_enabled):
 
 def apply(n_bin, w, signal_threshold, faster, export, kpi,WINDOWS):
     """Main function to apply the analysis."""
-    if w not in WINDOWS:
-        WINDOWS.append(w)
-        WINDOWS.sort(reverse=True)
+    # if w not in WINDOWS:
+    #     WINDOWS.append(w)
+    #     WINDOWS.sort(reverse=True)
+    WINDOWS = [w]
 
     sensitivity = 0.01 if faster else 0.0
+    start_time = time.time()
     bins, map_range, case_table = bins_generation(kpi, n_bin)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"binning time: {elapsed_time:.4f} seconds")
+
+    start_time = time.time()
     df, masks = sliding_window(bins, n_bin, sensitivity,WINDOWS)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"sliding window time: {elapsed_time:.4f} seconds")
+
     segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, sensitivity, signal_threshold)
     save_variables(df, masks, map_range, peaks, )
 
-    fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
+    # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
+    fig1, fig2 = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w, WINDOWS)
 
 
     if export:
         export_logs(segments_ids, case_table, export)
 
-    return fig1_path, fig2_path
+    return fig1, fig2

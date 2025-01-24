@@ -19,6 +19,7 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.cluster.hierarchy import fcluster
 from scipy.spatial import KDTree
 import json
+import time
 
 
 linkage_method = 'ward'
@@ -574,7 +575,13 @@ def constraints_export(clusters_with_declare_names, peaks, w,clusters_dict):
 
     for cl in clusters_with_declare_names.keys():
         export_constraints_per_cluster(clusters_with_declare_names[cl], file_path + f'constraints_{cl}.json')
+        start_time = time.time()
+        print("prunning started")
         prune_constraints_minerful(file_path + f'constraints_{cl}.json', file_path + f'constraints_{cl}_pruned.csv')
+        print("prunning ended")
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"encoding: {elapsed_time:.4f} seconds")
 
 
 

@@ -21,7 +21,6 @@ def register_callbacks(app):
 
     @app.callback(
         Output("output-data-upload2", "children"),
-        # [Input("output-data-upload", "children")],
         [Input("upload-data", "isCompleted")],
         [State("upload-data", "upload_id")],
     )
@@ -47,8 +46,9 @@ def register_callbacks(app):
     def plot_data(n, n_bin, w, sig, faster, export, kpi):
         if n>0:
             if kpi is not None:
-                fig_src1,fig_src2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
-                return PVI_figures(fig_src1, fig_src2)
+                # fig_src1,fig_src2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
+                fig1, fig2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
+                return PVI_figures(fig1, fig2)
 
 
     @app.callback(
