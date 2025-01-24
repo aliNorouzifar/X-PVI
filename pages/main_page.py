@@ -86,6 +86,7 @@ def create_left_panel():
                     html.Div(id="output-data-upload4", className="parameter-block card"),
                     # html.Hr(),
                     html.Div(id="output-data-upload6", className="parameter-block card"),
+                    html.Div(id="output-data-upload8", className="parameter-block card"),
                 ],
             ),
         ],
@@ -109,6 +110,8 @@ def create_right_panel():
                     html.Div(id="output-data-upload5", className="visualization-block"),
                     html.Hr(),
                     html.Div(id="output-data-upload7", className="visualization-block"),
+                    html.Hr(),
+                    html.Div(id="output-data-upload9", className="visualization-block"),
                 ],
             ),
         ],
@@ -160,31 +163,37 @@ def parameters_view_PVI(max_par, columns):
                         html.Div(id='numeric-input-output-2')
                     ]),
                     html.Hr(),
+                    html.Button(id="run_PVI", children="Run PVI", className="btn-primary", n_clicks=0),
+                ]
+            )
+        ],
+        className="flex-column align-center")
+    ])
+
+def parameters_view_segmentation(max_dis):
+    return html.Div([
+        html.Div([
+            html.Div(
+                className="parameter-container",
+                children=[
+                    html.Div(
+                        className="section-header",
+                        children=html.H4("Segmentation parameter", className="section-title"),
+                    ),
                     html.H4("significant distance:", className="parameter-name"),
                     html.Div([
                         daq.Knob(
                             id='my-slider3',
                             min=0,
-                            max=1,
-                            value=0.15,
+                            max=max_dis,
+                            value=0.5* max_dis,
                             size=100,  # Size of the circular slider
                             color="#007bff",  # Customize the color
                             # label="Significant Distance",
-                            scale={'interval': 0.1}
+                            scale={'interval': 0.05}
                         ),
                         html.Div(id='slider-output-container3')
                     ]),
-                    html.Hr(),
-                    html.H4("Faster (not accurate)?", className="parameter-name"),
-                    dcc.RadioItems(
-                        id='TF',
-                        options=[
-                            {'label': 'True', 'value': True},
-                            {'label': 'False', 'value': False}
-                        ],
-                        value=False,
-                        inline=True
-    ),
                     html.Hr(),
                     html.H4("Export the segments?", className="parameter-name"),
                     dcc.RadioItems(
@@ -197,7 +206,7 @@ def parameters_view_PVI(max_par, columns):
                         inline=True
                     ),
                     html.Hr(),
-                    html.Button(id="run_PVI", children="Run PVI", className="btn-primary", n_clicks=0),
+                    html.Button(id="run_seg", children="Run Segmentation", className="btn-primary", n_clicks=0),
                     # html.Hr(),
                 ]
             )
@@ -287,19 +296,31 @@ def PVI_figures(fig_src1, fig_src2):
         ]
     )
 
-def PVI_figures(fig_src1, fig_src2):
+def PVI_figures_EMD(fig_src1, ):
     return html.Div(
         id="bottom-section",
         className="page-container",
         children=[
             html.Div(
                 className="section-header",
-                children=html.H4("Process Variant Identification Visualizations", className="section-title"),
+                children=html.H4("EMD-based Change Detection Visualizations", className="section-title"),
             ),
-            # html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure figure-large"),
-            # html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure figure-small"),
             dcc.Graph(id='heatmap1', figure=fig_src1, className="figure figure-large"),
+            html.Button(id="Seg_parameters", children="Start Segmentation!", className="btn-secondary", n_clicks=0)
+        ]
+    )
+
+def PVI_figures_Segments(fig_src2,peaks):
+    return html.Div(
+        id="bottom-section",
+        className="page-container",
+        children=[
+            html.Div(
+                className="section-header",
+                children=html.H4("Segmentation Visualizations", className="section-title"),
+            ),
             dcc.Graph(id='heatmap2', figure=fig_src2, className="figure figure-large"),
+            html.Ul([html.Li(line, className="list-item") for line in peaks]),
             html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", className="btn-secondary", n_clicks=0)
         ]
     )
@@ -314,8 +335,10 @@ def XPVI_figures(fig_src3, fig_src4):
                 className="section-header",
                 children=html.H4("Explainability Extraction Visualizations", className="section-title"),
             ),
-            html.Img(id="bar-graph-matplotlib3", src=fig_src3, className="figure figure-large"),
-            html.Img(id="bar-graph-matplotlib4", src=fig_src4, className="figure figure-medium"),
+            # html.Img(id="bar-graph-matplotlib3", src=fig_src3, className="figure figure-large"),
+            # html.Img(id="bar-graph-matplotlib4", src=fig_src4, className="figure figure-medium"),
+            dcc.Graph(id='heatmap3', figure=fig_src3, className="figure figure-large"),
+            dcc.Graph(id='heatmap4', figure=fig_src4, className="figure figure-large"),
             html.Button(id="decl2NL_framework", children="Convert Declare to Natural Language!", className="btn-secondary", n_clicks=0)
         ]
     )

@@ -1,11 +1,12 @@
 from dash import Input, Output, State, html
 from pathlib import Path
 from functions.my_functions import import_log
-from functions.EMD_based_framework import apply as PVI_apply
+from functions.EMD_based_framework import apply_EMD,apply_segmentation
 from functions.explainability_extraction import apply as XPVI_apply, decl2NL
-from pages.main_page import parameters_view_PVI, parameters_view_explainability, PVI_figures, XPVI_figures, decl2NL_parameters, statistics_print
+from pages.main_page import parameters_view_PVI, parameters_view_explainability, PVI_figures_EMD,PVI_figures_Segments, XPVI_figures, decl2NL_parameters, statistics_print, parameters_view_segmentation
 import os
 import shutil
+from functions.utils import save_variables, load_variables
 
 UPLOAD_FOLDER = "event_logs"
 # WINDOWS = [15,10,5,2]
@@ -34,25 +35,45 @@ def register_callbacks(app):
             return parameters_view_PVI(max_par, columns)
 
     @app.callback(
+        Output("output-data-upload4", "children"),
+        [Input("Seg_parameters", "n_clicks")],
+    )
+    def parameters_segmentation(n):
+        if n>0:
+            data = load_variables()
+            return parameters_view_segmentation(data["max_dist"])
+
+    @app.callback(
         Output("output-data-upload3", "children"),
         Input("run_PVI", "n_clicks"),
         State("my-numeric-input-1", "value"),
         State("my-numeric-input-2", "value"),
-        State("my-slider3", "value"),
-        State("TF", "value"),
-        State("TF2", "value"),
         State("xaxis-data", "value")
     )
-    def plot_data(n, n_bin, w, sig, faster, export, kpi):
+    def plot_data_EMD(n, n_bin, w, kpi):
         if n>0:
             if kpi is not None:
-                # fig_src1,fig_src2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
-                fig1, fig2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
-                return PVI_figures(fig1, fig2)
+                fig1 = apply_EMD(n_bin, w, kpi, WINDOWS)
+                return PVI_figures_EMD(fig1)
 
 
     @app.callback(
-        Output("output-data-upload4", "children"),
+        Output("output-data-upload5", "children"),
+        Input("run_seg", "n_clicks"),
+        State("my-numeric-input-1", "value"),
+        State("my-numeric-input-2", "value"),
+        State("my-slider3", "value"),
+        State("TF2", "value")
+    )
+    def plot_data_Segments(n, n_bin, w, sig, export):
+        if n>0:
+            # fig_src1,fig_src2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
+            fig2,peak_explanations = apply_segmentation(n_bin, w, sig, export, WINDOWS)
+            return PVI_figures_Segments(fig2,peak_explanations)
+
+
+    @app.callback(
+        Output("output-data-upload6", "children"),
         Input("X_parameters", "n_clicks"),
         )
     def parameters_explainability(n):
@@ -60,7 +81,7 @@ def register_callbacks(app):
             return parameters_view_explainability()
 
     @app.callback(
-        Output("output-data-upload5", "children"),
+        Output("output-data-upload7", "children"),
         Input("XPVI_run", "n_clicks"),
         State("my-numeric-input-1", "value"),
         State("my-numeric-input-2", "value"),
@@ -74,7 +95,7 @@ def register_callbacks(app):
             return XPVI_figures(fig_src3, fig_src4)
 
     @app.callback(
-        Output("output-data-upload6", "children"),
+        Output("output-data-upload8", "children"),
         Input("decl2NL_framework", "n_clicks"),
         )
     def X2NL(n):
@@ -82,7 +103,7 @@ def register_callbacks(app):
             return decl2NL_parameters()
 
     @app.callback(
-        Output("output-data-upload7", "children"),
+        Output("output-data-upload9", "children"),
         Input("decl2NL_pars", "n_clicks"),
         State("cluster_number", "value"),
         State("segment_number", "value")

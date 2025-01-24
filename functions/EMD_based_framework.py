@@ -17,6 +17,8 @@ import time
 from functions.python_emsc.algorithm import stochastic
 import plotly.graph_objects as go
 import numpy as np
+from functions.utils import save_variables, load_variables
+
 
 # # Constants
 OUTPUT_DIR = "output_files"
@@ -24,33 +26,38 @@ OUTPUT_DIR = "output_files"
 os.makedirs(OUTPUT_DIR, exist_ok=True)  # Ensure output directory exists
 color_theme_drift_map = 'Blues'
 
-def save_variables(df, masks, map_range, peaks):
-    df_json = df.to_json(orient="split")
-    data = {
-        "df": df_json,
-        "masks": masks,
-        "map_range": map_range,
-        "peaks": peaks
-    }
 
-    # Save to a JSON file
-    with open("output_files/internal_variables.json", "w") as json_file:
-        json.dump(data, json_file)
 
-def emd_dist(bin1, bin2,sensitivity):
+def stochastic_lang(bin):
+    if isinstance(bin, list):
+        bin = pd.Series(bin)
+    lang = bin.value_counts(normalize=True)
+    lang = {ast.literal_eval(key): value for key, value in lang.items()}
+    return lang
+
+# def combine_dics(list_of_dicts):
+#     combined_dict = {}
+#     n_dics = len(list_of_dicts)
+#     for d in list_of_dicts:
+#         for key, value in d.items():
+#             combined_dict[key] = (combined_dict.get(key, 0) + value/n_dics)
+#     return combined_dict
+
+
+def emd_dist(bin1, bin2):
     if isinstance(bin1, list):
         bin1 = pd.Series(bin1)
     if isinstance(bin2, list):
         bin2 = pd.Series(bin2)
     lang1 = bin1.value_counts(normalize=True)
-    lang1_filt = lang1[lang1 > sensitivity].to_dict()
+    # lang1_filt = lang1[lang1 > sensitivity].to_dict()
 
-    lang1_filt = {ast.literal_eval(key): value for key, value in lang1_filt.items()}
+    lang1 = {ast.literal_eval(key): value for key, value in lang1.items()}
     lang2 = bin2.value_counts(normalize=True)
-    lang2_filt = lang2[lang2 > sensitivity].to_dict()
-    lang2_filt = {ast.literal_eval(key): value for key, value in lang2_filt.items()}
+    # lang2_filt = lang2[lang2 > sensitivity].to_dict()
+    lang2 = {ast.literal_eval(key): value for key, value in lang2.items()}
 
-    dist = round(stochastic.compare_languages_levenshtein(lang1_filt, lang2_filt),2)
+    dist = round(stochastic.compare_languages_levenshtein(lang1, lang2),2)
 
     # start_time = time.time()
     # dist = round(emd_evaluator.apply(lang1_filt, lang2_filt), 2)
@@ -77,16 +84,16 @@ def bins_generation(kpi, n_bin):
     return bins, map_range, case_table
 
 
-def sliding_window(bins, n_bin, sensitivity,WINDOWS):
+def sliding_window(bins, n_bin,WINDOWS):
     """Perform sliding window analysis for change detection."""
-
-
     df = pd.DataFrame(0.0, index=WINDOWS, columns=[i for i in range(1, n_bin)])
     for window_size in WINDOWS:
         for mid in range(window_size, n_bin - window_size + 1):
             left = [item for b in bins[mid - window_size:mid] for item in b[2]]
+            # left = combine_dics([b[2] for b in bins[mid - window_size:mid]])
             right = [item for b in bins[mid:mid + window_size] for item in b[2]]
-            df.at[window_size, mid] = emd_dist(left,right,sensitivity)
+            # right = combine_dics([b[2] for b in bins[mid:mid + window_size]])
+            df.at[window_size, mid] = emd_dist(left,right)
 
 
 
@@ -97,7 +104,7 @@ def sliding_window(bins, n_bin, sensitivity,WINDOWS):
     return df, masks
 
 
-def segmentation(df,bins,n_bin,w,sen,sig):
+def segmentation(df,bins,n_bin,w,sig):
     peaks, _ = sci_sig.find_peaks(df.loc[w], height=[sig])
     peaks = [int(p) for p in peaks]
     segments = []
@@ -106,7 +113,8 @@ def segmentation(df,bins,n_bin,w,sen,sig):
     x_state = 0
     for p in peaks:
         new = (x_state, x_state, pd.Series(list(itertools.chain.from_iterable([x[2] for x in bins[last_p + 1:p + 1]]))))
-        new_ids = [item for b in bins[last_p + 1:p + 1] for item in b[2].index]
+        # new_ids = [item for b in bins[last_p + 1:p + 1] for item in b[2].index]
+        new_ids = [item for b in bins[last_p + 1:p + 1] for item in b[2]]
         segments.append(new)
         segments_ids.append(new_ids)
         last_p = p
@@ -135,7 +143,7 @@ def segmentation(df,bins,n_bin,w,sen,sig):
         for i in range(0, len(segments)):
             for j in range(i + 1, len(segments)):
                 if (segments[i][0], segments[j][0]) not in cal_list:
-                    cal_list[(segments[i][0], segments[j][0])] = emd_dist(segments[i][2], segments[j][2],sen)
+                    cal_list[(segments[i][0], segments[j][0])] = emd_dist(segments[i][2], segments[j][2])
                 dist_matrix[i, j] = cal_list[(segments[i][0], segments[j][0])]
                 data_points.append((itr, dist_matrix[i, j]))
         matrices.append(dist_matrix)
@@ -170,7 +178,7 @@ def segmentation(df,bins,n_bin,w,sen,sig):
 
 
 # We will make the visualization in Plotly later, to allow for intractive visualization
-def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS):
+def plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS):
 
     every = 1
     # Assuming df, masks, n_bin, map_range, WINDOWS, and every are defined earlier
@@ -214,9 +222,10 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS):
         template="plotly_white"
     )
     fig1.update_xaxes(tickangle=90)
+    return fig1
 
+def plot_figures_segments(dist_matrix, peaks):
     labels = [f"segment{i}" for i in range(1, dist_matrix.shape[0] + 1)]
-
     # Create the Plotly Heatmap
     fig2 = go.Figure(
         data=go.Heatmap(
@@ -257,7 +266,7 @@ def plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS):
     # # Display the interactive plot
     # fig.show()
 
-    return fig1, fig2
+    return fig2
 
 
 ### previous version of the figures with mathplotlib
@@ -327,34 +336,71 @@ def export_logs(segments_ids, case_table, export_enabled):
 
 
 
-def apply(n_bin, w, signal_threshold, faster, export, kpi,WINDOWS):
+def apply_EMD(n_bin, w, kpi,WINDOWS):
     """Main function to apply the analysis."""
     # if w not in WINDOWS:
     #     WINDOWS.append(w)
     #     WINDOWS.sort(reverse=True)
     WINDOWS = [w]
 
-    sensitivity = 0.01 if faster else 0.0
-    start_time = time.time()
+    # sensitivity = 0.01 if faster else 0.0
     bins, map_range, case_table = bins_generation(kpi, n_bin)
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print(f"binning time: {elapsed_time:.4f} seconds")
 
-    start_time = time.time()
-    df, masks = sliding_window(bins, n_bin, sensitivity,WINDOWS)
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print(f"sliding window time: {elapsed_time:.4f} seconds")
+    df, masks = sliding_window(bins, n_bin,WINDOWS)
 
-    segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, sensitivity, signal_threshold)
-    save_variables(df, masks, map_range, peaks, )
+
+    # segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, sensitivity, signal_threshold)
+    save_variables({
+        "df": df,
+        "masks": masks,
+        "map_range": map_range,
+        "bins":[(b[0],b[1],list(b[2].items())) for b in bins],
+        "max_dist": df.iloc[0].max()
+    })
 
     # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
-    fig1, fig2 = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w, WINDOWS)
+    fig1 = plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS)
+
+    # if export:
+    #     export_logs(segments_ids, case_table, export)
+
+    return fig1
+
+def apply_segmentation(n_bin, w, signal_threshold, export,WINDOWS):
+    """Main function to apply the analysis."""
+    # if w not in WINDOWS:
+    #     WINDOWS.append(w)
+    #     WINDOWS.sort(reverse=True)
+
+    data = load_variables()
+    df = data["df"]
+    # bins = data["bins"]
+
+    bins =[(b[0], b[1], pd.Series(dict(b[2]))) for b in data["bins"]]
+    segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, signal_threshold)
+
+    save_variables({"peaks":peaks})
 
 
-    if export:
-        export_logs(segments_ids, case_table, export)
+    # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
+    fig2 = plot_figures_segments(dist_matrix, peaks)
 
-    return fig1, fig2
+    data = load_variables()
+    map_range = data["map_range"]
+    peak_explanations = []
+    if peaks:
+        for i, p in enumerate(peaks):
+            if i == 0:
+                peak_explanations.append(f"Segment {i + 1}: From the beginning to {round(map_range[str(peaks[0]+1)],2)}")
+            else:
+                peak_explanations.append(f"Segment {i + 1}: From {round(map_range[str(peaks[i - 1]+1)],2)} to {round(map_range[str(peaks[i]+1)],2)}")
+
+        peak_explanations.append(f"Segment {len(peaks)+1}: From {round(map_range[str(peaks[-1]+1)],2)} to the end")
+    else:
+        peak_explanations.append("We have only one Segment!")
+
+
+    # if export:
+    #     export_logs(segments_ids, case_table, export)
+
+    return fig2,peak_explanations
