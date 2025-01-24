@@ -1,9 +1,9 @@
 from dash import Input, Output, State, html
 from pathlib import Path
 from functions.my_functions import import_log
-from functions.EMD_based_framework import apply_EMD,apply_segmentation
-from functions.explainability_extraction import apply as XPVI_apply, decl2NL
-from pages.main_page import parameters_view_PVI, parameters_view_explainability, PVI_figures_EMD,PVI_figures_Segments, XPVI_figures, decl2NL_parameters, statistics_print, parameters_view_segmentation
+from functions.EMD_based_framework import apply_EMD,apply_segmentation, export_logs
+from functions.explainability_extraction import decl2NL, apply_X, apply_feature_extraction
+from pages.main_page import parameters_view_PVI, parameters_view_explainability, PVI_figures_EMD,PVI_figures_Segments,parameters_feature_extraction, XPVI_figures, decl2NL_parameters, statistics_print, parameters_view_segmentation
 import os
 import shutil
 from functions.utils import save_variables, load_variables
@@ -71,31 +71,53 @@ def register_callbacks(app):
             fig2,peak_explanations = apply_segmentation(n_bin, w, sig, export, WINDOWS)
             return PVI_figures_Segments(fig2,peak_explanations)
 
+    @app.callback(Output("output-data-upload11", "children"),
+        Input("export", "n_clicks")
+    )
+    def export_logs_func(n):
+        if n > 0:
+            data = load_variables()
+            export_logs(data["segments_ids"])
+            return "Event logs are exported!"
+
 
     @app.callback(
         Output("output-data-upload6", "children"),
         Input("X_parameters", "n_clicks"),
-        )
+    )
     def parameters_explainability(n):
         if n > 0:
+            return parameters_feature_extraction()
+
+    @app.callback(
+        Output("output-data-upload8", "children"),
+        Input("minerful_run", "n_clicks"),
+        State("my-numeric-input-1", "value"),
+        State("my-numeric-input-2", "value"),
+        State("my-numeric-input-3", "value"),
+        State("xaxis-data", "value")
+        )
+    def parameters_explainability(n,n_bin, w,theta_cvg,kpi):
+        if n > 0:
+            apply_feature_extraction(n_bin, w, theta_cvg, kpi)
             return parameters_view_explainability()
+
+
 
     @app.callback(
         Output("output-data-upload7", "children"),
         Input("XPVI_run", "n_clicks"),
         State("my-numeric-input-1", "value"),
         State("my-numeric-input-2", "value"),
-        State("my-numeric-input-3", "value"),
-        State("my-numeric-input-4", "value"),
-        State("xaxis-data", "value")
+        State("my-numeric-input-4", "value")
         )
-    def plot_Xdata(n,n_bin, w, theta_cvg, n_clusters, kpi):
+    def plot_Xdata(n,n_bin, w, n_clusters):
         if n > 0:
-            fig_src3, fig_src4 = XPVI_apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS)
+            fig_src3, fig_src4 = apply_X(n_bin, w, n_clusters)
             return XPVI_figures(fig_src3, fig_src4)
 
     @app.callback(
-        Output("output-data-upload8", "children"),
+        Output("output-data-upload10", "children"),
         Input("decl2NL_framework", "n_clicks"),
         )
     def X2NL(n):

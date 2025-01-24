@@ -114,7 +114,7 @@ def segmentation(df,bins,n_bin,w,sig):
     for p in peaks:
         new = (x_state, x_state, pd.Series(list(itertools.chain.from_iterable([x[2] for x in bins[last_p + 1:p + 1]]))))
         # new_ids = [item for b in bins[last_p + 1:p + 1] for item in b[2].index]
-        new_ids = [item for b in bins[last_p + 1:p + 1] for item in b[2]]
+        new_ids = [item for b in bins[last_p + 1:p + 1] for item in b[2].index]
         segments.append(new)
         segments_ids.append(new_ids)
         last_p = p
@@ -160,10 +160,6 @@ def segmentation(df,bins,n_bin,w,sig):
         state = state + 1
         itr += 1
 
-    new = (x_state, x_state, pd.Series(list(itertools.chain.from_iterable([x[2] for x in bins[last_p:]]))))
-    new_ids = [item for b in bins[last_p:] for item in b[2].index]
-    segments.append(new)
-    segments_ids.append(new_ids)
 
     ittr = 0
 
@@ -317,11 +313,9 @@ def plot_figures_segments(dist_matrix, peaks):
 #     return f'data:image/png;base64,{fig_data1}', f'data:image/png;base64,{fig_data2}'
 #
 #
-def export_logs(segments_ids, case_table, export_enabled):
+def export_logs(segments_ids):
     """Export logs for each segment."""
-    if not export_enabled:
-        return
-
+    case_table = pd.read_csv("output_files/out.csv")
     event_file = "output_files/out_event.csv"
     event_table = pd.read_csv(event_file)
 
@@ -379,7 +373,7 @@ def apply_segmentation(n_bin, w, signal_threshold, export,WINDOWS):
     bins =[(b[0], b[1], pd.Series(dict(b[2]))) for b in data["bins"]]
     segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, signal_threshold)
 
-    save_variables({"peaks":peaks})
+    save_variables({"peaks":peaks,"segments_ids":segments_ids})
 
 
     # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)

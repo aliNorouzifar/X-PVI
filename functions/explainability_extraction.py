@@ -20,31 +20,31 @@ from scipy.cluster.hierarchy import fcluster
 from scipy.spatial import KDTree
 import json
 import time
-
+from functions.utils import save_variables, load_variables
 
 linkage_method = 'ward'
 linkage_metric = 'euclidean'
 
-def save_variables(segments_count, clusters_count):
-    with open("output_files/internal_variables.json", "r") as json_file:
-        data = json.load(json_file)
-
-    data["segments_count"] = segments_count
-    data["clusters_count"] = clusters_count
-
-    # Save to a JSON file
-    with open("output_files/internal_variables.json", "w") as json_file:
-        json.dump(data, json_file)
-
-def load_variables():
-    try:
-        with open("output_files/internal_variables.json", "r") as json_file:
-            data = json.load(json_file)
-    except FileNotFoundError:
-        return "No data file found."
-    df = pd.read_json(data["df"], orient="split")
-    data["df"] = df
-    return data
+# def save_variables(segments_count, clusters_count):
+#     with open("output_files/internal_variables.json", "r") as json_file:
+#         data = json.load(json_file)
+#
+#     data["segments_count"] = segments_count
+#     data["clusters_count"] = clusters_count
+#
+#     # Save to a JSON file
+#     with open("output_files/internal_variables.json", "w") as json_file:
+#         json.dump(data, json_file)
+#
+# def load_variables():
+#     try:
+#         with open("output_files/internal_variables.json", "r") as json_file:
+#             data = json.load(json_file)
+#     except FileNotFoundError:
+#         return "No data file found."
+#     df = pd.read_json(data["df"], orient="split")
+#     data["df"] = df
+#     return data
 
 def export_constraints_per_cluster(constraints, constraints_json_path):
     dict_out = {}
@@ -754,7 +754,7 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
         yaxis=dict(
             title="Features",
             tickvals=np.arange(len(cluster_bounds)),
-            ticktext=[f'cluster {i}' for i in range(len(cluster_bounds))],
+            ticktext=[f'cluster {i+1}' for i in range(len(cluster_bounds))],
             tickfont=dict(size=16)
         ),
         template="plotly_white",
@@ -1000,7 +1000,10 @@ def decl2NL(cluster, segment):
     return list_sorted, list_sorted_reverse
 
 
-def apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS):
+
+
+
+def apply_feature_extraction(n_bin, w, theta_cvg, kpi):
     """Main function to apply the analysis."""
     # if w not in WINDOWS:
     #     WINDOWS.append(w)
@@ -1011,6 +1014,45 @@ def apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS):
     generate_features(w,kpi,n_bin)
     # clear_upload_folder(r"\event_logs")
     pruned_list, data_color = prune_signals(theta_cvg)
+
+    save_variables({"pruned_list":pruned_list, "data_color":data_color})
+    return "Feature Generation Done!"
+    #
+    # order_cluster, clusters_with_declare_names, cluster_bounds, clusters_dict, constraints = clustering(pruned_list,
+    #                                                                                                     linkage_method,
+    #                                                                                                     linkage_metric,
+    #                                                                                                     n_clusters)
+    # data = load_variables()
+    # df = data["df"]
+    # masks = data["masks"]
+    # map_range = data["map_range"]
+    # peaks = data["peaks"]
+    # save_variables(len(peaks)+1, len(clusters_with_declare_names.keys()))
+    # # PELT_change_points(order_cluster, clusters_dict)
+    #
+    # constraints_export(clusters_with_declare_names, peaks, w, clusters_dict)
+    # corr_mat = correlation_calc(peaks, w, constraints, clusters_dict)
+    # fig3_path, fig4_path = plot_figures(df, masks, n_bin, map_range, peaks,
+    #                                                           constraints, w, cluster_bounds,
+    #                                                           clusters_with_declare_names, data_color, corr_mat,
+    #                                                           WINDOWS)
+    # return fig3_path, fig4_path
+
+def apply_X(n_bin, w, n_clusters):
+    """Main function to apply the analysis."""
+    # if w not in WINDOWS:
+    #     WINDOWS.append(w)
+    #     WINDOWS.sort(reverse=True)
+    WINDOWS = [w]
+
+    ################### Explainability ######################################
+    # generate_features(w, kpi, n_bin)
+    # clear_upload_folder(r"\event_logs")
+    # pruned_list, data_color = prune_signals(theta_cvg)
+    data = load_variables()
+    pruned_list = data["pruned_list"]
+    data_color = data["data_color"]
+
     order_cluster, clusters_with_declare_names, cluster_bounds, clusters_dict, constraints = clustering(pruned_list,
                                                                                                         linkage_method,
                                                                                                         linkage_metric,
@@ -1020,13 +1062,14 @@ def apply(n_bin, w, theta_cvg, n_clusters, kpi, WINDOWS):
     masks = data["masks"]
     map_range = data["map_range"]
     peaks = data["peaks"]
-    save_variables(len(peaks)+1, len(clusters_with_declare_names.keys()))
+    save_variables({"segments_count":len(peaks) + 1, "clusters_count":len(clusters_with_declare_names.keys())})
     # PELT_change_points(order_cluster, clusters_dict)
-
+    #     data["segments_count"] = segments_count
+    #     data["clusters_count"] = clusters_count
     constraints_export(clusters_with_declare_names, peaks, w, clusters_dict)
     corr_mat = correlation_calc(peaks, w, constraints, clusters_dict)
     fig3_path, fig4_path = plot_figures(df, masks, n_bin, map_range, peaks,
-                                                              constraints, w, cluster_bounds,
-                                                              clusters_with_declare_names, data_color, corr_mat,
-                                                              WINDOWS)
+                                        constraints, w, cluster_bounds,
+                                        clusters_with_declare_names, data_color, corr_mat,
+                                        WINDOWS)
     return fig3_path, fig4_path

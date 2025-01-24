@@ -87,6 +87,7 @@ def create_left_panel():
                     # html.Hr(),
                     html.Div(id="output-data-upload6", className="parameter-block card"),
                     html.Div(id="output-data-upload8", className="parameter-block card"),
+                    html.Div(id="output-data-upload10", className="parameter-block card"),
                 ],
             ),
         ],
@@ -112,6 +113,8 @@ def create_right_panel():
                     html.Div(id="output-data-upload7", className="visualization-block"),
                     html.Hr(),
                     html.Div(id="output-data-upload9", className="visualization-block"),
+                    html.Hr(),
+                    html.Div(id="output-data-upload11", className="visualization-block"),
                 ],
             ),
         ],
@@ -214,7 +217,7 @@ def parameters_view_segmentation(max_dis):
         className="flex-column align-center")
     ])
 
-def parameters_view_explainability():
+def parameters_feature_extraction():
     return html.Div([
         html.Div([
             html.Div(
@@ -222,7 +225,7 @@ def parameters_view_explainability():
                 children=[
                     html.Div(
                         className="section-header",
-                        children=html.H4("Explainability Extraction parameters", className="section-title"),
+                        children=html.H4("Feature Extraction Parameters", className="section-title"),
                     ),
                     # html.Hr(),
                     html.H4("theta_cvg for pruning?", className="parameter-name"),
@@ -237,6 +240,25 @@ def parameters_view_explainability():
                         ),
                         html.Div(id='numeric-input-output-3')
                     ]),
+                    html.Hr(),
+                    html.Button(id="minerful_run", children="Feature Extraction", className="btn-primary", n_clicks=0)
+                ]
+            )
+        ],
+        className="flex-column align-center")
+    ])
+
+def parameters_view_explainability():
+    return html.Div([
+        html.Div([
+            html.Div(
+                className="parameter-container",
+                children=[
+                    html.Div(
+                        className="section-header",
+                        children=html.H4("Explainability Extraction parameters", className="section-title"),
+                    ),
+                    # html.Hr(),
                     html.Hr(),
                     html.H4("Number of Clusters?", className="parameter-name"),
                     html.Div([
@@ -279,22 +301,22 @@ def decl2NL_parameters():
     ])
 
 
-def PVI_figures(fig_src1, fig_src2):
-    return html.Div(
-        id="bottom-section",
-        className="page-container",
-        children=[
-            html.Div(
-                className="section-header",
-                children=html.H4("Process Variant Identification Visualizations", className="section-title"),
-            ),
-            # html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure figure-large"),
-            # html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure figure-small"),
-            dcc.Graph(id='heatmap1', figure=fig_src1, className="figure figure-large"),
-            dcc.Graph(id='heatmap2', figure=fig_src2, className="figure figure-large"),
-            html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", className="btn-secondary", n_clicks=0)
-        ]
-    )
+# def PVI_figures(fig_src1, fig_src2):
+#     return html.Div(
+#         id="bottom-section",
+#         className="page-container",
+#         children=[
+#             html.Div(
+#                 className="section-header",
+#                 children=html.H4("Process Variant Identification Visualizations", className="section-title"),
+#             ),
+#             # html.Img(id="bar-graph-matplotlib", src=fig_src1, className="figure figure-large"),
+#             # html.Img(id="bar-graph-matplotlib2", src=fig_src2, className="figure figure-small"),
+#             dcc.Graph(id='heatmap1', figure=fig_src1, className="figure figure-large"),
+#             dcc.Graph(id='heatmap2', figure=fig_src2, className="figure figure-large"),
+#             html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", className="btn-secondary", n_clicks=0)
+#         ]
+#     )
 
 def PVI_figures_EMD(fig_src1, ):
     return html.Div(
@@ -321,6 +343,9 @@ def PVI_figures_Segments(fig_src2,peaks):
             ),
             dcc.Graph(id='heatmap2', figure=fig_src2, className="figure figure-large"),
             html.Ul([html.Li(line, className="list-item") for line in peaks]),
+            html.Button(id="export", children="Export the Segments as event logs.",
+                        className="btn-secondary", n_clicks=0),
+            html.Hr(),
             html.Button(id="X_parameters", children="Start The Explainability Extraction Framework!", className="btn-secondary", n_clicks=0)
         ]
     )
