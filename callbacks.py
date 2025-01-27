@@ -9,6 +9,7 @@ import shutil
 import json
 from functions.utils import save_variables, load_variables
 from functions.redis_connection import redis_client
+from functions.logging import log_command
 
 UPLOAD_FOLDER = "event_logs"
 # WINDOWS = [15,10,5,2]
@@ -30,12 +31,16 @@ def register_callbacks(app):
     )
     def parameters_PVI(isCompleted,id):
         # redis_client.set('ali', "Hello World")
+        # Example log
+
         if isCompleted==True:
             folder_path = os.path.join(UPLOAD_FOLDER, id)
             files = os.listdir(folder_path) if os.path.exists(folder_path) else []
             file = Path(UPLOAD_FOLDER) / f"{id}" / files[0]
             print(file)
+            log_command(f"Event Log {file} is going to be imported!")
             max_par, columns = import_log(file)
+            log_command(f"Event Log {file} is imported!")
             return parameters_view_PVI(max_par, columns)
 
     '''significant distance parameter'''
@@ -85,7 +90,9 @@ def register_callbacks(app):
         if n > 0:
             # data = load_variables("segments_ids")
             segments_ids = json.loads(redis_client.get("segments_ids"))
+            log_command("exporting event logs started!")
             export_logs(segments_ids)
+            log_command("exporting event logs done!")
             return "Event logs are exported!"
 
     '''Feature space generation (calling Minerful)'''
@@ -98,7 +105,9 @@ def register_callbacks(app):
     )
     def parameters_explainability(n,w, kpi, n_bin):
         if n > 0:
+            log_command("event log is sent to Minerful for feature generation!")
             generate_features(w, kpi, n_bin)
+            log_command("feature generation done!")
             return parameters_feature_extraction()
 
     '''Explainability results visualizations'''
@@ -149,3 +158,18 @@ def register_callbacks(app):
         if n > 0:
             list_sorted, list_sorted_reverse = decl2NL(cluster, segment)
             return statistics_print(list_sorted, list_sorted_reverse)
+
+    @app.callback(
+        Output("log-display", "children"),
+        Input("log-interval", "n_intervals"),
+    )
+    def update_logs(n_intervals):
+        # Read the log file and return its contents
+        log_file = "log.log"
+        if os.path.exists(log_file):
+            with open(log_file, "r") as f:
+                logs = f.read()
+        else:
+            logs = "No logs yet."
+        return logs
+

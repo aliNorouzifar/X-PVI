@@ -115,6 +115,12 @@ def create_right_panel():
                     html.Div(id="output-data-upload9", className="visualization-block"),
                     html.Hr(),
                     html.Div(id="output-data-upload11", className="visualization-block"),
+                    html.Hr(),
+                    html.Div([
+                        dcc.Interval(id="log-interval", interval=2000),  # Check for new logs every 2 seconds
+                        html.Pre(id="log-display",
+                                 style={"whiteSpace": "pre-wrap", "height": "400px", "overflowY": "scroll"})
+                    ])
                 ],
             ),
         ],

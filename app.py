@@ -7,8 +7,14 @@ import pages.about_me as about_me
 import pages.main_page as main_page
 import os
 from functions.redis_connection import redis_client
+
+
+
 #
 # redis_client = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
+log_file = "log.log"
+
+
 
 UPLOAD_FOLDER = "event_logs"
 # List of directories to check/create
@@ -22,6 +28,12 @@ for directory in directories:
         print(f"Created directory: {directory}")
     else:
         print(f"Directory already exists: {directory}")
+
+if os.path.exists(log_file):
+    os.remove(log_file)  # Remove the file
+    print(f"{log_file} has been removed.")
+else:
+    print(f"{log_file} does not exist.")
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP,"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"])
 app.title = "Process Variant Identification"

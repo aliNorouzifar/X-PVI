@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="Seperating clustering and feature extraction + enabling event log extraction">
-      <change afterPath="$PROJECT_DIR$/functions/redis_connection.py" afterDir="false" />
+    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="code cleaning and enabling redit">
+      <change afterPath="$PROJECT_DIR$/functions/logging.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/callbacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/callbacks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/EMD_based_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/EMD_based_framework.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/explainability_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/explainability_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/minerful_calls.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/minerful_calls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/my_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/my_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/main_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main_page.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -416,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1737741749794</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="code cleaning and enabling redit">
+      <created>1737997446127</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1737997446128</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -452,7 +456,8 @@
     <MESSAGE value="EMD computation faster, Fig1 and 2 using plotly" />
     <MESSAGE value="Fig3 and 4 in plotly" />
     <MESSAGE value="Seperating clustering and feature extraction + enabling event log extraction" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seperating clustering and feature extraction + enabling event log extraction" />
+    <MESSAGE value="code cleaning and enabling redit" />
+    <option name="LAST_COMMIT_MESSAGE" value="code cleaning and enabling redit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -479,12 +484,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>628</line>
+          <line>629</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>599</line>
+          <line>600</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -494,17 +499,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>624</line>
+          <line>625</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>653</line>
+          <line>654</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/EMD_based_framework.py</url>
-          <line>397</line>
+          <line>405</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -514,8 +519,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>999</line>
-          <option name="timeStamp" value="115" />
+          <line>605</line>
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

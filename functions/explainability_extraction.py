@@ -15,6 +15,7 @@ from scipy.spatial import KDTree
 import json
 from functions.utils import save_variables, load_variables
 from functions.redis_connection import redis_client
+from functions.logging import log_command
 
 linkage_method = 'ward'
 linkage_metric = 'euclidean'
@@ -996,16 +997,15 @@ def apply_X(n_bin, w, n_clusters):
     # data = load_variables("internal_variables")
     # pruned_list = data["pruned_list"]
     # data_color = data["data_color"]
-
     pruned_list = json.loads(redis_client.get("pruned_list"))
     data_color = json.loads(redis_client.get("data_color"))
 
-
-
+    log_command("clustering started!")
     order_cluster, clusters_with_declare_names, cluster_bounds, clusters_dict, constraints = clustering(pruned_list,
                                                                                                         linkage_method,
                                                                                                         linkage_metric,
                                                                                                         n_clusters)
+    log_command("clustering done!")
     # data = load_variables("internal_variables")
     # df = data["df"]
     # masks = data["masks"]
@@ -1023,10 +1023,18 @@ def apply_X(n_bin, w, n_clusters):
     redis_client.set("clusters_count", len(clusters_with_declare_names.keys()))
 
     # PELT_change_points(order_cluster, clusters_dict)
+    log_command("exporting the constraints started!")
     constraints_export(clusters_with_declare_names, peaks, w, clusters_dict)
+    log_command("exporting the constraints done!")
+
+    log_command("correlation matrix is being calculated!")
     corr_mat = correlation_calc(peaks, w, constraints, clusters_dict)
+    log_command("correlation matrix calculated!")
+
+    log_command("figure 3 and 4 are being generated!")
     fig3_path, fig4_path = plot_figures(df, masks, n_bin, map_range, peaks,
                                         constraints, w, cluster_bounds,
                                         clusters_with_declare_names, data_color, corr_mat,
                                         WINDOWS)
+    log_command("figure 3 and 4 are generated!")
     return fig3_path, fig4_path

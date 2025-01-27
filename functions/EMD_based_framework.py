@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import numpy as np
 from functions.utils import save_variables, load_variables
 from functions.redis_connection import redis_client
-
+from functions.logging import log_command
 
 # # Constants
 OUTPUT_DIR = "output_files"
@@ -347,9 +347,13 @@ def apply_EMD(n_bin, w, kpi,WINDOWS):
     WINDOWS = [w]
 
     # sensitivity = 0.01 if faster else 0.0
+    log_command("binning started!")
     bins, map_range, case_table = bins_generation(kpi, n_bin)
+    log_command("binning done!")
 
+    log_command("sliding window started!")
     df, masks = sliding_window(bins, n_bin,WINDOWS)
+    log_command("sliding window done!")
 
 
     # segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, sensitivity, signal_threshold)
@@ -370,7 +374,9 @@ def apply_EMD(n_bin, w, kpi,WINDOWS):
 
 
     # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
+    log_command("figure 1 is being generated!")
     fig1 = plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS)
+    log_command("figure 1 generated!")
 
     # if export:
     #     export_logs(segments_ids, case_table, export)
@@ -393,7 +399,9 @@ def apply_segmentation(n_bin, w, signal_threshold,WINDOWS):
 
     # bins =[(b[0], b[1], pd.Series(dict(b[2]))) for b in data["bins"]]
     bins = [(b[0], b[1], pd.Series(dict(b[2]))) for b in json.loads(redis_client.get("bins"))]
+    log_command("segmentation started!")
     segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, signal_threshold)
+    log_command("segmentation done!")
 
     # save_variables({"peaks":peaks},"internal_variables")
     # save_variables({"segments_ids": segments_ids}, "segments_ids")
@@ -404,7 +412,9 @@ def apply_segmentation(n_bin, w, signal_threshold,WINDOWS):
 
 
     # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
+    log_command("figure 2 is being generated!")
     fig2 = plot_figures_segments(dist_matrix, peaks)
+    log_command("figure 2 generated!")
 
     # data = load_variables("internal_variables")
     # map_range = data["map_range"]
