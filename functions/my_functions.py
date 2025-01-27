@@ -24,54 +24,67 @@ def filter_ids(log,list):
     return filtered_log
 
 
+
+
+
+
 def log_to_tables(log, parameters):
+    # Convert log to a Pandas DataFrame
     df = pm4py.convert_to_dataframe(log)
+
+    # Extract parameters
     case_id_name = parameters['case_id']
     timestamp_name = parameters['timestamp']
-    acyivity_name = parameters['activity_name']
+    activity_name = parameters['activity_name']
 
-    # time unit in seconds
-    time_unit = 24 * 3600
+    # Constants
+    time_unit = 24 * 3600  # Time unit in seconds (1 day)
 
+    # Output column names
     output_case_id_name = 'case_id'
     output_timestamp_name = 'timestamp'
-    output_acyivity_name = 'activity_name'
+    output_activity_name = 'activity_name'
 
-    dfunique = df.groupby(by=[case_id_name]).nunique()
-    case_attributes = set()
-    for col in dfunique.columns:
-        if True not in set(dfunique[col] > 1):
-            # print(f'{col} can be a case attribute')
-            case_attributes.add(col)
+    # Identify case attributes (columns with unique values per case)
+    dfunique = df.groupby(case_id_name).nunique()
+    case_attributes = set(dfunique.columns[dfunique.max() <= 1])
 
-    case_table = df[list(case_attributes.union([case_id_name]))].groupby(by=[case_id_name]).first()
-    case_table['trace'] = df.groupby(by=[case_id_name])[acyivity_name].apply(lambda x: tuple(list(x.astype(str))))
-    case_table['duration'] = df.groupby(by=[case_id_name])[timestamp_name].apply(lambda x: int((x.iloc[-1] - x.iloc[0]).total_seconds() / time_unit))
-    case_table['n_events'] = df.groupby(by=[case_id_name])[timestamp_name].count()
-    case_table = case_table.reset_index()
-    case_table = case_table.rename(columns={case_id_name: output_case_id_name})
+    # Build the case table
+    grouped = df.groupby(case_id_name)
+    case_table = grouped.first()[list(case_attributes)]
+    case_table['trace'] = grouped[activity_name].agg(lambda x: tuple(x.astype(str)))
+    case_table['duration'] = (grouped[timestamp_name].max() - grouped[
+        timestamp_name].min()).dt.total_seconds() // time_unit
+    case_table['n_events'] = grouped.size()
+    case_table = case_table.reset_index().rename(columns={case_id_name: output_case_id_name})
 
+    # Build the event table
     non_attributes = {'row_num'}
     event_attributes = set(df.columns) - case_attributes - non_attributes
     event_table = df[list(event_attributes)]
-    # event_table[timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
-    event_table.loc[:, timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
+    event_table[timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True)
+
+    # Sort events by timestamp (and EventOrder if available)
+    sort_columns = [timestamp_name]
     if 'EventOrder' in event_table.columns:
-        event_table = event_table.sort_values([timestamp_name, 'EventOrder'], ascending=[True, True])
-    else:
-        event_table = event_table.sort_values([timestamp_name], ascending=[True])
-    # event_table[timestamp_name] = pd.to_datetime(event_table[timestamp_name], utc=True).dt.strftime('%Y-%m-%d %H:%M:%S')
+        sort_columns.append('EventOrder')
+    event_table = event_table.sort_values(sort_columns)
 
-    event_table = event_table.rename(columns={case_id_name: output_case_id_name, timestamp_name: output_timestamp_name, acyivity_name: output_acyivity_name })
+    # Rename columns for the event table
+    event_table = event_table.rename(columns={
+        case_id_name: output_case_id_name,
+        timestamp_name: output_timestamp_name,
+        activity_name: output_activity_name
+    })
 
-    mapping = {'case_id': output_case_id_name, 'timestamp':output_timestamp_name, 'activity_name':output_acyivity_name}
-
+    # Mapping for standardized column names
+    mapping = {
+        'case_id': output_case_id_name,
+        'timestamp': output_timestamp_name,
+        'activity_name': output_activity_name
+    }
 
     return case_table, event_table, mapping
-
-
-
-
 
 
 def tables_to_log(case_table, event_table, map_info):

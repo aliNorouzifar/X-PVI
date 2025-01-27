@@ -18,6 +18,7 @@ from functions.python_emsc.algorithm import stochastic
 import plotly.graph_objects as go
 import numpy as np
 from functions.utils import save_variables, load_variables
+from functions.redis_connection import redis_client
 
 
 # # Constants
@@ -177,8 +178,9 @@ def segmentation(df,bins,n_bin,w,sig):
 def plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS):
 
     every = 1
-    # Assuming df, masks, n_bin, map_range, WINDOWS, and every are defined earlier
-    heatmap_data = np.ma.array(df, mask=masks)
+
+    # Replace masked values with NaN for transparency
+    heatmap_data = np.ma.array(df, mask=masks).filled(np.nan)
 
     # Generate x-tick labels
     x_labels = [
@@ -189,20 +191,27 @@ def plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS):
     # Generate y-tick labels
     y_labels = WINDOWS
 
+    # Define the colorscale (exclude gray, focus on valid data range)
+    custom_colorscale = "Reds"  # Default Plotly Reds colorscale
+
     # Create the Plotly Heatmap
     fig1 = go.Figure(
         data=go.Heatmap(
             x=x_labels,
             z=heatmap_data,  # Heatmap values
-            y = y_labels,
-            colorscale="Reds",  # Color scheme
-            zmin=np.min(df),  # Min value for color scaling
-            zmax=np.max(df),  # Max value for color scaling
+            y=y_labels,
+            colorscale=custom_colorscale,  # Valid data colorscale
+            zmin=np.nanmin(df),  # Min value for color scaling
+            zmax=np.nanmax(df),  # Max value for color scaling
             colorbar=dict(title="ldist"),  # Colorbar title
+            showscale=True,  # Show the scale
         )
     )
 
+
     fig1.update_layout(
+        # paper_bgcolor="gray",  # Set the figure's background color to gray
+        plot_bgcolor="gray",  # Set the plot area background color to gray
         title=dict(
             text="Sliding Window Analysis",  # Title text
             x=0.5,  # Horizontal alignment (0=left, 0.5=center, 1=right)
@@ -215,7 +224,7 @@ def plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS):
         yaxis=dict(
             title="Window Size",
         ),
-        template="plotly_white"
+        template="plotly_white",
     )
     fig1.update_xaxes(tickangle=90)
     return fig1
@@ -344,13 +353,21 @@ def apply_EMD(n_bin, w, kpi,WINDOWS):
 
 
     # segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, sensitivity, signal_threshold)
-    save_variables({
-        "df": df,
-        "masks": masks,
-        "map_range": map_range,
-        "bins":[(b[0],b[1],list(b[2].items())) for b in bins],
-        "max_dist": df.iloc[0].max()
-    })
+    # save_variables({
+    #     "df": df,
+    #     "masks": masks,
+    #     "map_range": map_range,
+    #     "bins":[(b[0],b[1],list(b[2].items())) for b in bins],
+    #     "max_dist": df.iloc[0].max()
+    # }, "internal_variables")
+
+    redis_client.set("df", df.to_json(orient="split"))
+    redis_client.set("masks", json.dumps(masks))
+    redis_client.set("map_range", json.dumps(map_range))
+    redis_client.set("bins",json.dumps([(b[0],b[1],list(b[2].items())) for b in bins]))
+    redis_client.set("max_dist", df.iloc[0].max())
+
+
 
     # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
     fig1 = plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS)
@@ -360,27 +377,40 @@ def apply_EMD(n_bin, w, kpi,WINDOWS):
 
     return fig1
 
-def apply_segmentation(n_bin, w, signal_threshold, export,WINDOWS):
+def apply_segmentation(n_bin, w, signal_threshold,WINDOWS):
     """Main function to apply the analysis."""
     # if w not in WINDOWS:
     #     WINDOWS.append(w)
     #     WINDOWS.sort(reverse=True)
 
-    data = load_variables()
-    df = data["df"]
+    # data = load_variables("internal_variables")
+    # df = data["df"]
+
+    df = pd.read_json(redis_client.get("df"), orient="split")
+
+
     # bins = data["bins"]
 
-    bins =[(b[0], b[1], pd.Series(dict(b[2]))) for b in data["bins"]]
+    # bins =[(b[0], b[1], pd.Series(dict(b[2]))) for b in data["bins"]]
+    bins = [(b[0], b[1], pd.Series(dict(b[2]))) for b in json.loads(redis_client.get("bins"))]
     segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, signal_threshold)
 
-    save_variables({"peaks":peaks,"segments_ids":segments_ids})
+    # save_variables({"peaks":peaks},"internal_variables")
+    # save_variables({"segments_ids": segments_ids}, "segments_ids")
+
+    redis_client.set("peaks",json.dumps(peaks))
+    redis_client.set("segments_ids", json.dumps(segments_ids))
+
 
 
     # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
     fig2 = plot_figures_segments(dist_matrix, peaks)
 
-    data = load_variables()
-    map_range = data["map_range"]
+    # data = load_variables("internal_variables")
+    # map_range = data["map_range"]
+
+    map_range = json.loads(redis_client.get("map_range"))
+
     peak_explanations = []
     if peaks:
         for i, p in enumerate(peaks):

@@ -7,6 +7,7 @@ def mine_minerful_for_declare_constraints(window_size,sliding_window_size):
     input_log_path = r"output_files/log_ordered.xes"
     output_log_path = r"output_files/behavioral_signals.csv"
     env = dict(os.environ)
+    env = dict(os.environ)
     env['JAVA_OPTS'] = 'foo'
     subprocess.call(['java', '-version'])
     file_input = input_log_path
@@ -23,7 +24,8 @@ def mine_minerful_for_declare_constraints(window_size,sliding_window_size):
         '-c', '0.0',
         # '-g', '0.0',
         '-prune', 'none',
-        '-sliOut', output_log_path
+        '-sliOut', output_log_path,
+        '-vShush'
     ], env=env
         , cwd=os.getcwd())
 # , cwd=r"/")

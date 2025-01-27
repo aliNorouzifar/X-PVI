@@ -4,7 +4,7 @@ import dash_uploader as du
 import dash_daq as daq
 import json
 import pandas as pd
-
+from functions.redis_connection import redis_client
 
 def load_variables():
     try:
@@ -72,7 +72,7 @@ def create_left_panel():
                         className="section-header",
                         children=html.H4("Upload the Event Log", className="section-title"),
                     ),
-                    get_upload_component("upload-data"),
+                    get_upload_component("event_log_upload"),
                 ],
             ),
             # Parameters Section
@@ -142,12 +142,12 @@ def parameters_view_PVI(max_par, columns):
                     ),
                     # html.Hr(),
                     html.H4("process indicator:", className="parameter-name"),
-                    dcc.Dropdown(id='xaxis-data', options=[{'label': x, 'value': x} for x in columns]),
+                    dcc.Dropdown(id='kpi', options=[{'label': x, 'value': x} for x in columns]),
                     html.Hr(),
                     html.H4("N. buckets:", className="parameter-name"),
                     html.Div([
                         daq.NumericInput(
-                            id='my-numeric-input-1',
+                            id='n_bins',
                             min=2,
                             max=max_par,
                             value=min(100, max_par)
@@ -158,15 +158,15 @@ def parameters_view_PVI(max_par, columns):
                     html.H4("Window size:", className="parameter-name"),
                     html.Div([
                         daq.NumericInput(
-                            id='my-numeric-input-2',
+                            id='w',
                             min=0,
                             max=max_par / 2,
                             value=2
                         ),
                         html.Div(id='numeric-input-output-2')
                     ]),
-                    html.Hr(),
-                    html.Button(id="run_PVI", children="Run PVI", className="btn-primary", n_clicks=0),
+                    # html.Hr(),
+                    # html.Button(id="run_PVI", children="Run PVI", className="btn-primary", n_clicks=0),
                 ]
             )
         ],
@@ -186,7 +186,7 @@ def parameters_view_segmentation(max_dis):
                     html.H4("significant distance:", className="parameter-name"),
                     html.Div([
                         daq.Knob(
-                            id='my-slider3',
+                            id='sig_dist',
                             min=0,
                             max=max_dis,
                             value=0.5* max_dis,
@@ -198,18 +198,18 @@ def parameters_view_segmentation(max_dis):
                         html.Div(id='slider-output-container3')
                     ]),
                     html.Hr(),
-                    html.H4("Export the segments?", className="parameter-name"),
-                    dcc.RadioItems(
-                        id='TF2',
-                        options=[
-                            {'label': 'True', 'value': True},
-                            {'label': 'False', 'value': False}
-                        ],
-                        value=False,
-                        inline=True
-                    ),
-                    html.Hr(),
-                    html.Button(id="run_seg", children="Run Segmentation", className="btn-primary", n_clicks=0),
+                    # html.H4("Export the segments?", className="parameter-name"),
+                    # dcc.RadioItems(
+                    #     id='TF2',
+                    #     options=[
+                    #         {'label': 'True', 'value': True},
+                    #         {'label': 'False', 'value': False}
+                    #     ],
+                    #     value=False,
+                    #     inline=True
+                    # ),
+                    # html.Hr(),
+                    # html.Button(id="run_seg", children="Run Segmentation", className="btn-primary", n_clicks=0),
                     # html.Hr(),
                 ]
             )
@@ -231,7 +231,7 @@ def parameters_feature_extraction():
                     html.H4("theta_cvg for pruning?", className="parameter-name"),
                     html.Div([
                         dcc.Input(
-                            id='my-numeric-input-3',
+                            id='theta_cvg',
                             type='number',
                             min=0,
                             max=1,
@@ -241,7 +241,18 @@ def parameters_feature_extraction():
                         html.Div(id='numeric-input-output-3')
                     ]),
                     html.Hr(),
-                    html.Button(id="minerful_run", children="Feature Extraction", className="btn-primary", n_clicks=0)
+                    html.H4("Number of Clusters?", className="parameter-name"),
+                    html.Div([
+                        daq.NumericInput(
+                            id='n_clusters',
+                            min=0,
+                            max=20,
+                            value=5
+                        ),
+                        html.Div(id='numeric-input-output-4')
+                    ]),
+                    # html.Hr(),
+                    # html.Button(id="minerful_run", children="Feature Extraction", className="btn-primary", n_clicks=0)
                 ]
             )
         ],
@@ -263,7 +274,7 @@ def parameters_view_explainability():
                     html.H4("Number of Clusters?", className="parameter-name"),
                     html.Div([
                         daq.NumericInput(
-                            id='my-numeric-input-4',
+                            id='n_clusters',
                             min=0,
                             max=20,
                             value=5
@@ -279,9 +290,13 @@ def parameters_view_explainability():
     ])
 
 def decl2NL_parameters():
-    data = load_variables()
-    segments_count = data["segments_count"]
-    clusters_count = data["clusters_count"]
+    # data = load_variables()
+    #
+    # segments_count = data["segments_count"]
+    # clusters_count = data["clusters_count"]
+
+    segments_count = int(redis_client.get("segments_count"))
+    clusters_count = int(redis_client.get("clusters_count"))
     return html.Div([
         html.Div(className="parameter-container",
             children=[

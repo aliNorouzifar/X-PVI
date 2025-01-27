@@ -1,11 +1,5 @@
-import numpy as np
-import seaborn as sns
 import matplotlib
 matplotlib.use('agg')
-import matplotlib.pyplot as plt
-import base64
-from io import BytesIO
-from matplotlib.colors import ListedColormap
 import pandas as pd
 import pm4py
 import shutil
@@ -19,32 +13,11 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.cluster.hierarchy import fcluster
 from scipy.spatial import KDTree
 import json
-import time
 from functions.utils import save_variables, load_variables
+from functions.redis_connection import redis_client
 
 linkage_method = 'ward'
 linkage_metric = 'euclidean'
-
-# def save_variables(segments_count, clusters_count):
-#     with open("output_files/internal_variables.json", "r") as json_file:
-#         data = json.load(json_file)
-#
-#     data["segments_count"] = segments_count
-#     data["clusters_count"] = clusters_count
-#
-#     # Save to a JSON file
-#     with open("output_files/internal_variables.json", "w") as json_file:
-#         json.dump(data, json_file)
-#
-# def load_variables():
-#     try:
-#         with open("output_files/internal_variables.json", "r") as json_file:
-#             data = json.load(json_file)
-#     except FileNotFoundError:
-#         return "No data file found."
-#     df = pd.read_json(data["df"], orient="split")
-#     data["df"] = df
-#     return data
 
 def export_constraints_per_cluster(constraints, constraints_json_path):
     dict_out = {}
@@ -575,13 +548,8 @@ def constraints_export(clusters_with_declare_names, peaks, w,clusters_dict):
 
     for cl in clusters_with_declare_names.keys():
         export_constraints_per_cluster(clusters_with_declare_names[cl], file_path + f'constraints_{cl}.json')
-        start_time = time.time()
-        print("prunning started")
-        prune_constraints_minerful(file_path + f'constraints_{cl}.json', file_path + f'constraints_{cl}_pruned.csv')
-        print("prunning ended")
-        end_time = time.time()
-        elapsed_time = end_time - start_time
-        print(f"encoding: {elapsed_time:.4f} seconds")
+        # prune_constraints_minerful(file_path + f'constraints_{cl}.json', file_path + f'constraints_{cl}_pruned.csv')
+
 
 
 
@@ -629,7 +597,7 @@ import numpy as np
 
 def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bounds, clusters_with_declare_names,
                  data_color, corr_mat, WINDOWS):
-    every = 2
+    every = 1
     color_theme_drift_map = 'Blues'
 
 
@@ -650,7 +618,7 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     # Prepare data for the heatmap
     data_c = []
     for i in range(len(constraints)):
-        new_list = [0] * (w - 1) + constraints[i] + [0] * (w - 1)
+        new_list = [np.nan] * (w - 1) + constraints[i] + [np.nan] * (w - 1)
         data_c.append(new_list)
 
     # Create the first subplot (Heatmap with clusters and peaks)
@@ -676,7 +644,7 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
         fig3.add_shape(
             type="line",
             x0=0,
-            x1=n_bin,
+            x1=n_bin-2,
             y0=bound-0.5,
             y1=bound-0.5,
             line=dict(color="black", dash="dash", width=2)
@@ -706,6 +674,7 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
         x_labels.append(f'segment {i + 1}')
 
     fig3.update_layout(
+        plot_bgcolor="gray",  # Gray plot background
         title="Control Flow Features and Change Points Overview",
         xaxis=dict(
             title="Segments",
@@ -765,7 +734,7 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
     return fig3, fig4
 
 
-# We will make the visualization in Plotly later, to allow for intractive visualization
+# We made the visualization in Plotly later, to allow for intractive visualization
 # def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bounds,clusters_with_declare_names, data_color, corr_mat,WINDOWS):
 #     every = 2
 #     color_theme_drift_map = 'Blues'
@@ -971,6 +940,8 @@ def report(data, cluster, segment):
     if f'segment_{segment}' not in data[str(cluster)][0].keys():
         print('segment does not exist')
     else:
+        file_path = r"output_files/"
+        prune_constraints_minerful(file_path + f'constraints_{cluster}.json', file_path + f'constraints_{cluster}_pruned.csv')
         fp = f"output_files/constraints_{cluster}_pruned.csv"
         df = pd.read_csv(fp, sep=";")
         df = df.applymap(lambda x: x.strip("'\"") if isinstance(x, str) else x)
@@ -1001,8 +972,6 @@ def decl2NL(cluster, segment):
 
 
 
-
-
 def apply_feature_extraction(n_bin, w, theta_cvg, kpi):
     """Main function to apply the analysis."""
     # if w not in WINDOWS:
@@ -1010,33 +979,11 @@ def apply_feature_extraction(n_bin, w, theta_cvg, kpi):
     #     WINDOWS.sort(reverse=True)
     WINDOWS = [w]
 
-    ################### Explainability ######################################
-    generate_features(w,kpi,n_bin)
-    # clear_upload_folder(r"\event_logs")
     pruned_list, data_color = prune_signals(theta_cvg)
-
-    save_variables({"pruned_list":pruned_list, "data_color":data_color})
+    # save_variables({"pruned_list":pruned_list, "data_color":data_color},"internal_variables")
+    redis_client.set("pruned_list",json.dumps(pruned_list))
+    redis_client.set("data_color",json.dumps(data_color))
     return "Feature Generation Done!"
-    #
-    # order_cluster, clusters_with_declare_names, cluster_bounds, clusters_dict, constraints = clustering(pruned_list,
-    #                                                                                                     linkage_method,
-    #                                                                                                     linkage_metric,
-    #                                                                                                     n_clusters)
-    # data = load_variables()
-    # df = data["df"]
-    # masks = data["masks"]
-    # map_range = data["map_range"]
-    # peaks = data["peaks"]
-    # save_variables(len(peaks)+1, len(clusters_with_declare_names.keys()))
-    # # PELT_change_points(order_cluster, clusters_dict)
-    #
-    # constraints_export(clusters_with_declare_names, peaks, w, clusters_dict)
-    # corr_mat = correlation_calc(peaks, w, constraints, clusters_dict)
-    # fig3_path, fig4_path = plot_figures(df, masks, n_bin, map_range, peaks,
-    #                                                           constraints, w, cluster_bounds,
-    #                                                           clusters_with_declare_names, data_color, corr_mat,
-    #                                                           WINDOWS)
-    # return fig3_path, fig4_path
 
 def apply_X(n_bin, w, n_clusters):
     """Main function to apply the analysis."""
@@ -1045,27 +992,37 @@ def apply_X(n_bin, w, n_clusters):
     #     WINDOWS.sort(reverse=True)
     WINDOWS = [w]
 
-    ################### Explainability ######################################
-    # generate_features(w, kpi, n_bin)
-    # clear_upload_folder(r"\event_logs")
-    # pruned_list, data_color = prune_signals(theta_cvg)
-    data = load_variables()
-    pruned_list = data["pruned_list"]
-    data_color = data["data_color"]
+
+    # data = load_variables("internal_variables")
+    # pruned_list = data["pruned_list"]
+    # data_color = data["data_color"]
+
+    pruned_list = json.loads(redis_client.get("pruned_list"))
+    data_color = json.loads(redis_client.get("data_color"))
+
+
 
     order_cluster, clusters_with_declare_names, cluster_bounds, clusters_dict, constraints = clustering(pruned_list,
                                                                                                         linkage_method,
                                                                                                         linkage_metric,
                                                                                                         n_clusters)
-    data = load_variables()
-    df = data["df"]
-    masks = data["masks"]
-    map_range = data["map_range"]
-    peaks = data["peaks"]
-    save_variables({"segments_count":len(peaks) + 1, "clusters_count":len(clusters_with_declare_names.keys())})
+    # data = load_variables("internal_variables")
+    # df = data["df"]
+    # masks = data["masks"]
+    # map_range = data["map_range"]
+    # peaks = data["peaks"]
+
+    df = pd.read_json(redis_client.get("df"), orient="split")
+    masks = json.loads(redis_client.get("masks"))
+    map_range = json.loads(redis_client.get("map_range"))
+    peaks = json.loads(redis_client.get("peaks"))
+
+
+    # save_variables({"segments_count":len(peaks) + 1, "clusters_count":len(clusters_with_declare_names.keys())},"internal_variables")
+    redis_client.set("segments_count",len(peaks) + 1)
+    redis_client.set("clusters_count", len(clusters_with_declare_names.keys()))
+
     # PELT_change_points(order_cluster, clusters_dict)
-    #     data["segments_count"] = segments_count
-    #     data["clusters_count"] = clusters_count
     constraints_export(clusters_with_declare_names, peaks, w, clusters_dict)
     corr_mat = correlation_calc(peaks, w, constraints, clusters_dict)
     fig3_path, fig4_path = plot_figures(df, masks, n_bin, map_range, peaks,
