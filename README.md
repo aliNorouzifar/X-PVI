@@ -12,7 +12,8 @@ A cutting-edge tool for process analysis and variant detection, designed to help
 5. [Usage](#usage)
 6. [Run with Docker](#run-with-docker)
 7. [Sample Event Log](#sample-event-log)
-8. [Contact](#contact)
+8. [Acknowledgments](#acknowledgments)
+9. [Contact](#contact)
 
 ---
 
@@ -94,6 +95,11 @@ You can download a sample event log (`test.xes`) generated from a BPMN model:
 
 This file allows you to explore the tool's features and functionality.
 
+---
+
+## **Acknowledgments**
+- We leverage the Minerful Declarative Process Discovery Tool, developed by _Claudio Di Ciccio_, to extract features and corresponding evaluation metrics within sliding windows. This tool has been instrumental in ensuring robust and interpretable feature extraction.
+- Special thanks to _Eduardo Goulart Rocha_ and _Tobias Brockhoff_ for their highly efficient implementation of distance matrix calculations. Their work has significantly reduced the computational cost of Earth Mover's Distance (EMD) calculations, enabling faster and more scalable performance analysis.
 ---
 
 ## **Contact**
