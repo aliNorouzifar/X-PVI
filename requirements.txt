@@ -13,3 +13,4 @@ seaborn==0.13.2
 pyemd==1.0.0
 redis==5.2.1
 numba==0.61.0
+pot==0.9.5
