@@ -125,6 +125,7 @@ This file allows you to explore the tool's features and functionality.
 ## **Acknowledgments**
 - We leverage the Minerful Declarative Process Discovery Tool, developed by _Claudio Di Ciccio_, to extract features and corresponding evaluation metrics within sliding windows. This tool has been instrumental in ensuring robust and interpretable feature extraction.
 - Special thanks to _Eduardo Goulart Rocha_ and _Tobias Brockhoff_ for their highly efficient implementation of distance matrix calculations. Their work has significantly reduced the computational cost of Earth Mover's Distance (EMD) calculations, enabling faster and more scalable performance analysis.
+- Special thanks to _Majid Rafei_, _Marcus Dees_, and _Wil van der Aalst_, my co-authors of the original paper and its extension, for their invaluable support and constructive feedback throughout the process.
 ---
 
 ## **Contact**
