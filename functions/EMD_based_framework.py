@@ -1,23 +1,15 @@
 import pandas as pd
-import numpy as np
-import seaborn as sns
 import matplotlib
 matplotlib.use('agg')
-import matplotlib.pyplot as plt
-import base64
-from io import BytesIO
-from pm4py.algo.evaluation.earth_mover_distance import algorithm as emd_evaluator
 import scipy.signal as sci_sig
 import os
 import itertools
 import pm4py
 import json
 import ast
-import time
 from functions.python_emsc.algorithm import stochastic
 import plotly.graph_objects as go
 import numpy as np
-from functions.utils import save_variables, load_variables
 from functions.redis_connection import redis_client
 from functions.logging import log_command
 
@@ -28,44 +20,18 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)  # Ensure output directory exists
 color_theme_drift_map = 'Blues'
 
 
-
-def stochastic_lang(bin):
-    if isinstance(bin, list):
-        bin = pd.Series(bin)
-    lang = bin.value_counts(normalize=True)
-    lang = {ast.literal_eval(key): value for key, value in lang.items()}
-    return lang
-
-# def combine_dics(list_of_dicts):
-#     combined_dict = {}
-#     n_dics = len(list_of_dicts)
-#     for d in list_of_dicts:
-#         for key, value in d.items():
-#             combined_dict[key] = (combined_dict.get(key, 0) + value/n_dics)
-#     return combined_dict
-
-
 def emd_dist(bin1, bin2):
     if isinstance(bin1, list):
         bin1 = pd.Series(bin1)
     if isinstance(bin2, list):
         bin2 = pd.Series(bin2)
     lang1 = bin1.value_counts(normalize=True)
-    # lang1_filt = lang1[lang1 > sensitivity].to_dict()
-
     lang1 = {ast.literal_eval(key): value for key, value in lang1.items()}
     lang2 = bin2.value_counts(normalize=True)
-    # lang2_filt = lang2[lang2 > sensitivity].to_dict()
     lang2 = {ast.literal_eval(key): value for key, value in lang2.items()}
-
     dist = round(stochastic.compare_languages_levenshtein(lang1, lang2),2)
-
-    # start_time = time.time()
-    # dist = round(emd_evaluator.apply(lang1_filt, lang2_filt), 2)
-    # end_time = time.time()
-    # elapsed_time = end_time - start_time
-    # print(f"EMD calculation time (internal): {elapsed_time:.4f} seconds")
     return dist
+
 def bins_generation(kpi, n_bin):
     """Generate bins and map ranges for a given KPI."""
     case_table = pd.read_csv("output_files/out.csv").sort_values(by=[kpi])
@@ -95,9 +61,6 @@ def sliding_window(bins, n_bin,WINDOWS):
             right = [item for b in bins[mid:mid + window_size] for item in b[2]]
             # right = combine_dics([b[2] for b in bins[mid:mid + window_size]])
             df.at[window_size, mid] = emd_dist(left,right)
-
-
-
     masks = [
         [True] * (window - 1) + [False] * (n_bin - 2 * window + 1) + [True] * (window - 1)
         for window in WINDOWS
@@ -174,7 +137,6 @@ def segmentation(df,bins,n_bin,w,sig):
     return segments, segments_ids, new_m, peaks
 
 
-# We will make the visualization in Plotly later, to allow for intractive visualization
 def plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS):
 
     every = 1
@@ -268,9 +230,6 @@ def plot_figures_segments(dist_matrix, peaks):
         height = 500  # Set the height of the figure
     )
 
-    # # Display the interactive plot
-    # fig.show()
-
     return fig2
 
 
@@ -339,14 +298,13 @@ def export_logs(segments_ids):
 
 
 
-def apply_EMD(n_bin, w, kpi,WINDOWS):
+def apply_EMD(n_bin, w, kpi):
     """Main function to apply the analysis."""
     # if w not in WINDOWS:
     #     WINDOWS.append(w)
     #     WINDOWS.sort(reverse=True)
     WINDOWS = [w]
 
-    # sensitivity = 0.01 if faster else 0.0
     log_command("binning started!")
     bins, map_range, case_table = bins_generation(kpi, n_bin)
     log_command("binning done!")
@@ -355,56 +313,28 @@ def apply_EMD(n_bin, w, kpi,WINDOWS):
     df, masks = sliding_window(bins, n_bin,WINDOWS)
     log_command("sliding window done!")
 
-
-    # segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, sensitivity, signal_threshold)
-    # save_variables({
-    #     "df": df,
-    #     "masks": masks,
-    #     "map_range": map_range,
-    #     "bins":[(b[0],b[1],list(b[2].items())) for b in bins],
-    #     "max_dist": df.iloc[0].max()
-    # }, "internal_variables")
-
     redis_client.set("df", df.to_json(orient="split"))
     redis_client.set("masks", json.dumps(masks))
     redis_client.set("map_range", json.dumps(map_range))
     redis_client.set("bins",json.dumps([(b[0],b[1],list(b[2].items())) for b in bins]))
     redis_client.set("max_dist", df.iloc[0].max())
 
-
-
     # fig1_path, fig2_path = plot_figures(df, masks, n_bin, map_range, dist_matrix, peaks, w,WINDOWS)
     log_command("figure 1 is being generated!")
     fig1 = plot_figures_EMD(df, masks, n_bin, map_range,WINDOWS)
     log_command("figure 1 generated!")
-
-    # if export:
-    #     export_logs(segments_ids, case_table, export)
-
     return fig1
 
-def apply_segmentation(n_bin, w, signal_threshold,WINDOWS):
+def apply_segmentation(n_bin, w, signal_threshold):
     """Main function to apply the analysis."""
-    # if w not in WINDOWS:
-    #     WINDOWS.append(w)
-    #     WINDOWS.sort(reverse=True)
-
-    # data = load_variables("internal_variables")
-    # df = data["df"]
-
     df = pd.read_json(redis_client.get("df"), orient="split")
 
 
-    # bins = data["bins"]
-
-    # bins =[(b[0], b[1], pd.Series(dict(b[2]))) for b in data["bins"]]
     bins = [(b[0], b[1], pd.Series(dict(b[2]))) for b in json.loads(redis_client.get("bins"))]
     log_command("segmentation started!")
     segments, segments_ids, dist_matrix, peaks = segmentation(df, bins, n_bin, w, signal_threshold)
     log_command("segmentation done!")
 
-    # save_variables({"peaks":peaks},"internal_variables")
-    # save_variables({"segments_ids": segments_ids}, "segments_ids")
 
     redis_client.set("peaks",json.dumps(peaks))
     redis_client.set("segments_ids", json.dumps(segments_ids))
@@ -416,8 +346,6 @@ def apply_segmentation(n_bin, w, signal_threshold,WINDOWS):
     fig2 = plot_figures_segments(dist_matrix, peaks)
     log_command("figure 2 generated!")
 
-    # data = load_variables("internal_variables")
-    # map_range = data["map_range"]
 
     map_range = json.loads(redis_client.get("map_range"))
 
@@ -432,9 +360,5 @@ def apply_segmentation(n_bin, w, signal_threshold,WINDOWS):
         peak_explanations.append(f"Segment {len(peaks)+1}: From {round(map_range[str(peaks[-1]+1)],2)} to the end")
     else:
         peak_explanations.append("We have only one Segment!")
-
-
-    # if export:
-    #     export_logs(segments_ids, case_table, export)
 
     return fig2,peak_explanations

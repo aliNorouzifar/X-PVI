@@ -1,4 +1,4 @@
-# redis_connection.py
+
 import redis
 import os
 

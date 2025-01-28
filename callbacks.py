@@ -1,13 +1,12 @@
-from dash import Input, Output, State, html
+from dash import Input, Output, State
 from pathlib import Path
-from functions.my_functions import import_log
+from functions.utils import import_log
 from functions.EMD_based_framework import apply_EMD,apply_segmentation, export_logs
 from functions.explainability_extraction import decl2NL, apply_X, apply_feature_extraction, generate_features
-from pages.main_page import parameters_view_PVI, parameters_view_explainability, PVI_figures_EMD,PVI_figures_Segments,parameters_feature_extraction, XPVI_figures, decl2NL_parameters, statistics_print, parameters_view_segmentation
+from pages.main_page import parameters_view_PVI, PVI_figures_EMD,PVI_figures_Segments,parameters_feature_extraction, XPVI_figures, decl2NL_parameters, statistics_print, parameters_view_segmentation
 import os
 import shutil
 import json
-from functions.utils import save_variables, load_variables
 from functions.redis_connection import redis_client
 from functions.logging import log_command
 
@@ -48,7 +47,6 @@ def register_callbacks(app):
     def parameters_segmentation(n):
         # print(redis_client.get('ali'))
         if n>0:
-            # data = load_variables("internal_variables")
             max_dist = float(redis_client.get("max_dist"))
             return parameters_view_segmentation(max_dist)
 
@@ -61,7 +59,7 @@ def register_callbacks(app):
     )
     def plot_data_EMD(n_bin, w, kpi):
         if kpi is not None:
-            fig1 = apply_EMD(n_bin, w, kpi, WINDOWS)
+            fig1 = apply_EMD(n_bin, w, kpi)
             return PVI_figures_EMD(fig1)
 
 
@@ -76,7 +74,7 @@ def register_callbacks(app):
     def plot_data_Segments(n_bin, w, sig):
         # if n>0:
             # fig_src1,fig_src2 = PVI_apply(n_bin, w, sig, faster, export, kpi, WINDOWS)
-        fig2,peak_explanations = apply_segmentation(n_bin, w, sig, WINDOWS)
+        fig2,peak_explanations = apply_segmentation(n_bin, w, sig)
         return PVI_figures_Segments(fig2,peak_explanations)
 
     '''segments_ export'''
@@ -85,7 +83,6 @@ def register_callbacks(app):
     )
     def export_logs_func(n):
         if n > 0:
-            # data = load_variables("segments_ids")
             segments_ids = json.loads(redis_client.get("segments_ids"))
             log_command("exporting event logs started!")
             export_logs(segments_ids)
@@ -114,12 +111,11 @@ def register_callbacks(app):
         State("n_bins", "value"),
         State("w", "value"),
         Input("theta_cvg", "value"),
-        State("kpi", "value"),
         Input("n_clusters", "value")
         )
-    def parameters_explainability(n_bin, w,theta_cvg,kpi,n_clusters):
+    def parameters_explainability(n_bin, w,theta_cvg,n_clusters):
         # if n > 0:
-        apply_feature_extraction(n_bin, w, theta_cvg, kpi)
+        apply_feature_extraction(theta_cvg)
         fig_src3, fig_src4 = apply_X(n_bin, w, n_clusters)
         return XPVI_figures(fig_src3, fig_src4)
 

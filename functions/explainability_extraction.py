@@ -13,7 +13,6 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.cluster.hierarchy import fcluster
 from scipy.spatial import KDTree
 import json
-from functions.utils import save_variables, load_variables
 from functions.redis_connection import redis_client
 from functions.logging import log_command
 
@@ -216,9 +215,7 @@ def import_minerful_constraints_timeseries_data(minerful_constraints_path,constr
             constraints.append(j[1:] + i)
 
     return constraints
-def clear_upload_folder(folder_path):
-    shutil.rmtree(folder_path)
-    os.makedirs(folder_path)
+
 
 def group_signals_by_type_activity(signals):
     # Create a nested defaultdict structure to handle the required dictionary format
@@ -302,7 +299,7 @@ def prune_signals(theta_cvg):
         elif (mean_squared_error(i, [0] * len(i)) < 10):
             zeros_removed += 1
         elif mean_squared_error(i, [100] * len(i)) < 1:
-            print(j[0:3])
+            # print(j[0:3])
             hundreds_removed += 1
         elif all_list_in_interval(i):
             nonchaning_removed += 1
@@ -380,27 +377,21 @@ def prune_signals(theta_cvg):
 
     # Populate the graph based on subset_relations
 
-    print(graph)
     for subset, superset in subset_relations:
         graph[subset].add(superset)
 
-    # print(graph)
     pruned_list = []
     co_exist_list = set()
     for x in ddd.keys():
         for y in ddd[x].keys():
-            # print(ddd[x][y])
-            # print(ddd[x][y])
             maximal_letters = remove_subsets(ddd[x][y], subset_relations, graph)
             for dcl in maximal_letters - {'RespondedExistence_r'}:
-                # print(list(x))
                 if dcl == 'CoExistence':
                     if (y[1].lstrip(), f' {y[0]}') not in co_exist_list:
                         pruned_list.append([dcl, y[0], y[1]] + list(x))
                         co_exist_list.add((y[0], y[1]))
                 else:
                     pruned_list.append([dcl, y[0], y[1]] + list(x))
-            # print(maximal_letters)
     return pruned_list, data_color
 
 def remove_subsets(letters, subset_relations, graph):
@@ -409,12 +400,9 @@ def remove_subsets(letters, subset_relations, graph):
     for letter in letters:
         # Find all supersets of the current letter
         supersets = find_all_supersets(graph, letter, set())
-        print(supersets)
-        # print(supersets)
         subsets_to_remove.update(supersets)
 
     # The final set of letters excluding any that are subsets of another
-    # print(subsets_to_remove)
     maximal_letters = letters - subsets_to_remove
 
     return maximal_letters
@@ -585,10 +573,6 @@ def PELT_change_points(order_cluster,clusters_dict):
     horisontal_separation_bounds_by_cluster[0] = x_lines
     # pen - penalizing the number of change points
 
-    # print some info
-    print('x lines: ')
-    print(x_lines)
-
     return x_lines
 
 
@@ -598,7 +582,7 @@ import numpy as np
 
 def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bounds, clusters_with_declare_names,
                  data_color, corr_mat, WINDOWS):
-    every = 1
+    # every = 1
     color_theme_drift_map = 'Blues'
 
 
@@ -789,7 +773,6 @@ def plot_figures(df, masks, n_bin, map_range, peaks, constraints, w, cluster_bou
 #         data_c.append(new_list)
 #         data_c_color_1.append(new_list_color_1)
 #         data_c_color_2.append(new_list_color_2)
-#     print('ss')
 #
 #     # Create a new figure with two subplots with different heights
 #     fig3, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 9),
@@ -973,15 +956,9 @@ def decl2NL(cluster, segment):
 
 
 
-def apply_feature_extraction(n_bin, w, theta_cvg, kpi):
+def apply_feature_extraction(theta_cvg):
     """Main function to apply the analysis."""
-    # if w not in WINDOWS:
-    #     WINDOWS.append(w)
-    #     WINDOWS.sort(reverse=True)
-    WINDOWS = [w]
-
     pruned_list, data_color = prune_signals(theta_cvg)
-    # save_variables({"pruned_list":pruned_list, "data_color":data_color},"internal_variables")
     redis_client.set("pruned_list",json.dumps(pruned_list))
     redis_client.set("data_color",json.dumps(data_color))
     return "Feature Generation Done!"
@@ -993,10 +970,6 @@ def apply_X(n_bin, w, n_clusters):
     #     WINDOWS.sort(reverse=True)
     WINDOWS = [w]
 
-
-    # data = load_variables("internal_variables")
-    # pruned_list = data["pruned_list"]
-    # data_color = data["data_color"]
     pruned_list = json.loads(redis_client.get("pruned_list"))
     data_color = json.loads(redis_client.get("data_color"))
 
@@ -1006,11 +979,6 @@ def apply_X(n_bin, w, n_clusters):
                                                                                                         linkage_metric,
                                                                                                         n_clusters)
     log_command("clustering done!")
-    # data = load_variables("internal_variables")
-    # df = data["df"]
-    # masks = data["masks"]
-    # map_range = data["map_range"]
-    # peaks = data["peaks"]
 
     df = pd.read_json(redis_client.get("df"), orient="split")
     masks = json.loads(redis_client.get("masks"))
@@ -1018,7 +986,6 @@ def apply_X(n_bin, w, n_clusters):
     peaks = json.loads(redis_client.get("peaks"))
 
 
-    # save_variables({"segments_count":len(peaks) + 1, "clusters_count":len(clusters_with_declare_names.keys())},"internal_variables")
     redis_client.set("segments_count",len(peaks) + 1)
     redis_client.set("clusters_count", len(clusters_with_declare_names.keys()))
 
