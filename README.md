@@ -23,6 +23,31 @@ Traditional process mining techniques often focus on a single event log, limitin
 - **Rule-based constraints**: Enhancing interpretability and robustness.
 - **Change detection**: Identifying shifts across performance dimensions.
 
+This repository is associated with the implementation of our paper and its extended journal version, which is currently under review. The journal version includes exciting new features, such as enhanced explainability extraction, to provide deeper insights and improved usability.
+
+```bash
+@inproceedings{DBLP:conf/bpmds/NorouzifarRDA24,
+  author       = {Ali Norouzifar and
+                  Majid Rafiei and
+                  Marcus Dees and
+                  Wil M. P. van der Aalst},
+  editor       = {Han van der Aa and
+                  Dominik Bork and
+                  Rainer Schmidt and
+                  Arnon Sturm},
+  title        = {Process Variant Analysis Across Continuous Features: {A} Novel Framework},
+  booktitle    = {Enterprise, Business-Process and Information Systems Modeling - 25th
+                  International Conference, {BPMDS} 2024, and 29th International Conference,
+                  {EMMSAD} 2024, Limassol, Cyprus, June 3-4, 2024, Proceedings},
+  series       = {Lecture Notes in Business Information Processing},
+  volume       = {511},
+  pages        = {129--142},
+  publisher    = {Springer},
+  year         = {2024},
+  url          = {https://doi.org/10.1007/978-3-031-61007-3\_11},
+  doi          = {10.1007/978-3-031-61007-3\_11},
+}
+```
 ---
 
 ## **Features**
