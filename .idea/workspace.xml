@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="code cleaning and enabling redit">
-      <change afterPath="$PROJECT_DIR$/functions/logging.py" afterDir="false" />
+    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="cleaning the code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/callbacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/callbacks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/EMD_based_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/EMD_based_framework.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/explainability_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions/explainability_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/main_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,20 +134,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732180586168</updated>
-    </task>
-    <task id="LOCAL-00001" summary="First commit">
-      <created>1732902694625</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1732902694625</updated>
-    </task>
-    <task id="LOCAL-00002" summary="First commit">
-      <created>1732903759813</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1732903759813</updated>
     </task>
     <task id="LOCAL-00003" summary="test commit">
       <created>1736171595253</created>
@@ -420,7 +401,84 @@
       <option name="project" value="LOCAL" />
       <updated>1737997446128</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="enabling logging">
+      <created>1737999570348</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1737999570348</updated>
+    </task>
+    <task id="LOCAL-00042" summary="enabling logging">
+      <created>1738068609849</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1738068609849</updated>
+    </task>
+    <task id="LOCAL-00043" summary="testing docker">
+      <created>1738068713012</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1738068713012</updated>
+    </task>
+    <task id="LOCAL-00044" summary="testing docker">
+      <created>1738068864736</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1738068864736</updated>
+    </task>
+    <task id="LOCAL-00045" summary="requirements.txt update">
+      <created>1738069318857</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1738069318857</updated>
+    </task>
+    <task id="LOCAL-00046" summary="adding redis to docker">
+      <created>1738069527518</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1738069527518</updated>
+    </task>
+    <task id="LOCAL-00047" summary="faster distance matrix calculation">
+      <created>1738069928397</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1738069928397</updated>
+    </task>
+    <task id="LOCAL-00048" summary="requirements.txt update">
+      <created>1738070347588</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1738070347588</updated>
+    </task>
+    <task id="LOCAL-00049" summary="requirements.txt update">
+      <created>1738070716265</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1738070716265</updated>
+    </task>
+    <task id="LOCAL-00050" summary="acknowledgement updates">
+      <created>1738071545273</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1738071545274</updated>
+    </task>
+    <task id="LOCAL-00051" summary="cleaning the code">
+      <created>1738072647644</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1738072647644</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -435,9 +493,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="First commit" />
-    <MESSAGE value="test commit" />
-    <MESSAGE value="new UI design - 1" />
     <MESSAGE value="new UI design - 2" />
     <MESSAGE value="vercel activation" />
     <MESSAGE value="vercel removed" />
@@ -447,7 +502,6 @@
     <MESSAGE value="Java for Docker" />
     <MESSAGE value="Some bugs are fixed (EMD calculation, event log  sorting)" />
     <MESSAGE value="suitable steps for theta_cvg slider" />
-    <MESSAGE value="cleaning the code" />
     <MESSAGE value="page improvements" />
     <MESSAGE value="Dockerfile fix" />
     <MESSAGE value="Dockerfile directory fix" />
@@ -457,7 +511,14 @@
     <MESSAGE value="Fig3 and 4 in plotly" />
     <MESSAGE value="Seperating clustering and feature extraction + enabling event log extraction" />
     <MESSAGE value="code cleaning and enabling redit" />
-    <option name="LAST_COMMIT_MESSAGE" value="code cleaning and enabling redit" />
+    <MESSAGE value="enabling logging" />
+    <MESSAGE value="testing docker" />
+    <MESSAGE value="adding redis to docker" />
+    <MESSAGE value="faster distance matrix calculation" />
+    <MESSAGE value="requirements.txt update" />
+    <MESSAGE value="acknowledgement updates" />
+    <MESSAGE value="cleaning the code" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaning the code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -483,44 +544,29 @@
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>629</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>600</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/EMD_based_framework.py</url>
-          <line>326</line>
+          <line>285</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>625</line>
-          <option name="timeStamp" value="76" />
+          <url>file://$PROJECT_DIR$/pages/main_page.py</url>
+          <line>292</line>
+          <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>654</line>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/EMD_based_framework.py</url>
-          <line>405</line>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/utils.py</url>
-          <line>19</line>
-          <option name="timeStamp" value="109" />
+          <line>989</line>
+          <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
-          <line>605</line>
-          <option name="timeStamp" value="116" />
+          <line>452</line>
+          <option name="timeStamp" value="122" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/to_be_removed/my_functions.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="123" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

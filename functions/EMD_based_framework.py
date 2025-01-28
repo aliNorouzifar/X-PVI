@@ -7,7 +7,7 @@ import itertools
 import pm4py
 import json
 import ast
-from functions.python_emsc.algorithm import stochastic
+from functions.python_emsc import stochastic
 import plotly.graph_objects as go
 import numpy as np
 from functions.redis_connection import redis_client

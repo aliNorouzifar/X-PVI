@@ -20,7 +20,7 @@ from pm4py.objects.petri_net.semantics import ClassicSemantics
 
 import ot
 
-from functions.python_emsc.algorithm.util import time_it
+from functions.python_emsc.util import time_it
 
 
 VariantLog = List[Tuple[Tuple[str], int]]
