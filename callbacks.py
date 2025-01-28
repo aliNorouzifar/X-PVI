@@ -30,9 +30,6 @@ def register_callbacks(app):
         [State("event_log_upload", "upload_id")],
     )
     def parameters_PVI(isCompleted,id):
-        # redis_client.set('ali', "Hello World")
-        # Example log
-
         if isCompleted==True:
             folder_path = os.path.join(UPLOAD_FOLDER, id)
             files = os.listdir(folder_path) if os.path.exists(folder_path) else []
@@ -161,15 +158,16 @@ def register_callbacks(app):
 
     @app.callback(
         Output("log-display", "children"),
-        Input("log-interval", "n_intervals"),
+        Input("latest_log", "n_clicks"),
     )
-    def update_logs(n_intervals):
-        # Read the log file and return its contents
-        log_file = "log.log"
-        if os.path.exists(log_file):
-            with open(log_file, "r") as f:
-                logs = f.read()
-        else:
-            logs = "No logs yet."
-        return logs
+    def update_logs(n):
+        if n>0:
+            # Read the log file and return its contents
+            log_file = "log.log"
+            if os.path.exists(log_file):
+                with open(log_file, "r") as f:
+                    logs = f.read()
+            else:
+                logs = "No logs yet."
+            return logs
 

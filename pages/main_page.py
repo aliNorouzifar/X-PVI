@@ -80,14 +80,12 @@ def create_left_panel():
                 className="parameters-wrapper",
                 children=[
                     html.Hr(),
-
                     html.Div(id="output-data-upload2", className="parameter-block card"),
-                    # html.Hr(),
                     html.Div(id="output-data-upload4", className="parameter-block card"),
-                    # html.Hr(),
                     html.Div(id="output-data-upload6", className="parameter-block card"),
                     html.Div(id="output-data-upload8", className="parameter-block card"),
                     html.Div(id="output-data-upload10", className="parameter-block card"),
+                    html.Button(id="latest_log", children="Show the Latest Log", className="btn-primary", n_clicks=0)
                 ],
             ),
         ],
@@ -117,7 +115,6 @@ def create_right_panel():
                     html.Div(id="output-data-upload11", className="visualization-block"),
                     html.Hr(),
                     html.Div([
-                        dcc.Interval(id="log-interval", interval=2000),  # Check for new logs every 2 seconds
                         html.Pre(id="log-display",
                                  style={"whiteSpace": "pre-wrap", "height": "400px", "overflowY": "scroll"})
                     ])
@@ -152,23 +149,25 @@ def parameters_view_PVI(max_par, columns):
                     html.Hr(),
                     html.H4("N. buckets:", className="parameter-name"),
                     html.Div([
-                        daq.NumericInput(
+                        dcc.Input(
                             id='n_bins',
+                            type='number',
                             min=2,
                             max=max_par,
-                            value=min(100, max_par)
+                            value=min(100, max_par),
                         ),
-                        html.Div(id='numeric-input-output-1')
-                    ]),
+                        # html.Div(id='numeric-input-output-1')
+                    ],  className="daq-numeric-input-container"),
                     html.Hr(),
                     html.H4("Window size:", className="parameter-name"),
                     html.Div([
-                        daq.NumericInput(
+                        dcc.Input(
                             id='w',
+                            type = 'number',
                             min=0,
                             max=max_par / 2,
-                            value=2
-                        ),
+                            value=2,
+                    ),
                         html.Div(id='numeric-input-output-2')
                     ]),
                     # html.Hr(),
@@ -190,33 +189,20 @@ def parameters_view_segmentation(max_dis):
                         children=html.H4("Segmentation parameter", className="section-title"),
                     ),
                     html.H4("significant distance:", className="parameter-name"),
+                    html.Br(),
                     html.Div([
-                        daq.Knob(
+                        daq.Slider(
                             id='sig_dist',
                             min=0,
                             max=max_dis,
                             value=0.5* max_dis,
-                            size=100,  # Size of the circular slider
-                            color="#007bff",  # Customize the color
-                            # label="Significant Distance",
-                            scale={'interval': 0.05}
+                            handleLabel={"showCurrentValue": True,"label": "VALUE"},
+                            color="#007bff",
+                            step=0.01
                         ),
                         html.Div(id='slider-output-container3')
                     ]),
                     html.Hr(),
-                    # html.H4("Export the segments?", className="parameter-name"),
-                    # dcc.RadioItems(
-                    #     id='TF2',
-                    #     options=[
-                    #         {'label': 'True', 'value': True},
-                    #         {'label': 'False', 'value': False}
-                    #     ],
-                    #     value=False,
-                    #     inline=True
-                    # ),
-                    # html.Hr(),
-                    # html.Button(id="run_seg", children="Run Segmentation", className="btn-primary", n_clicks=0),
-                    # html.Hr(),
                 ]
             )
         ],
@@ -249,8 +235,9 @@ def parameters_feature_extraction():
                     html.Hr(),
                     html.H4("Number of Clusters?", className="parameter-name"),
                     html.Div([
-                        daq.NumericInput(
+                        dcc.Input(
                             id='n_clusters',
+                            type='number',
                             min=0,
                             max=20,
                             value=5
@@ -321,7 +308,7 @@ def decl2NL_parameters():
         )
     ])
 
-
+''' Matplotlib Figures'''
 # def PVI_figures(fig_src1, fig_src2):
 #     return html.Div(
 #         id="bottom-section",
