@@ -1,0 +1,27 @@
+# Ignore PyCharm project files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignore virtual environment
+venv/
+.venv/
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore logs and temporary files
+logs/
+*.log
+*.tmp
+
+# Ignore environment files
+.env
+.DS_Store  # macOS metadata files
+Thumbs.db   # Windows metadata files
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
