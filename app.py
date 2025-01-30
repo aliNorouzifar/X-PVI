@@ -10,8 +10,7 @@ from prolysis.util import redis_connection
 
 
 
-#
-# redis_client = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
+
 log_file = "log.log"
 
 
