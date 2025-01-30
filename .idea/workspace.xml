@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="git ignore">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="testing docker">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/callbacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/callbacks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/EMD_based_framework.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/explainability_extraction.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/logging.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/minerful_calls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/python_emsc/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/python_emsc/emsc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/python_emsc/stochastic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/python_emsc/util.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/redis_connection.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/main_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,16 +37,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "E:/PADS/Projects/X-PVI",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/PADS/Projects/X-PVI&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\PADS\Projects\process-variants-identification-journal-clean\assets" />
@@ -154,34 +138,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732180586168</updated>
-    </task>
-    <task id="LOCAL-00003" summary="test commit">
-      <created>1736171595253</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1736171595253</updated>
-    </task>
-    <task id="LOCAL-00004" summary="new UI design - 1">
-      <created>1736239791482</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1736239791482</updated>
-    </task>
-    <task id="LOCAL-00005" summary="new UI design - 2">
-      <created>1736244010305</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1736244010306</updated>
-    </task>
-    <task id="LOCAL-00006" summary="new UI design - 2">
-      <created>1736247714908</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1736247714908</updated>
     </task>
     <task id="LOCAL-00007" summary="vercel activation">
       <created>1736330100624</created>
@@ -498,7 +454,35 @@
       <option name="project" value="LOCAL" />
       <updated>1738072647644</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="integrating the prolysis package (all functions we use as an external package)">
+      <created>1738246416916</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1738246416916</updated>
+    </task>
+    <task id="LOCAL-00053" summary="code cleaning">
+      <created>1738250978214</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1738250978214</updated>
+    </task>
+    <task id="LOCAL-00054" summary="prolysis == 0.1.2 requirements.txt">
+      <created>1738252703043</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1738252703043</updated>
+    </task>
+    <task id="LOCAL-00055" summary="testing docker">
+      <created>1738253370936</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1738253370936</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -513,9 +497,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new UI design - 2" />
-    <MESSAGE value="vercel activation" />
-    <MESSAGE value="vercel removed" />
     <MESSAGE value="docker workflow action activation" />
     <MESSAGE value="new commit" />
     <MESSAGE value="directory existence check" />
@@ -532,13 +513,16 @@
     <MESSAGE value="Seperating clustering and feature extraction + enabling event log extraction" />
     <MESSAGE value="code cleaning and enabling redit" />
     <MESSAGE value="enabling logging" />
-    <MESSAGE value="testing docker" />
     <MESSAGE value="adding redis to docker" />
     <MESSAGE value="faster distance matrix calculation" />
     <MESSAGE value="requirements.txt update" />
     <MESSAGE value="acknowledgement updates" />
     <MESSAGE value="cleaning the code" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaning the code" />
+    <MESSAGE value="integrating the prolysis package (all functions we use as an external package)" />
+    <MESSAGE value="code cleaning" />
+    <MESSAGE value="prolysis == 0.1.2 requirements.txt" />
+    <MESSAGE value="testing docker" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing docker" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
