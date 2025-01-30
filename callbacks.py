@@ -1,14 +1,14 @@
 from dash import Input, Output, State
 from pathlib import Path
-from functions.utils import import_log
-from functions.EMD_based_framework import apply_EMD,apply_segmentation, export_logs
-from functions.explainability_extraction import decl2NL, apply_X, apply_feature_extraction, generate_features
+from prolysis.util.utils import import_log
+from prolysis.analysis.EMD_based_framework import apply_EMD,apply_segmentation, export_logs
+from prolysis.analysis.explainability_extraction import decl2NL, apply_X, apply_feature_extraction, generate_features
 from pages.main_page import parameters_view_PVI, PVI_figures_EMD,PVI_figures_Segments,parameters_feature_extraction, XPVI_figures, decl2NL_parameters, statistics_print, parameters_view_segmentation
 import os
 import shutil
 import json
-from functions.redis_connection import redis_client
-from functions.logging import log_command
+from prolysis.util.redis_connection import redis_client
+from prolysis.util.logging import log_command
 
 UPLOAD_FOLDER = "event_logs"
 # WINDOWS = [15,10,5,2]

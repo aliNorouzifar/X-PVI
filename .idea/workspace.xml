@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="cleaning the code">
+    <list default="true" id="ecadf15a-558d-4b6f-af50-136e85b36dff" name="Changes" comment="git ignore">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/callbacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/callbacks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/EMD_based_framework.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/explainability_extraction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/logging.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/minerful_calls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/python_emsc/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/python_emsc/emsc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/python_emsc/stochastic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/python_emsc/util.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/redis_connection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/main_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +59,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "E:/PADS/Projects/IMr_DKE_clean",
+    "last_opened_file_path": "E:/PADS/Projects/X-PVI",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
@@ -61,7 +76,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="E:\PADS\Projects\environments\prolysis_env\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../IMr_DKE_clean" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -82,7 +97,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\ali\anaconda3\envs\XPVI_env\python.exe" />
+      <option name="SDK_HOME" value="E:\PADS\Projects\environments\prolysis_env\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -117,6 +132,11 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.app" />
+      <item itemvalue="Python.app (1)" />
+      <item itemvalue="Python.test" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.app" />
