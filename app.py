@@ -10,7 +10,6 @@ from prolysis.util import redis_connection
 
 
 
-
 log_file = "log.log"
 
 
