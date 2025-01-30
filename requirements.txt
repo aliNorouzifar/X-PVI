@@ -2,15 +2,4 @@ dash==2.18.2
 dash_bootstrap_components==1.6.0
 dash_daq==0.5.0
 dash_uploader==0.6.1
-matplotlib==3.9.2
-pm4py==2.7.13.1
-numpy==1.26.4
-pandas==2.2.3
-ruptures==1.1.9
-scikit_learn==1.6.0
-scipy==1.14.1
-seaborn==0.13.2
-pyemd==1.0.0
-redis==5.2.1
-numba==0.61.0
-pot==0.9.5
+prolysis == 0.1.2

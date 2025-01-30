@@ -23,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="v2.0" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,7 +43,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/PADS/Projects/IMr_DKE_clean&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/PADS/Projects/X-PVI&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -60,7 +60,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="E:\PADS\Projects\environments\prolysis_env\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../IMr_DKE_clean" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -81,7 +81,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\ali\anaconda3\envs\XPVI_env\python.exe" />
+      <option name="SDK_HOME" value="E:\PADS\Projects\environments\prolysis_env\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -138,27 +138,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732180586168</updated>
-    </task>
-    <task id="LOCAL-00004" summary="new UI design - 1">
-      <created>1736239791482</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1736239791482</updated>
-    </task>
-    <task id="LOCAL-00005" summary="new UI design - 2">
-      <created>1736244010305</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1736244010306</updated>
-    </task>
-    <task id="LOCAL-00006" summary="new UI design - 2">
-      <created>1736247714908</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1736247714908</updated>
     </task>
     <task id="LOCAL-00007" summary="vercel activation">
       <created>1736330100624</created>
@@ -475,14 +454,35 @@
       <option name="project" value="LOCAL" />
       <updated>1738072647644</updated>
     </task>
-    <task id="LOCAL-00052" summary="readme update">
-      <created>1738077857701</created>
+    <task id="LOCAL-00052" summary="integrating the prolysis package (all functions we use as an external package)">
+      <created>1738246416916</created>
       <option name="number" value="00052" />
       <option name="presentableId" value="LOCAL-00052" />
       <option name="project" value="LOCAL" />
-      <updated>1738077857701</updated>
+      <updated>1738246416916</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="code cleaning">
+      <created>1738250978214</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1738250978214</updated>
+    </task>
+    <task id="LOCAL-00054" summary="prolysis == 0.1.2 requirements.txt">
+      <created>1738252703043</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1738252703043</updated>
+    </task>
+    <task id="LOCAL-00055" summary="testing docker">
+      <created>1738253370936</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1738253370936</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -497,8 +497,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="vercel activation" />
-    <MESSAGE value="vercel removed" />
     <MESSAGE value="docker workflow action activation" />
     <MESSAGE value="new commit" />
     <MESSAGE value="directory existence check" />
@@ -515,13 +513,66 @@
     <MESSAGE value="Seperating clustering and feature extraction + enabling event log extraction" />
     <MESSAGE value="code cleaning and enabling redit" />
     <MESSAGE value="enabling logging" />
-    <MESSAGE value="testing docker" />
     <MESSAGE value="adding redis to docker" />
     <MESSAGE value="faster distance matrix calculation" />
     <MESSAGE value="requirements.txt update" />
     <MESSAGE value="acknowledgement updates" />
     <MESSAGE value="cleaning the code" />
-    <MESSAGE value="readme update" />
-    <option name="LAST_COMMIT_MESSAGE" value="readme update" />
+    <MESSAGE value="integrating the prolysis package (all functions we use as an external package)" />
+    <MESSAGE value="code cleaning" />
+    <MESSAGE value="prolysis == 0.1.2 requirements.txt" />
+    <MESSAGE value="testing docker" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing docker" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/Downloads/python-emsc-main(1)/python-emsc-main/python_emsc/main_log_log.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/EMD_based_framework.py</url>
+          <line>285</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pages/main_page.py</url>
+          <line>292</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
+          <line>989</line>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/explainability_extraction.py</url>
+          <line>452</line>
+          <option name="timeStamp" value="122" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/to_be_removed/my_functions.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

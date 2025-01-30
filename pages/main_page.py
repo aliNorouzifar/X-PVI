@@ -4,7 +4,7 @@ import dash_uploader as du
 import dash_daq as daq
 import json
 import pandas as pd
-from functions.redis_connection import redis_client
+from prolysis.util.redis_connection import redis_client
 
 def load_variables():
     try:

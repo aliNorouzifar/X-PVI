@@ -6,12 +6,10 @@ import pages.start_page as start_page
 import pages.about_me as about_me
 import pages.main_page as main_page
 import os
-from functions.redis_connection import redis_client
+from prolysis.util import redis_connection
 
 
 
-#
-# redis_client = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
 log_file = "log.log"
 
 
