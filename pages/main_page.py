@@ -126,7 +126,7 @@ def create_right_panel():
 def get_upload_component(id):
     return du.Upload(
         id=id,
-        max_file_size=500,
+        max_file_size=800,
         chunk_size=100,
         max_files=1,
         filetypes=["xes"],
