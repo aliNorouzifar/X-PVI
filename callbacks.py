@@ -167,3 +167,14 @@ def register_callbacks(app):
                 logs = "No logs yet."
             return logs
 
+    @app.callback(
+        Input('remove_inputs', "n_clicks"),
+        prevent_initial_call=True
+    )
+    def remove_inputs(n):
+        if n>0:
+            if not os.path.exists(r"event_logs"):
+                os.makedirs(r"event_logs")
+            else:
+                clear_upload_folder(r"event_logs")
+

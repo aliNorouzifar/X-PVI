@@ -80,12 +80,14 @@ def create_left_panel():
                 className="parameters-wrapper",
                 children=[
                     html.Hr(),
-                    html.Div(id="output-data-upload2", className="parameter-block card"),
-                    html.Div(id="output-data-upload4", className="parameter-block card"),
-                    html.Div(id="output-data-upload6", className="parameter-block card"),
-                    html.Div(id="output-data-upload8", className="parameter-block card"),
-                    html.Div(id="output-data-upload10", className="parameter-block card"),
-                    html.Button(id="latest_log", children="Show the Latest Log", className="btn-primary", n_clicks=0)
+                    html.Div(id="output-data-upload2"),
+                    html.Div(id="output-data-upload4"),
+                    html.Div(id="output-data-upload6"),
+                    html.Div(id="output-data-upload8"),
+                    html.Div(id="output-data-upload10"),
+                    html.Hr(),
+                    html.Button(id="latest_log", children="Show the Latest Execution Log", n_clicks=0, style={"background-color": "red", "color": "white", "border": "none", "padding": "10px 20px", "border-radius": "5px"}),
+                    html.Button(id="remove_inputs", children="Remove the Event Log", n_clicks=0, style={"background-color": "red", "color": "white", "border": "none", "padding": "10px 20px", "border-radius": "5px"}),
                 ],
             ),
         ],
@@ -104,15 +106,11 @@ def create_right_panel():
             html.Div(
                 className="visualization-wrapper",
                 children=[
-                    html.Div(id="output-data-upload3", className="visualization-block"),
-                    html.Hr(),
-                    html.Div(id="output-data-upload5", className="visualization-block"),
-                    html.Hr(),
-                    html.Div(id="output-data-upload7", className="visualization-block"),
-                    html.Hr(),
-                    html.Div(id="output-data-upload9", className="visualization-block"),
-                    html.Hr(),
-                    html.Div(id="output-data-upload11", className="visualization-block"),
+                    html.Div(id="output-data-upload3"),
+                    html.Div(id="output-data-upload5"),
+                    html.Div(id="output-data-upload7"),
+                    html.Div(id="output-data-upload9"),
+                    html.Div(id="output-data-upload11"),
                     html.Hr(),
                     html.Div([
                         html.Pre(id="log-display",
@@ -143,7 +141,6 @@ def parameters_view_PVI(max_par, columns):
                         className="section-header",
                         children=html.H4("Process Variant Identification Parameters", className="section-title"),
                     ),
-                    # html.Hr(),
                     html.H4("process indicator:", className="parameter-name"),
                     dcc.Dropdown(id='kpi', options=[{'label': x, 'value': x} for x in columns]),
                     html.Hr(),
@@ -170,7 +167,6 @@ def parameters_view_PVI(max_par, columns):
                     ),
                         html.Div(id='numeric-input-output-2')
                     ]),
-                    # html.Hr(),
                     # html.Button(id="run_PVI", children="Run PVI", className="btn-primary", n_clicks=0),
                 ]
             )
@@ -219,7 +215,6 @@ def parameters_feature_extraction():
                         className="section-header",
                         children=html.H4("Feature Extraction Parameters", className="section-title"),
                     ),
-                    # html.Hr(),
                     html.H4("theta_cvg for pruning?", className="parameter-name"),
                     html.Div([
                         dcc.Input(
@@ -244,7 +239,6 @@ def parameters_feature_extraction():
                         ),
                         html.Div(id='numeric-input-output-4')
                     ]),
-                    # html.Hr(),
                     # html.Button(id="minerful_run", children="Feature Extraction", className="btn-primary", n_clicks=0)
                 ]
             )
@@ -262,7 +256,6 @@ def parameters_view_explainability():
                         className="section-header",
                         children=html.H4("Explainability Extraction parameters", className="section-title"),
                     ),
-                    # html.Hr(),
                     html.Hr(),
                     html.H4("Number of Clusters?", className="parameter-name"),
                     html.Div([
