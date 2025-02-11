@@ -14,9 +14,6 @@ RUN wget -q https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb 
     apt-get install -y /tmp/jdk-21.deb && \
     rm -f /tmp/jdk-21.deb
 
-# Install Rust and Cargo properly
-RUN apt-get update && apt-get install -y cargo
-
 
 # Set working directory
 WORKDIR /
