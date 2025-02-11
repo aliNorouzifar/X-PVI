@@ -1,5 +1,5 @@
 # Use Python base image
-FROM python:3.10
+FROM python:3.11
 
 # Set environment variables for the JDK
 ENV JAVA_HOME=/usr/lib/jvm/jdk-21
@@ -15,15 +15,7 @@ RUN wget -q https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb 
     rm -f /tmp/jdk-21.deb
 
 # Install Rust and Cargo efficiently
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
-    /root/.cargo/bin/rustup component remove rust-docs && \
-    rm -rf /root/.cargo/registry /root/.cargo/git /root/.rustup/tmp
-
-# Update PATH for Cargo (MUST be separate to persist across layers)
-ENV PATH="/root/.cargo/bin:$PATH"
-
-# Verify Rust installation
-RUN cargo --version
+RUN apt-get update && apt-get install -y cargo
 
 
 # Set working directory
