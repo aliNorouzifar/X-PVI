@@ -14,6 +14,17 @@ RUN wget -q https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb 
     apt-get install -y /tmp/jdk-21.deb && \
     rm -f /tmp/jdk-21.deb
 
+# Install Rust and Cargo efficiently
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    /root/.cargo/bin/rustup component remove rust-docs && \
+    rm -rf /root/.cargo/registry /root/.cargo/git /root/.rustup/tmp
+
+# Update PATH for Cargo (MUST be separate to persist across layers)
+ENV PATH="/root/.cargo/bin:$PATH"
+
+# Verify Rust installation
+RUN cargo --version
+
 
 # Set working directory
 WORKDIR /
